@@ -1,7 +1,7 @@
 <script>
-	export let columns = [];
-	export let rows = [];
-
+	export let columns;
+	export let rows;
+	console.log({columns, rows});
 	let sortOrder = 1;
 	let sortKey = "";
 	let sortBy = r => "";

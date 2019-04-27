@@ -1,14 +1,14 @@
 # svelte-table
 
-A _relatively_ minimal svelte table example. Allows sorting and 
+A _relatively_ minimal svelte table example. Allows sorting and filtering based on column values.
 
-### Sample Usage
+## Sample Usage
 
-```html
-<script>
-  import SvelteTable from "./SvelteTable.svelte";
+First define some sample data, this can be used for any of the following mounting methods
 
-  const colums = [
+```js
+// define some data...
+  const columns = [
     {
       key: "id",
       title: "ID",
@@ -80,7 +80,7 @@ A _relatively_ minimal svelte table example. Allows sorting and
       filterValue: v => v.last_name.charAt(0).toLowerCase()
     }
   ];
-  const data = [
+  const rows = [
     {id:1, first_name:"Marilyn", last_name: "Monroe"},
     {id:2, first_name:"Abraham", last_name: "Lincoln"},
     {id:3, first_name:"Mother", last_name: "Teresa"},
@@ -102,18 +102,47 @@ A _relatively_ minimal svelte table example. Allows sorting and
     {id:19, first_name:"Pope", last_name: "Francis"},
     // etc...
   ];
+```
+
+### Usage: Raw svelte file
+```html
+<script>
+  import SvelteTable from "./SvelteTable.svelte";
 </script>
 
-<SvelteTable columns={colums} rows={data}></SvelteTable>
+<SvelteTable columns={columns} rows={rows}></SvelteTable>
+```
+
+### Usage: iife (in some html page)
+```html
+<script src='iife/SvelteTable.js'></script>
+<div id="my-table"></div>
+<script>
+  new svelteTable({
+    target: document.querySelector('#my-table'),
+    props: { rows, columns }
+  })
+</script>
+```
+
+### Usage: cjs (as part of nodejs)
+lets protend this is a package on npm ;)
+
+```html
+<script>
+  import SvelteTable from "svelteTable";
+</script>
+
+<SvelteTable columns={columns} rows={rows}></SvelteTable>
 ```
 
 ### Column array object values
 
-| Option          | Type             | Description                                                                  |
-|-----------------|------------------|------------------------------------------------------------------------------|
-| `key`           | `String`         | Unque key identifying the colum                                              |
-| `title`         | `String`         | Title for header                                                             |
-| `value`         | `Function`       | table cell value. The function is passed row data                            |
+| Option            | Type             | Description                                                                             |
+|-------------------|------------------|-----------------------------------------------------------------------------------------|
+| `key`             | `String`         | Unque key identifying the colum                                                         |
+| `title`           | `String`         | Title for header                                                                        |
+| `value`           | `Function`       | table cell value. The function is passed row data                                       |
 | `[sortable]`      | `Boolean`        | *optional* Whether the table can be sorted on column                                    |
 | `[filterOptions]` | `Array|Function` | *optional* array of objects with `name` and `value`. Function is provided array of rows |
 | `[filterValue]`   | `String`         | *optional* value to filter on, usually same as value                                    |

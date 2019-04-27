@@ -3,7 +3,6 @@
   import faker from "faker";
   faker.seed(5);
 
-  console.log(faker);
   export let name;
 
   const colums = [

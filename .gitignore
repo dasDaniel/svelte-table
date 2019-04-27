@@ -6,4 +6,6 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json
 node_modules/
-public/
+public/bundle.*
+public/bundle
+public/iife
