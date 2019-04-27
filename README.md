@@ -2,7 +2,8 @@
 
 A _relatively_ minimal svelte table example. Allows sorting and 
 
-usage
+### Sample Usage
+
 ```html
 <script>
   import SvelteTable from "./SvelteTable.svelte";
@@ -106,14 +107,28 @@ usage
 <SvelteTable columns={colums} rows={data}></SvelteTable>
 ```
 
+### Column array object values
 
-| Oprion          | Type             | Description                                                                  |
+| Option          | Type             | Description                                                                  |
 |-----------------|------------------|------------------------------------------------------------------------------|
 | `key`           | `String`         | Unque key identifying the colum                                              |
 | `title`         | `String`         | Title for header                                                             |
 | `value`         | `Function`       | table cell value. The function is passed row data                            |
-| `sortable`      | `Boolean`        | Whether the table can be sorted on column                                    |
-| `filterOptions` | `Array|Function` | array of objects with `name` and `value`. Function is provided array of rows |
-| `filterValue`   | `String`         | value to filter on, usually same as value                                    |
-| `headerClass`   | `String`         | class to assign to header                                                    |
-| `class`         | `String`         | table cell class name                                                        |
+| `[sortable]`      | `Boolean`        | *optional* Whether the table can be sorted on column                                    |
+| `[filterOptions]` | `Array|Function` | *optional* array of objects with `name` and `value`. Function is provided array of rows |
+| `[filterValue]`   | `String`         | *optional* value to filter on, usually same as value                                    |
+| `[headerClass]`   | `String`         | *optional* class to assign to header                                                    |
+| `[class]`         | `String`         | *optional* table cell class name                                                        |
+
+
+
+## Install
+
+```sh
+npm install
+```
+
+## Run project
+```sh
+npm run dev
+```
