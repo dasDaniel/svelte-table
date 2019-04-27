@@ -355,7 +355,7 @@ var svelteTable = (function () {
 					each_blocks[i].c();
 				}
 				tr.className = "svelte-5jx64d";
-				add_location(tr, file, 77, 2, 1713);
+				add_location(tr, file, 77, 2, 1684);
 			},
 
 			m: function mount(target, anchor) {
@@ -425,10 +425,10 @@ var svelteTable = (function () {
 				}
 				option.__value = ctx.undefined;
 				option.value = option.__value;
-				add_location(option, file, 82, 7, 1861);
+				add_location(option, file, 82, 7, 1832);
 				if (ctx.filterSettings[ctx.col.key] === void 0) add_render_callback(select_change_handler);
 				select.className = "svelte-5jx64d";
-				add_location(select, file, 81, 6, 1808);
+				add_location(select, file, 81, 6, 1779);
 				dispose = listen(select, "change", select_change_handler);
 			},
 
@@ -493,7 +493,7 @@ var svelteTable = (function () {
 				t = text(t_value);
 				option.__value = option_value_value = ctx.option.value;
 				option.value = option.__value;
-				add_location(option, file, 84, 8, 1953);
+				add_location(option, file, 84, 8, 1924);
 			},
 
 			m: function mount(target, anchor) {
@@ -531,7 +531,7 @@ var svelteTable = (function () {
 			c: function create() {
 				th = element("th");
 				if (if_block) if_block.c();
-				add_location(th, file, 79, 5, 1750);
+				add_location(th, file, 79, 5, 1721);
 			},
 
 			m: function mount(target, anchor) {
@@ -608,7 +608,7 @@ var svelteTable = (function () {
 				t1 = space();
 				if (if_block) if_block.c();
 				th.className = th_class_value = "" + [(ctx.col.sortable ? 'isSortable' : '' ),(ctx.col.headerClass !== ctx.undefined && ctx.col.headerClass)].join(' ') + " svelte-5jx64d";
-				add_location(th, file, 94, 4, 2121);
+				add_location(th, file, 94, 4, 2092);
 				dispose = listen(th, "click", click_handler);
 			},
 
@@ -662,7 +662,7 @@ var svelteTable = (function () {
 			c: function create() {
 				td = element("td");
 				td.className = td_class_value = "" + (ctx.col.class !== ctx.undefined && ctx.col.class) + " svelte-5jx64d";
-				add_location(td, file, 105, 5, 2449);
+				add_location(td, file, 105, 5, 2420);
 			},
 
 			m: function mount(target, anchor) {
@@ -709,7 +709,7 @@ var svelteTable = (function () {
 				}
 
 				t = space();
-				add_location(tr, file, 103, 2, 2412);
+				add_location(tr, file, 103, 2, 2383);
 			},
 
 			m: function mount(target, anchor) {
@@ -792,9 +792,9 @@ var svelteTable = (function () {
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
-				add_location(tr, file, 92, 1, 2086);
+				add_location(tr, file, 92, 1, 2057);
 				table.className = "svelte-5jx64d";
-				add_location(table, file, 75, 0, 1679);
+				add_location(table, file, 75, 0, 1650);
 			},
 
 			l: function claim(nodes) {
@@ -894,7 +894,7 @@ var svelteTable = (function () {
 
 	function instance($$self, $$props, $$invalidate) {
 		let { columns, rows } = $$props;
-		console.log({columns, rows});
+		
 		let sortOrder = 1;
 		let sortKey = "";
 		let sortBy = r => "";
