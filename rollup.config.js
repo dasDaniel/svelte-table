@@ -19,7 +19,7 @@ export default [
 			svelte({
 				dev: !production,
 				css: css => {
-					css.write('public/bundle.css');
+					css.write('dist/cjs/style.css');
 				}
 			}),
 
@@ -42,7 +42,7 @@ export default [
 			svelte({
 				dev: !production,
 				css: css => {
-					css.write('public/bundle.css');
+					css.write('dist/umd/style.css');
 				}
 			}),
 
@@ -65,7 +65,7 @@ export default [
 			svelte({
 				dev: !production,
 				css: css => {
-					css.write('public/bundle.css');
+					css.write('dist/iife/style.css');
 				}
 			}),
 
@@ -88,7 +88,7 @@ export default [
 			svelte({
 				dev: !production,
 				css: css => {
-					css.write('public/bundle.css');
+					css.write('public/iife/style.css');
 				}
 			}),
 
@@ -111,7 +111,7 @@ export default [
 			svelte({
 				dev: !production,
 				css: css => {
-					css.write('public/bundle.css');
+					css.write('public/bundle/style.css');
 				}
 			}),
 			resolve(),
