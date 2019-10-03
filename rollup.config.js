@@ -1,122 +1,64 @@
+
 import svelte from 'rollup-plugin-svelte';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
+import pkg from './package.json';
 
-const production = !process.env.ROLLUP_WATCH;
+const minify = !process.env.MINIFY;
+const input = 'src/SvelteTable.svelte';
+const name = 'SvelteTable';
+
+const plugins = [
+	svelte(),
+	resolve(),
+	commonjs(),
+	minify && terser(),
+]
 
 export default [
 	{
-		input: ['src/SvelteTable.svelte'],
+		input,
 		output: {
 			customElement: true,
 			sourcemap: true,
 			format: 'cjs',
-			name: 'svelteTable',
-			dir: 'dist/cjs'
+			name,
+			file: 'dist/cjs/SvelteTable.js'
 		},
-		plugins: [
-			svelte({
-				dev: !production,
-				css: css => {
-					css.write('public/bundle.css');
-				}
-			}),
-
-			resolve(),
-			commonjs(),
-
-			production && terser()
-		]
+		plugins
 	},
 	{
-		input: ['src/SvelteTable.svelte'],
+		input,
+		output: {
+			customElement: true,
+			sourcemap: true,
+			format: 'es',
+			name,
+			file: pkg.module
+		},
+		plugins
+	},
+	{
+		input,
 		output: {
 			customElement: true,
 			sourcemap: true,
 			format: 'umd',
-			name: 'svelteTable',
-			dir: 'dist/umd'
+			name,
+			file: pkg.main
 		},
-		plugins: [
-			svelte({
-				dev: !production,
-				css: css => {
-					css.write('public/bundle.css');
-				}
-			}),
-
-			resolve(),
-			commonjs(),
-
-			production && terser()
-		]
+		plugins
 	},
 	{
-		input: ['src/SvelteTable.svelte'],
+		input,
 		output: {
 			customElement: true,
 			sourcemap: true,
 			format: 'iife',
-			name: 'svelteTable',
-			dir: 'dist/iife'
+			name,
+			file: 'dist/iife/SvelteTable.js'
 		},
-		plugins: [
-			svelte({
-				dev: !production,
-				css: css => {
-					css.write('public/bundle.css');
-				}
-			}),
-
-			resolve(),
-			commonjs(),
-
-			production && terser()
-		]
-	},
-	{
-		input: ['src/SvelteTable.svelte'],
-		output: {
-			customElement: true,
-			sourcemap: true,
-			format: 'iife',
-			name: 'svelteTable',
-			dir: 'public/iife'
-		},
-		plugins: [
-			svelte({
-				dev: !production,
-				css: css => {
-					css.write('public/bundle.css');
-				}
-			}),
-
-			resolve(),
-			commonjs(),
-
-			production && terser()
-		]
-	},
-	{
-		input: 'src/main.js',
-		output: {
-			customElement: true,
-			sourcemap: true,
-			format: 'iife',
-			name: 'app',
-			dir: 'public/bundle'
-		},
-		plugins: [
-			svelte({
-				dev: !production,
-				css: css => {
-					css.write('public/bundle.css');
-				}
-			}),
-			resolve(),
-			commonjs(),
-			production && terser()
-		]
+		plugins
 	},
 ];

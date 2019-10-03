@@ -25,7 +25,7 @@
 				return ret;
 	    })
 	  )
-	  .map(r => ({ ...r, $sortOn: sortBy(r) }))
+	  .map(r => (Object.assign({}, r, {$sortOn: sortBy(r)} ) ) )
 	  .sort((a, b) => {
 	    if (a.$sortOn > b.$sortOn) return sortOrder;
 	    else if (a.$sortOn < b.$sortOn) return -sortOrder;

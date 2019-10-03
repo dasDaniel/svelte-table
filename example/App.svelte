@@ -1,5 +1,5 @@
 <script>
-  import SvelteTable from "./SvelteTable.svelte";
+  import SvelteTable from "../dist/es/SvelteTable.mjs";
   import faker from "faker";
   faker.seed(5);
 
@@ -121,6 +121,7 @@
       return d;
     });
 </script>
+
 <style>
 	div :global(.g_female) {
 	  color: #f9e;
@@ -135,7 +136,7 @@
     text-align: left;
   }
 </style>
-<div><span class="g_female"></span></div>
+
 <div>
 	<SvelteTable columns={colums} rows={data}></SvelteTable>
 </div>
