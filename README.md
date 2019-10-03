@@ -165,3 +165,6 @@ npm install
 ```sh
 npm run build
 ```
+
+App is served on http://localhost:5000  
+IIFE example is on http://localhost:5000/iife_example.html  
