@@ -1,6 +1,6 @@
 {
   "name": "svelte-table",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "module": "dist/es/SvelteTable.mjs",
   "main": "dist/umd/SvelteTable.js",
@@ -9,7 +9,6 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "es6-object-assign": "^1.1.0",
     "rollup": "^1.11.1",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-node-resolve": "^4.2.3",
