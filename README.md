@@ -142,17 +142,16 @@ const columns = [
 
 ### Column array object values
 
-
-| Option            | Type             | Description                                                                             |
-| ----------------- | ---------------- | --------------------------------------------------------------------------------------- |
-| `key`             | `String`         | Unque key identifying the colum                                                         |
-| `title`           | `String`         | Title for header                                                                        |
-| `value`           | `Function`       | table cell value. The function is passed row data                                       |
-| `[sortable]`      | `Boolean`        | _optional_ Whether the table can be sorted on column                                    |
-| `[filterOptions]` | `Array|Function` | _optional_ array of objects with `name` and `value`. Function is provided array of rows |
-| `[filterValue]`   | `String`         | _optional_ value to filter on, usually same as value                                    |
-| `[headerClass]`   | `String`         | _optional_ class to assign to header                                                    |
-| `[class]`         | `String`         | _optional_ table cell class name                                                        |
+| Option            | Type           | Description                                                                             |
+| ----------------- | -------------- | --------------------------------------------------------------------------------------- |
+| `key`             | String         | Unque key identifying the colum                                                         |
+| `title`           | String         | Title for header                                                                        |
+| `value`           | Function       | table cell value. The function is passed row data                                       |
+| `[sortable]`      | Boolean        | _optional_ Whether the table can be sorted on column                                    |
+| `[filterOptions]` | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows |
+| `[filterValue]`   | String         | _optional_ value to filter on, usually same as value                                    |
+| `[headerClass]`   | String         | _optional_ class to assign to header                                                    |
+| `[class]`         | String         | _optional_ table cell class name                                                        |
 
 ## Install
 
