@@ -132,16 +132,16 @@ const columns = [
 <script src="iife/SvelteTable.js"></script>
 <div id="my-table"></div>
 <script>
-  new svelteTable({
+  new SvelteTable({
     target: document.querySelector("#my-table"),
     props: { rows, columns }
   });
 </script>
 ```
 
-```
 
 ### Column array object values
+
 
 | Option            | Type             | Description                                                                             |
 | ----------------- | ---------------- | --------------------------------------------------------------------------------------- |
