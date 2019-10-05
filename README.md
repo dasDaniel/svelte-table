@@ -2,36 +2,77 @@
 
 A _relatively_ minimal svelte table example. Allows sorting and filtering based on column values.
 
-## Sample Usage
+## Install
 
-First define some sample data, this can be used for any of the following mounting methods. Then define the columns to show in the table.
+```sh
+npm install -save svelte-table
+```
+
+# Usage
+
+The package includes exports for raw svelte, ES Module(.mjs)) and CJS (.js) exports. Your bundler will likely know which one to pick by using `import SvelteTable from "svelte-table"`
+
+```html
+<script>
+  import SvelteTable from "svelte-table";
+  const rows = [
+    /** data (example below) */
+  ];
+  const columns = [
+    /** columns config (example below) */
+  ];
+</script>
+
+<SvelteTable columns="{columns}" rows="{rows}"></SvelteTable>
+```
+
+An iife version is also available in the `/dist/iife` folder. This allows for easy run-time use, such as a direct uncompiled dependecy for a use outside of a svelte project.
+
+```html
+<script src="iife/SvelteTable.js"></script>
+<div id="my-table"></div>
+<script>
+  var rows = [
+    /** data (example below) */
+  ];
+  var columns = [
+    /** columns config (example below) */
+  ];
+  new SvelteTable({
+    target: document.querySelector("#my-table"),
+    props: { rows, columns }
+  });
+</script>
+```
+
+## Sample Data and config
 
 ```js
 // define some sample data...
 const rows = [
-  { id: 1, first_name: "Marilyn", last_name: "Monroe" },
-  { id: 2, first_name: "Abraham", last_name: "Lincoln" },
-  { id: 3, first_name: "Mother", last_name: "Teresa" },
-  { id: 4, first_name: "John F.", last_name: "Kennedy" },
-  { id: 5, first_name: "Martin Luther", last_name: "King" },
-  { id: 6, first_name: "Nelson", last_name: "Mandela" },
-  { id: 7, first_name: "Winston", last_name: "Churchill" },
-  { id: 8, first_name: "Donald", last_name: "Trump" },
-  { id: 9, first_name: "Bill", last_name: "Gates" },
-  { id: 10, first_name: "Muhammad", last_name: "Ali" },
-  { id: 11, first_name: "Mahatma", last_name: "Gandhi" },
-  { id: 12, first_name: "Margaret", last_name: "Thatcher" },
-  { id: 13, first_name: "Christopher", last_name: "Columbus" },
-  { id: 14, first_name: "Charles", last_name: "Darwin" },
-  { id: 15, first_name: "Elvis", last_name: "Presley" },
-  { id: 16, first_name: "Albert", last_name: "Einstein" },
-  { id: 17, first_name: "Paul", last_name: "McCartney" },
-  { id: 18, first_name: "Queen", last_name: "Victoria" },
-  { id: 19, first_name: "Pope", last_name: "Francis" }
+  { id: 1, first_name: "Marilyn", last_name: "Monroe", gender: "female" },
+  { id: 2, first_name: "Abraham", last_name: "Lincoln", gender: "male" },
+  { id: 3, first_name: "Mother", last_name: "Teresa", gender: "female" },
+  { id: 4, first_name: "John F.", last_name: "Kennedy", gender: "male" },
+  { id: 5, first_name: "Martin Luther", last_name: "King", gender: "male" },
+  { id: 6, first_name: "Nelson", last_name: "Mandela", gender: "male" },
+  { id: 7, first_name: "Winston", last_name: "Churchill", gender: "male" },
+  { id: 8, first_name: "Donald", last_name: "Trump", gender: "male" },
+  { id: 9, first_name: "Bill", last_name: "Gates", gender: "male" },
+  { id: 10, first_name: "Muhammad", last_name: "Ali", gender: "male" },
+  { id: 11, first_name: "Mahatma", last_name: "Gandhi", gender: "male" },
+  { id: 12, first_name: "Margaret", last_name: "Thatcher", gender: "female" },
+  { id: 13, first_name: "Christopher", last_name: "Columbus", gender: "male" },
+  { id: 14, first_name: "Charles", last_name: "Darwin", gender: "male" },
+  { id: 15, first_name: "Elvis", last_name: "Presley", gender: "male" },
+  { id: 16, first_name: "Albert", last_name: "Einstein", gender: "male" },
+  { id: 17, first_name: "Paul", last_name: "McCartney", gender: "male" },
+  { id: 18, first_name: "Queen", last_name: "Victoria", gender: "female" },
+  { id: 19, first_name: "Pope", last_name: "Francis", gender: "male" }
   // etc...
 ];
 
-// define columns
+// define column configs
 const columns = [
   {
     key: "id",
@@ -102,66 +143,45 @@ const columns = [
       return Object.values(letrs);
     },
     filterValue: v => v.last_name.charAt(0).toLowerCase()
+  },
+  {
+    key: "gender",
+    title: "GENDER",
+    value: v => v.gender,
+    sortable: true,
+    filterOptions: ["male", "female"] // provide array
   }
 ];
 ```
 
-### Usage: Raw svelte file
+## Props
 
-```html
-<script>
-  import SvelteTable from "SvelteTable.svelte";
-</script>
+| Option      | Type     | Description                                    |
+| ----------- | -------- | ---------------------------------------------- |
+| `columns`   | Object[] | column settings (details below)                |
+| `data`      | Object[] | Data array                                     |
+| `sortBy`    | String   | Sorting key                                    |
+| `sortOrder` | Number   | `1` = Ascending, `-1` Descending               |
+| `iconAsc`   | String   | ascii string for ascending ordering character  |
+| `iconDesc`  | String   | ascii string for descending ordering character |
 
-<SvelteTable columns="{columns}" rows="{rows}"></SvelteTable>
-```
-
-### Usage: ES Module (mjs file) or CJS
-
-```html
-<script>
-  import SvelteTable from "SvelteTable";
-</script>
-
-<SvelteTable columns="{columns}" rows="{rows}"></SvelteTable>
-```
-
-### Usage: iife (in some html page)
-
-```html
-<script src="iife/SvelteTable.js"></script>
-<div id="my-table"></div>
-<script>
-  new SvelteTable({
-    target: document.querySelector("#my-table"),
-    props: { rows, columns }
-  });
-</script>
-```
-
-
-### Column array object values
+## Column array object values
 
 | Option            | Type           | Description                                                                             |
 | ----------------- | -------------- | --------------------------------------------------------------------------------------- |
 | `key`             | String         | Unque key identifying the colum                                                         |
 | `title`           | String         | Title for header                                                                        |
 | `value`           | Function       | table cell value. The function is passed row data                                       |
+| `[class]`         | String         | _optional_ table cell class name                                                        |
 | `[sortable]`      | Boolean        | _optional_ Whether the table can be sorted on column                                    |
 | `[filterOptions]` | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows |
 | `[filterValue]`   | String         | _optional_ value to filter on, usually same as value                                    |
 | `[headerClass]`   | String         | _optional_ class to assign to header                                                    |
-| `[class]`         | String         | _optional_ table cell class name                                                        |
+| `[renderValue]`   | Function       | _optional_ render function for rendering html content                                   |
 
-## Install
+## Slots
 
-```sh
-npm install
-```
-
-## Build project
-
-```sh
-npm run build
-```
-
+| Option   | Description                                                                                    |
+| -------- | ---------------------------------------------------------------------------------------------- |
+| `header` | slot for rendering the `tr` and `th` content. This will replace `title` in the header          |
+| `row`    | slot for rendering the `tr` and `td` content. This will replace the rendering of `renderValue` |

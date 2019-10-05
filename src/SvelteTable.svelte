@@ -1,10 +1,20 @@
 <script>
+	import { createEventDispatcher, onDestroy } from 'svelte';
+
+	onDestroy(() => {
+		console.log('the component is being destroyed');
+	});
+
+	const dispatch = createEventDispatcher();
+
 	export let columns;
 	export let rows;
-	
-	let sortOrder = 1;
-	let sortKey = "";
-	let sortBy = r => "";
+	export let sortBy = "";
+	export let sortOrder = 1;
+	export let iconAsc = '▲';
+	export let iconDesc = '▼';
+
+	let sortFunction = () => "";
 	let showFilterHeader = columns.some(c => c.filterOptions !== undefined);
 	let filterValues = {};
 	let filterSettings = {};
@@ -13,11 +23,9 @@
 	  columnByKey[col.key] = col;
 	});
 
-	// $: console.log(filterSettings, filterValues);
 	$: c_rows = rows
 	  .filter(r =>
 	    Object.keys(filterSettings).every(f => {
-	      // console.log(f, filterSettings[f], columnByKey[f])
 	      let ret =  (
 	        filterSettings[f] === undefined ||
 	        filterSettings[f] === columnByKey[f].filterValue(r)
@@ -25,7 +33,7 @@
 				return ret;
 	    })
 	  )
-	  .map(r => (Object.assign({}, r, {$sortOn: sortBy(r)} ) ) )
+	  .map(r => (Object.assign({}, r, {$sortOn: sortFunction(r)} ) ) )
 	  .sort((a, b) => {
 	    if (a.$sortOn > b.$sortOn) return sortOrder;
 	    else if (a.$sortOn < b.$sortOn) return -sortOrder;
@@ -43,17 +51,36 @@
 	  });
 	};
 
-	const handleSort = col => {
-	  if (col.sortable === true && typeof col.value === "function") {
-	    if (sortKey === col.key) {
-	      sortOrder = sortOrder === 1 ? -1 : 1;
-	    } else {
-	      sortOrder = 1;
-	      sortKey = col.key;
-	      sortBy = r => col.value(r);
-	    }
+
+	$: {
+		let col = columnByKey[sortBy];
+		console.log('update sortFunction', sortBy)
+	  if (col !== undefined && col.sortable === true && typeof col.value === "function") {
+	    sortFunction = r => col.value(r);
 	  }
 	};
+
+	const updateSortOrder = (colKey) => {
+		if (colKey === sortBy) {
+			sortOrder = sortOrder === 1 ? -1 : 1
+		} else {
+			sortOrder = 1;
+		}
+	}
+	
+	const handleClickCol = (col) => {
+		updateSortOrder(col.key)
+		sortBy = col.key;
+		dispatch('clickCol', {key:col.key} );
+	}
+	
+	const handleClickRow = (row) => {
+		dispatch('clickRow', {row} );
+	}
+
+	const handleClickCell = (row, key) => {
+		dispatch('clickCell', {row, key} );
+	}
 
 	if (showFilterHeader) {
 	  calculateFilterValues();
@@ -90,21 +117,31 @@
 		  {/each}
 		</tr>
 	{/if}
-	<tr>
-	  {#each columns as col}
-	  	<th on:click={() => handleSort(col)} class="{[(col.sortable ? 'isSortable' : '' ),(col.headerClass !== undefined && col.headerClass)].join(' ')}">
-				{col.title}
-				{#if sortKey === col.key}
-					{ sortOrder === 1 ? '▲' : '▼'}
-				{/if}
-			</th>
-	  {/each}
-	</tr>
-	{#each c_rows as row}
-		<tr>
-		  {#each columns as col}
-		  	<td class="{col.class !== undefined && col.class}">{@html col.renderValue ? col.renderValue(row) : col.value(row)}</td>
-		  {/each}
-		</tr>
+		<slot name="header" sortOrder={sortOrder} sortBy={sortBy}>
+			<tr>
+			  {#each columns as col}
+			  	<th
+						on:click={() => handleClickCol(col)}
+						class="{[(col.sortable ? 'isSortable' : '' ),(col.headerClass !== undefined && col.headerClass)].join(' ')}"
+					>
+						{col.title}
+						{#if sortBy === col.key}
+							{ sortOrder === 1 ? iconAsc : iconDesc}
+						{/if}
+					</th>
+			  {/each}
+			</tr>
+		</slot>
+	{#each c_rows as row, n}
+		<slot name="row" row={row} n={n} >
+			<tr on:click={()=>{handleClickRow(row)}} >
+			  {#each columns as col}
+			  	<td
+						on:click={()=>{handleClickCell(row, col.key)}}
+						class="{col.class !== undefined && col.class}"
+					>{@html col.renderValue ? col.renderValue(row) : col.value(row)}</td>
+			  {/each}
+			</tr>
+		</slot>
 	{/each}
 </table>

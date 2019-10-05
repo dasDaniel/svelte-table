@@ -1,9 +1,15 @@
 <script>
-  import SvelteTable from "../dist/es/SvelteTable.mjs";
+  import SvelteTable from "../src/SvelteTable.svelte";
+  // import SvelteTable from "svelte-table";
   import faker from "faker";
   faker.seed(5);
 
-  export let name;
+  let example = 0;
+
+  let sortBy = 'id';
+  let sortOrder = 1;
+	let iconAsc = '↑';
+	let iconDesc = '↓';
 
   const colums = [
     {
@@ -29,7 +35,7 @@
     },
     {
       key: "first_name",
-      title: "FIRST_NAME",
+      title: "FIRST NAME",
       value: v => v.first_name,
       sortable: true,
       filterOptions: rows => {
@@ -52,7 +58,7 @@
     },
     {
       key: "last_name",
-      title: "LAST_NAME",
+      title: "LAST NAME",
       value: v => v.last_name,
       sortable: true,
       filterOptions: rows => {
@@ -86,9 +92,9 @@
       value: v => v.gender,
       renderValue: v => {
         const classNames = [`g_${v.gender.toLowerCase()}`];
-        let icon = v.gender.toLowerCase() === "female" ? "⚩" : "";
-        icon = v.gender.toLowerCase() === "male" ? "⚨" : icon;
-        return `<span class="${classNames.join(" ")}">${v.gender} ${icon}</span>`;
+        let icon = v.gender.toLowerCase() === "female" ? "&female;" : "";
+        icon = v.gender.toLowerCase() === "male" ? "&male;" : icon;
+        return `<span class="${classNames.join(" ")}">${icon} ${v.gender}</span>`;
       },
       sortable: true,
       filterOptions: [
@@ -99,7 +105,7 @@
     },
     {
       key: "ip_address",
-      title: "IP_ADDRESS",
+      title: "IP ADDRESS",
       value: v => v.ip_address,
       sortable: true
     }
@@ -137,6 +143,87 @@
   }
 </style>
 
-<div>
-	<SvelteTable columns={colums} rows={data}></SvelteTable>
-</div>
+<select bind:value={example}>
+  <option value={0}> SELECT EXAMPLE </option>
+  <option value={1}> 1 </option>
+  <option value={2}> 2 </option>
+</select>
+
+{#if example === 1}
+
+  <h1>SvelteTable example 1</h1>
+  <p>Default functionality</p>
+	<SvelteTable
+    columns={colums}
+    rows={data}
+  ></SvelteTable>
+  
+{:else if example === 2}
+  <div>
+    <h1>SvelteTable example 2</h1>
+    <p>Custom header and row slots</p>
+    <button
+      on:click={()=>{sortBy='id'}}
+      disabled={sortBy === 'id'}
+    >SORT BY ID</button>
+
+    <button
+      on:click={()=>{sortBy='first_name'}}
+      disabled={sortBy === 'first_name'}
+    >SORT BY FIRST NAME</button>
+
+    <button
+      on:click={()=>{sortBy='last_name'}}
+      disabled={sortBy === 'last_name'}
+    >SORT BY LAST NAME</button>
+
+    <button
+      on:click={()=>{sortOrder=1}}
+      disabled={sortOrder === 1}
+      style="float:right;"
+    >SORT {iconAsc}</button>
+    <button
+      on:click={()=>{sortOrder=-1}}
+      disabled={sortOrder === -1}
+      style="float:right;"
+    >SORT {iconDesc}</button>
+
+  	<SvelteTable
+      columns={colums}
+      rows={data}
+      bind:sortBy={sortBy}
+      bind:sortOrder={sortOrder}
+      on:clickCol={e => console.log("clickCol:", e.detail)}
+      on:clickRow={e => console.log("clickRow:", e.detail)}
+      on:clickCell={e => console.log("clickCell:", e.detail)}
+    >
+
+      <!--
+        NOTE: defining the header slot overrides rendering and sort on click functionality
+      -->
+      <tr slot="header" let:sortOrder={refSortOrder} let:sortBy={refSortBy}>
+    		<th>{refSortBy === 'id' ? (refSortOrder > 0 ? iconAsc : iconDesc) : '' } ID</th>
+    		<th>{refSortBy === 'first_name' ? (refSortOrder > 0 ? iconAsc : iconDesc) : '' } FIRST NAME</th>
+    		<th>{refSortBy === 'last_name' ? (refSortOrder > 0 ? iconAsc : iconDesc) : '' } LAST NAME</th>
+    		<th>EMAIL</th>
+    		<th>GENDER</th>
+    		<th>IP ADDRESS</th>
+    	</tr>
+
+      <!--
+        NOTE: defining the row slot overrides default row rendering functionality
+      -->
+      <tr slot="row" let:row={row} let:n={n}>
+    		<td>{n} {row.id}</td>
+    		<td>{row.first_name}</td>
+    		<td>{row.last_name}</td>
+    		<td>{row.email}</td>
+    		<td>{row.gender}</td>
+    		<td>{row.ip_address}</td>
+    	</tr>
+    </SvelteTable>
+  </div>
+{:else}
+  <h1>Select an example</h1>
+  <p>There's currently a bug that doesn't unmount the component properly. Requires reload after a selection :( </p>
+{/if}
