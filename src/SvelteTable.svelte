@@ -1,9 +1,5 @@
 <script>
-	import { createEventDispatcher, onDestroy } from 'svelte';
-
-	onDestroy(() => {
-		console.log('the component is being destroyed');
-	});
+	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 

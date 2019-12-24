@@ -1,4 +1,6 @@
 
+- removed unused onDestroy
+
 0.1.4
 - updated readme and example
 - added header and row slots
