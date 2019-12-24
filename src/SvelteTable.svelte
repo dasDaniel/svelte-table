@@ -50,7 +50,6 @@
 
 	$: {
 		let col = columnByKey[sortBy];
-		console.log('update sortFunction', sortBy)
 	  if (col !== undefined && col.sortable === true && typeof col.value === "function") {
 	    sortFunction = r => col.value(r);
 	  }

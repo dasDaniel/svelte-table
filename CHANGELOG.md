@@ -1,4 +1,6 @@
 
+0.1.5
+- update dependencies
 - removed unused onDestroy
 
 0.1.4
