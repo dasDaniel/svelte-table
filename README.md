@@ -147,9 +147,13 @@ const columns = [
   {
     key: "gender",
     title: "GENDER",
-    value: v => v.gender,
-    sortable: true,
-    filterOptions: ["male", "female"] // provide array
+    value: v => v.gender, // value for rendering
+    filterValue: v => v.gender, // setup function for filter comparison
+    filterOptions: [ // provide array of key value pairs
+      {name:"Male", value:"male"},
+      {name:"Female", value:"female"}
+    ],
+    sortable: true
   }
 ];
 ```
