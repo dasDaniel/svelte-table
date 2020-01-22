@@ -23,8 +23,10 @@
 	  .filter(r =>
 	    Object.keys(filterSettings).every(f => {
 	      let ret =  (
-	        filterSettings[f] === undefined ||
-	        filterSettings[f] === columnByKey[f].filterValue(r)
+					filterSettings[f] === undefined ||
+					// default to value() if filterValue() not provided in col
+					filterSettings[f] === (typeof columnByKey[f].filterValue === 'function' ? 
+						columnByKey[f].filterValue(r) : columnByKey[f].value(r))
 				);
 				return ret;
 	    })
@@ -40,9 +42,10 @@
 	  filterValues = {};
 	  columns.forEach(c => {
 	    if (typeof c.filterOptions === "function") {
-	      filterValues[c.key] = c.filterOptions(rows);
+				filterValues[c.key] = c.filterOptions(rows);
 	    } else if (Array.isArray(c.filterOptions)) {
-	      filterValues[c.key] = [...c.filterOptions];
+				// if array of strings is provided, use it for name and value
+				filterValues[c.key] = c.filterOptions.map(val => ({name:val, value:val}));
 	    }
 	  });
 	};

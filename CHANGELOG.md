@@ -1,4 +1,10 @@
 
+
+0.1.6
+- readme update
+- filterable column defaults to value if filerValue not provided
+- filterOptions now accepts array of values
+
 0.1.5
 - update dependencies
 - removed unused onDestroy

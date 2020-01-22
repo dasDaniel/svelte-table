@@ -57,7 +57,7 @@ const rows = [
   { id: 5, first_name: "Martin Luther", last_name: "King", gender: "male" },
   { id: 6, first_name: "Nelson", last_name: "Mandela", gender: "male" },
   { id: 7, first_name: "Winston", last_name: "Churchill", gender: "male" },
-  { id: 8, first_name: "Donald", last_name: "Trump", gender: "male" },
+  { id: 8, first_name: "George", last_name: "Soros", gender: "male" },
   { id: 9, first_name: "Bill", last_name: "Gates", gender: "male" },
   { id: 10, first_name: "Muhammad", last_name: "Ali", gender: "male" },
   { id: 11, first_name: "Mahatma", last_name: "Gandhi", gender: "male" },
@@ -147,13 +147,10 @@ const columns = [
   {
     key: "gender",
     title: "GENDER",
-    value: v => v.gender, // value for rendering
-    filterValue: v => v.gender, // setup function for filter comparison
-    filterOptions: [ // provide array of key value pairs
-      {name:"Male", value:"male"},
-      {name:"Female", value:"female"}
-    ],
-    sortable: true
+    value: v => v.gender,
+    renderValue: v => v.gender.charAt(0).toUpperCase() + v.gender.substring(1), // capitalize
+    sortable: true,
+    filterOptions: ["male", "female"] // provide array
   }
 ];
 ```
@@ -173,7 +170,7 @@ const columns = [
 
 | Option            | Type           | Description                                                                             |
 | ----------------- | -------------- | --------------------------------------------------------------------------------------- |
-| `key`             | String         | Unque key identifying the colum                                                         |
+| `key`             | String         | Unique key identifying the column                                                       |
 | `title`           | String         | Title for header                                                                        |
 | `value`           | Function       | table cell value. The function is passed row data                                       |
 | `[class]`         | String         | _optional_ table cell class name                                                        |

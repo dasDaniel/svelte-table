@@ -11,7 +11,7 @@
     "rollup-plugin-svelte": "^5.1.0",
     "sirv-cli": "^0.4.4",
     "svelte": "^3.12.1",
-    "svelte-table": "^0.1.0"
+    "svelte-table": "^0.1.5"
   },
   "scripts": {
     "build": "rollup -c",

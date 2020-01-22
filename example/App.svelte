@@ -97,11 +97,7 @@
         return `<span class="${classNames.join(" ")}">${icon} ${v.gender}</span>`;
       },
       sortable: true,
-      filterOptions: [
-        { name: "Male", value: "Male" },
-        { name: "Female", value: "Female" }
-      ],
-      filterValue: v => v.gender
+      filterOptions: ["Male", "Female"]
     },
     {
       key: "ip_address",
