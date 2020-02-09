@@ -3,6 +3,7 @@
 
 	const dispatch = createEventDispatcher();
 
+	export let classes = [];
 	export let columns;
 	export let rows;
 	export let sortBy = "";
@@ -98,23 +99,26 @@
 	}
 </style>
 
-<table>
-	{#if showFilterHeader}
-		<tr>
-		  {#each columns as col}
-		  	<th>
-					{#if filterValues[col.key] !== undefined}
-						<select bind:value={filterSettings[col.key]}>
-							<option value={undefined}></option>
-						  {#each filterValues[col.key] as option}
-								<option value={option.value}>{option.name}</option>
-						  {/each}
-						</select>
-					{/if}
-				</th>
-		  {/each}
-		</tr>
-	{/if}
+<table class="{classes.join(' ')}">
+	<thead>
+		{#if showFilterHeader}
+			<tr>
+			{#each columns as col}
+				<th>
+						{#if filterValues[col.key] !== undefined}
+							<div class="select">
+							<select bind:value={filterSettings[col.key]}>
+								<option value={undefined}></option>
+							{#each filterValues[col.key] as option}
+									<option value={option.value}>{option.name}</option>
+							{/each}
+							</select>
+							</div>
+						{/if}
+					</th>
+			{/each}
+			</tr>
+		{/if}
 		<slot name="header" sortOrder={sortOrder} sortBy={sortBy}>
 			<tr>
 			  {#each columns as col}
@@ -130,16 +134,19 @@
 			  {/each}
 			</tr>
 		</slot>
-	{#each c_rows as row, n}
-		<slot name="row" row={row} n={n} >
-			<tr on:click={()=>{handleClickRow(row)}} >
-			  {#each columns as col}
-			  	<td
-						on:click={()=>{handleClickCell(row, col.key)}}
-						class="{col.class !== undefined && col.class}"
-					>{@html col.renderValue ? col.renderValue(row) : col.value(row)}</td>
-			  {/each}
-			</tr>
-		</slot>
-	{/each}
+	</thead>
+	<tbody>
+		{#each c_rows as row, n}
+			<slot name="row" row={row} n={n} >
+				<tr on:click={()=>{handleClickRow(row)}} >
+				{#each columns as col}
+					<td
+							on:click={()=>{handleClickCell(row, col.key)}}
+							class="{col.class !== undefined && col.class}"
+						>{@html col.renderValue ? col.renderValue(row) : col.value(row)}</td>
+				{/each}
+				</tr>
+			</slot>
+		{/each}
+	</tbody>
 </table>

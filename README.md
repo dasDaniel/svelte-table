@@ -159,6 +159,7 @@ const columns = [
 
 | Option      | Type     | Description                                    |
 | ----------- | -------- | ---------------------------------------------- |
+| `[classes]`   | String | _optional_ table class names                 |
 | `columns`   | Object[] | column settings (details below)                |
 | `data`      | Object[] | Data array                                     |
 | `sortBy`    | String   | Sorting key                                    |
