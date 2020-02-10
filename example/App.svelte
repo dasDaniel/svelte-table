@@ -8,8 +8,8 @@
 
   let sortBy = 'id';
   let sortOrder = 1;
-	let iconAsc = '↑';
-	let iconDesc = '↓';
+  let iconAsc = '↑';
+  let iconDesc = '↓';
 
   const colums = [
     {
@@ -125,11 +125,11 @@
 </script>
 
 <style>
-	div :global(.g_female) {
-	  color: #f9e;
-	}
-	div :global(.g_male) {
-	  color: #99e;
+  div :global(.g_female) {
+    color: #f9e;
+  }
+  div :global(.g_male) {
+    color: #99e;
   }
   div :global(.text-center) {
     text-align: center;
@@ -149,7 +149,7 @@
 
   <h1>SvelteTable example 1</h1>
   <p>Default functionality</p>
-	<SvelteTable
+  <SvelteTable
     columns={colums}
     rows={data}
   ></SvelteTable>
@@ -184,7 +184,7 @@
       style="float:right;"
     >SORT {iconDesc}</button>
 
-  	<SvelteTable
+    <SvelteTable
       columns={colums}
       rows={data}
       bind:sortBy={sortBy}
@@ -198,25 +198,25 @@
         NOTE: defining the header slot overrides rendering and sort on click functionality
       -->
       <tr slot="header" let:sortOrder={refSortOrder} let:sortBy={refSortBy}>
-    		<th>{refSortBy === 'id' ? (refSortOrder > 0 ? iconAsc : iconDesc) : '' } ID</th>
-    		<th>{refSortBy === 'first_name' ? (refSortOrder > 0 ? iconAsc : iconDesc) : '' } FIRST NAME</th>
-    		<th>{refSortBy === 'last_name' ? (refSortOrder > 0 ? iconAsc : iconDesc) : '' } LAST NAME</th>
-    		<th>EMAIL</th>
-    		<th>GENDER</th>
-    		<th>IP ADDRESS</th>
-    	</tr>
+        <th>{refSortBy === 'id' ? (refSortOrder > 0 ? iconAsc : iconDesc) : '' } ID</th>
+        <th>{refSortBy === 'first_name' ? (refSortOrder > 0 ? iconAsc : iconDesc) : '' } FIRST NAME</th>
+        <th>{refSortBy === 'last_name' ? (refSortOrder > 0 ? iconAsc : iconDesc) : '' } LAST NAME</th>
+        <th>EMAIL</th>
+        <th>GENDER</th>
+        <th>IP ADDRESS</th>
+      </tr>
 
       <!--
         NOTE: defining the row slot overrides default row rendering functionality
       -->
       <tr slot="row" let:row={row} let:n={n}>
-    		<td>{n} {row.id}</td>
-    		<td>{row.first_name}</td>
-    		<td>{row.last_name}</td>
-    		<td>{row.email}</td>
-    		<td>{row.gender}</td>
-    		<td>{row.ip_address}</td>
-    	</tr>
+        <td>{n} {row.id}</td>
+        <td>{row.first_name}</td>
+        <td>{row.last_name}</td>
+        <td>{row.email}</td>
+        <td>{row.gender}</td>
+        <td>{row.ip_address}</td>
+      </tr>
     </SvelteTable>
   </div>
 {:else}

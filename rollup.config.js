@@ -10,55 +10,55 @@ const input = 'src/SvelteTable.svelte';
 const name = 'SvelteTable';
 
 const plugins = [
-	svelte(),
-	resolve(),
-	commonjs(),
-	minify && terser(),
+  svelte(),
+  resolve(),
+  commonjs(),
+  minify && terser(),
 ]
 
 export default [
-	{
-		input,
-		output: {
-			customElement: true,
-			sourcemap: true,
-			format: 'cjs',
-			name,
-			file: 'dist/cjs/SvelteTable.js'
-		},
-		plugins
-	},
-	{
-		input,
-		output: {
-			customElement: true,
-			sourcemap: true,
-			format: 'es',
-			name,
-			file: pkg.module
-		},
-		plugins
-	},
-	{
-		input,
-		output: {
-			customElement: true,
-			sourcemap: true,
-			format: 'umd',
-			name,
-			file: pkg.main
-		},
-		plugins
-	},
-	{
-		input,
-		output: {
-			customElement: true,
-			sourcemap: true,
-			format: 'iife',
-			name,
-			file: 'dist/iife/SvelteTable.js'
-		},
-		plugins
-	},
+  {
+    input,
+    output: {
+      customElement: true,
+      sourcemap: true,
+      format: 'cjs',
+      name,
+      file: 'dist/cjs/SvelteTable.js'
+    },
+    plugins
+  },
+  {
+    input,
+    output: {
+      customElement: true,
+      sourcemap: true,
+      format: 'es',
+      name,
+      file: pkg.module
+    },
+    plugins
+  },
+  {
+    input,
+    output: {
+      customElement: true,
+      sourcemap: true,
+      format: 'umd',
+      name,
+      file: pkg.main
+    },
+    plugins
+  },
+  {
+    input,
+    output: {
+      customElement: true,
+      sourcemap: true,
+      format: 'iife',
+      name,
+      file: 'dist/iife/SvelteTable.js'
+    },
+    plugins
+  },
 ];
