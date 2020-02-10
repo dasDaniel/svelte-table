@@ -1,5 +1,9 @@
 
 
+0.1.7
+- added support for class names for table, thead, tbody, select, row, and cell elements
+- cleaned up tab use in code
+
 0.1.6
 - readme update
 - filterable column defaults to value if filerValue not provided

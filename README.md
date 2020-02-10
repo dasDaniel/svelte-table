@@ -157,14 +157,20 @@ const columns = [
 
 ## Props
 
-| Option      | Type     | Description                                    |
-| ----------- | -------- | ---------------------------------------------- |
-| `columns`   | Object[] | column settings (details below)                |
-| `data`      | Object[] | Data array                                     |
-| `sortBy`    | String   | Sorting key                                    |
-| `sortOrder` | Number   | `1` = Ascending, `-1` Descending               |
-| `iconAsc`   | String   | ascii string for ascending ordering character  |
-| `iconDesc`  | String   | ascii string for descending ordering character |
+| Option            | Type         | Description                                    |
+| ----------------- | ------------ | ---------------------------------------------- |
+| `columns`         | Object[]     | column settings (details below)                |
+| `data`            | Object[]     | Data array                                     |
+| `sortBy`          | String       | Sorting key                                    |
+| `sortOrder`       | Number       | `1` = Ascending, `-1` Descending               |
+| `iconAsc`         | String       | ascii string for ascending ordering character  |
+| `iconDesc`        | String       | ascii string for descending ordering character |
+| `classNameTable`  | String/Array | _optional_ class name(s) for table element     |
+| `classNameThead`  | String/Array | _optional_ class name(s) for thead element     |
+| `classNameTbody`  | String/Array | _optional_ class name(s) for tbody element     |
+| `classNameSelect` | String/Array | _optional_ class name(s) for select elements   |
+| `classNameRow`    | String/Array | _optional_ class name(s) for row elements      |
+| `classNameCell`   | String/Array | _optional_ class name(s) for cell elements     |
 
 ## Column array object values
 

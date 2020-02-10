@@ -192,6 +192,9 @@
       on:clickCol={e => console.log("clickCol:", e.detail)}
       on:clickRow={e => console.log("clickRow:", e.detail)}
       on:clickCell={e => console.log("clickCell:", e.detail)}
+      classNameTable={['table table-dark']}
+      classNameThead={['thead-light']}
+      classNameSelect={['custom-select']}
     >
 
       <!--
@@ -210,7 +213,7 @@
         NOTE: defining the row slot overrides default row rendering functionality
       -->
       <tr slot="row" let:row={row} let:n={n}>
-        <td>{n} {row.id}</td>
+        <td>{row.id}</td>
         <td>{row.first_name}</td>
         <td>{row.last_name}</td>
         <td>{row.email}</td>
