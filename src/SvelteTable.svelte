@@ -46,7 +46,7 @@
 
   const asStringArray = (v) => [].concat(v).filter(v => typeof v === 'string');
 
-  const calculateFilterValues = () => {
+  const calculateFilterValues = (rows) => {
     filterValues = {};
     columns.forEach(c => {
     if (typeof c.filterOptions === "function") {
@@ -88,9 +88,7 @@
     dispatch('clickCell', {row, key} );
   }
 
-  if (showFilterHeader) {
-    calculateFilterValues();
-  }
+$: if (showFilterHeader) calculateFilterValues(rows);
 </script>
 
 <style>
@@ -105,7 +103,7 @@
     width: 100%;
   }
 </style>
-
+<b>TODO: NOTE - using link to local fork of svelte-table</b><br/>
 <table class={asStringArray(classNameTable)}>
   <thead class={asStringArray(classNameThead)}>
     {#if showFilterHeader}
