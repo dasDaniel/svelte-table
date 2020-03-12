@@ -20,10 +20,17 @@
   let showFilterHeader = columns.some(c => c.filterOptions !== undefined);
   let filterValues = {};
   let filterSettings = {};
-  let columnByKey = {};
+
+$: columnByKey = updateColumnByKey(columns);
+
+function updateColumnByKey (columns) {
+  const byKey = [];
   columns.forEach(col => {
-    columnByKey[col.key] = col;
+    byKey[col.key] = col;
   });
+  console.log('columnByKey:');console.dir(byKey);
+  return byKey;
+}
 
   $: c_rows = rows
     .filter(r =>
@@ -46,7 +53,7 @@
 
   const asStringArray = (v) => [].concat(v).filter(v => typeof v === 'string');
 
-  const calculateFilterValues = (rows) => {
+  const calculateFilterValues = (rows, columns) => {
     filterValues = {};
     columns.forEach(c => {
     if (typeof c.filterOptions === "function") {
@@ -88,7 +95,7 @@
     dispatch('clickCell', {row, key} );
   }
 
-$: if (showFilterHeader) calculateFilterValues(rows);
+$: if (showFilterHeader) calculateFilterValues(rows, columns);
 </script>
 
 <style>
