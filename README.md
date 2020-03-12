@@ -2,6 +2,9 @@
 
 A _relatively_ minimal svelte table example. Allows sorting and filtering based on column values.
 
+This fork adds reactivity so you can regenerate the rows and columns
+for a newly loaded data (e.g. loading from a CSV file) and the headings, 
+filters and sorting will all be updated automatically (see 'reactivity' below).
 ## Install
 
 ```sh
@@ -45,7 +48,7 @@ An iife version is also available in the `/dist/iife` folder. This allows for ea
 </script>
 ```
 
-## Sample Data and config
+## Sample Data (rows) and Columns Config (columns)
 
 ```js
 // define some sample data...
@@ -72,7 +75,7 @@ const rows = [
   // etc...
 ];
 
-// define column configs
+// define columns config
 const columns = [
   {
     key: "id",
@@ -159,8 +162,8 @@ const columns = [
 
 | Option            | Type         | Description                                    |
 | ----------------- | ------------ | ---------------------------------------------- |
-| `columns`         | Object[]     | column settings (details below)                |
-| `data`            | Object[]     | Data array                                     |
+| `columns`         | Object[]     | columns config (details below)                |
+| `rows`            | Object[]     | Data array                                     |
 | `sortBy`          | String       | Sorting key                                    |
 | `sortOrder`       | Number       | `1` = Ascending, `-1` Descending               |
 | `iconAsc`         | String       | ascii string for ascending ordering character  |
@@ -192,3 +195,47 @@ const columns = [
 | -------- | ---------------------------------------------------------------------------------------------- |
 | `header` | slot for rendering the `tr` and `th` content. This will replace `title` in the header          |
 | `row`    | slot for rendering the `tr` and `td` content. This will replace the rendering of `renderValue` |
+
+# Reactivity
+
+As mentioned in the introduction, this fork adds reactivity so you
+don't have to provide a fixed set of columns and filters for your
+data, but can generate these programatically from the data and
+have the column headings and filters update correctly each time
+you load a new dataset into the `rows` array.
+
+Here's an example which shows how to generate the
+`columns` array automatically, taken from the `ViewTable.svelte` component of [Visualisation Lab](https://github.com/theWebalyst/visualisation-lab):
+
+`headings` is an array of column names such as `["heading1", "heading2", "heading3"]`.
+```
+$: columns = makeColumns(rows, headings);
+
+function makeColumns(rows, headings) {
+  let columns = [];
+  let filterOptions = []
+
+  headings.forEach((heading, i) => {
+    columns.push({
+      key: heading,
+      title: heading,
+      value: v => v[i],
+      sortable: true,
+      filterValue: v => v[i],
+      filterOptions: function(r) {
+        let filterMap = new Map;
+        let filterArray = [];
+        r.forEach(row => {
+          if (!filterMap.has(row[i])) {
+            filterMap.set(row[i]);
+            filterArray.push({name: row[i], value: row[i]});
+          }
+        });
+        filterArray.sort((v1, v2) => v1.name.localeCompare(v2.name));
+        return filterArray;
+      },
+    });
+  });
+  return columns;
+}
+```
