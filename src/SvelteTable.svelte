@@ -17,14 +17,14 @@
   export let classNameCell = '';
 
   let sortFunction = () => "";
-  let showFilterHeader = columns.some(c => c.filterOptions !== undefined);
   let filterValues = {};
   let filterSettings = {};
 
+$: showFilterHeader = columns.some(c => c.filterOptions !== undefined);
 $: columnByKey = updateColumnByKey(columns);
 
 function updateColumnByKey (columns) {
-  const byKey = [];
+  const byKey = {};
   columns.forEach(col => {
     byKey[col.key] = col;
   });
