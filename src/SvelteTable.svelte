@@ -28,7 +28,6 @@ function updateColumnByKey (columns) {
   columns.forEach(col => {
     byKey[col.key] = col;
   });
-  console.log('columnByKey:');console.dir(byKey);
   return byKey;
 }
 
@@ -110,7 +109,6 @@ $: if (showFilterHeader) calculateFilterValues(rows, columns);
     width: 100%;
   }
 </style>
-<b>TODO: NOTE - using link to local fork of svelte-table</b><br/>
 <table class={asStringArray(classNameTable)}>
   <thead class={asStringArray(classNameThead)}>
     {#if showFilterHeader}
