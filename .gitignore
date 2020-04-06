@@ -6,3 +6,4 @@ yarn-debug.log*
 yarn-error.log*
 node_modules/
 */node_modules/
+package-lock.json

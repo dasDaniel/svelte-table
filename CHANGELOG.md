@@ -1,5 +1,9 @@
 
 
+0.1.8 
+- fixed asStringArray function
+- removed package-lock to reduce potential security issues with some old nested dependencies
+
 0.1.7
 - added support for class names for table, thead, tbody, select, row, and cell elements
 - cleaned up tab use in code

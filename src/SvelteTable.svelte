@@ -44,7 +44,7 @@
     return 0;
     });
 
-  const asStringArray = (v) => [].concat(v).filter(v => typeof v === 'string');
+  const asStringArray = (v) => [].concat(v).filter(v => typeof v === 'string' && v !== "").join(' ');
 
   const calculateFilterValues = () => {
     filterValues = {};
