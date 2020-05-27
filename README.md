@@ -198,6 +198,8 @@ const columns = [
 
 # Reactivity
 
+**UPDATE 27-05-20:** the upstream [maintainer has responded](https://github.com/dasDaniel/svelte-table/issues/6#issuecomment-634419671) that reactivity is possible without my change, so I need to look into that.
+
 As mentioned in the introduction, this fork adds reactivity so you
 don't have to provide a fixed set of columns and filters for your
 data, but can generate these programatically from the data and
