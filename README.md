@@ -159,18 +159,31 @@ const columns = [
 
 | Option            | Type         | Description                                    |
 | ----------------- | ------------ | ---------------------------------------------- |
-| `columns`         | Object[]     | column settings (details below)                |
-| `data`            | Object[]     | Data array                                     |
-| `sortBy`          | String       | Sorting key                                    |
-| `sortOrder`       | Number       | `1` = Ascending, `-1` Descending               |
+| `columns`         | Object[]     | column config (details below)                  |
+| `rows`            | Object[]     | row (data) array                               |
+| `sortBy`          | String       | ‡ Sorting key                                  |
+| `sortOrder`       | Number       | ‡ `1` = Ascending, `-1` Descending             |
 | `iconAsc`         | String       | ascii string for ascending ordering character  |
 | `iconDesc`        | String       | ascii string for descending ordering character |
+| `clickCol`        | function     | event listener/callback                        |
+| `clickRow`        | function     | event listener/callback                        |
+| `clickCell`       | function     | event listener/callback                        |
 | `classNameTable`  | String/Array | _optional_ class name(s) for table element     |
 | `classNameThead`  | String/Array | _optional_ class name(s) for thead element     |
 | `classNameTbody`  | String/Array | _optional_ class name(s) for tbody element     |
 | `classNameSelect` | String/Array | _optional_ class name(s) for select elements   |
 | `classNameRow`    | String/Array | _optional_ class name(s) for row elements      |
 | `classNameCell`   | String/Array | _optional_ class name(s) for cell elements     |
+
+### Events
+
+Events pass a CustomEvent object with the following params in the `detail` object
+
+- _clickCol_: `event`, `col`, `key`
+- _clickRow_: `event`, `row`
+- _clickCell_: `event`, `row`, `key`
+
+_‡_ field allows 2-way binding
 
 ## Column array object values
 

@@ -1,4 +1,9 @@
 
+0.1.9
+- updated dependencies
+- pass click event for `clickCol`, `clickRow`, and `clickCell` listeners
+- improved examples
+- improved code formatting
 
 0.1.8 
 - fixed asStringArray function
