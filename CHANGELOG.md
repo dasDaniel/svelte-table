@@ -1,4 +1,8 @@
 
+0.1.11
+- updated dependency versions 
+- cleanup
+
 0.1.10
 - filters now update when rows change
 - added example4 to illustrate reactive filters
