@@ -67,6 +67,13 @@
     }
   };
 
+  $: {
+    // if filters are enabled, watch rows and columns
+    if (showFilterHeader && columns && rows) {
+      calculateFilterValues();
+    }
+  };
+
   const updateSortOrder = (colKey) => {
     if (colKey === sortBy) {
       sortOrder = sortOrder === 1 ? -1 : 1
@@ -89,9 +96,6 @@
     dispatch('clickCell', {event, row, key} );
   }
 
-  if (showFilterHeader) {
-    calculateFilterValues();
-  }
 </script>
 
 <style>

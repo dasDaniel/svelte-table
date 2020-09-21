@@ -1,4 +1,8 @@
 
+0.1.10
+- filters now update when rows change
+- added example4 to illustrate reactive filters
+
 0.1.9
 - updated dependencies
 - pass click event for `clickCol`, `clickRow`, and `clickCell` listeners
