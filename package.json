@@ -8,16 +8,15 @@
   "svelte": "src/SvelteTable.svelte",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w"
+    "dev": "rollup -c -w",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "rollup": "^1.32.1",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-polyfill": "^3.0.0",
-    "rollup-plugin-svelte": "^5.2.2",
-    "rollup-plugin-terser": "^5.3.0",
-    "svelte": "^3.22.3"
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "rollup": "^2.0.0",
+    "rollup-plugin-svelte": "^6.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "svelte": "^3.0.0"
   },
   "keywords": [
     "table",

@@ -1,18 +1,18 @@
 
 import svelte from 'rollup-plugin-svelte';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+// import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
 const minify = !process.env.MINIFY;
-const input = 'src/SvelteTable.svelte';
+const input = 'src/index.js';
 const name = 'SvelteTable';
 
 const plugins = [
   svelte(),
   resolve(),
-  commonjs(),
+  // commonjs(),
   minify && terser(),
 ]
 
