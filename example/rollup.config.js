@@ -6,20 +6,20 @@ import buble from "rollup-plugin-buble";
 import serve from "rollup-plugin-serve";
 
 const CONFIG = {
-  input: "",
-  output: {
-    customElement: true,
-    sourcemap: true,
-    format: "iife",
-    name: "app",
-    dir: "public/bundle"
+  input:            "",
+  output:           {
+    customElement:    true,
+    sourcemap:        true,
+    format:           "iife",
+    name:             "app",
+    dir:              "public/bundle"
   },
-  plugins: [
+  plugins:          [
     svelte(),
     resolve({
-      jsnext: true,
-      main: true,
-      browser: true
+      jsnext:           true,
+      main:             true,
+      browser:          true
     }),
     commonjs(),
     buble({ transforms: { forOf: false } }),
