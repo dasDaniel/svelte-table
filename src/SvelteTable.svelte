@@ -1,162 +1,182 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher } from 'svelte';
 
-  const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 
-  export let columns;
-  export let rows;
-  export let sortBy = "";
-  export let sortOrder = 1;
-  export let iconAsc = '▲';
-  export let iconDesc = '▼';
-  export let classNameTable = '';
-  export let classNameThead = '';
-  export let classNameTbody = '';
-  export let classNameSelect = '';
-  export let classNameRow = '';
-  export let classNameCell = '';
+    export let classNameCell = '';
+    export let classNameRow = '';
+    export let classNameSelect = '';
+    export let classNameTable = '';
+    export let classNameTbody = '';
+    export let classNameThead = '';
+    export let columns;
+    export let iconAsc = '▲';
+    export let iconDesc = '▼';
+    export let rows;
+    export let sortBy = "";
+    export let sortOrder = 1;
 
-  let sortFunction = () => "";
-  let showFilterHeader = columns.some(c => c.filterOptions !== undefined);
-  let filterValues = {};
-  let filterSettings = {};
-  let columnByKey = {};
+    let columnByKey = {};
+    let filterSettings = {};
+    let filterValues = {};
+    let showFilterHeader = columns.some(c => c.filterOptions !== undefined);
+    let sortFunction = () => "";
 
-  columns.forEach(col => {
-    columnByKey[col.key] = col;
-  });
-
-  $: c_rows = rows
-    .filter(r =>
-      Object.keys(filterSettings).every(f => {
-        let ret = (
-          filterSettings[f] === undefined ||
-          // default to value() if filterValue() not provided in col
-          filterSettings[f] === (typeof columnByKey[f].filterValue === 'function' ? 
-            columnByKey[f].filterValue(r) : columnByKey[f].value(r))
-        );
-        return ret;
-      })
-    )
-    .map(r => (Object.assign({}, r, {$sortOn: sortFunction(r)} ) ) )
-    .sort((a, b) => {
-      if (a.$sortOn > b.$sortOn) return sortOrder;
-      else if (a.$sortOn < b.$sortOn) return -sortOrder;
-      return 0;
+    // Allow dynamic addition of columns and sorting/filtering of them
+    $: columns.forEach((col) => {
+        columnByKey[col.key] = col;
     });
 
-  const asStringArray = (v) => [].concat(v).filter(v => typeof v === 'string' && v !== "").join(' ');
+    $: c_rows                   = rows
+        .filter((row) => {
+            const result            = Object.keys(filterSettings).every((f) => {
+                let ret = (
+                    filterSettings[f] === undefined 
+                    || filterSettings[f] === (
+                        // default to value() if filterValue() not provided in col
+                        typeof columnByKey[f].filterValue === 'function' ? 
+                            columnByKey[f].filterValue(row)
+                            : columnByKey[f].value(row)
+                    )
+                );
 
-  const calculateFilterValues = () => {
-    filterValues = {};
-    columns.forEach(c => {
-      if (typeof c.filterOptions === "function") {
-        filterValues[c.key] = c.filterOptions(rows);
-      } else if (Array.isArray(c.filterOptions)) {
-        // if array of strings is provided, use it for name and value
-        filterValues[c.key] = c.filterOptions.map(val => ({name:val, value:val}));
-      }
-    });
-  };
+                return ret;
+            });
+
+            return result;
+        })
+        .map((row) => (Object.assign({}, row, { $sortOn: sortFunction(row) } )))
+        .sort((a, b) => {
+            if (a.$sortOn > b.$sortOn) return sortOrder;
+            else if (a.$sortOn < b.$sortOn) return -sortOrder;
+            return 0;
+        });
+
+    const asStringArray = (v) => [].concat(v).filter(v => typeof v === 'string' && v !== "").join(' ');
+
+    const calculateFilterValues = () => {
+        filterValues = {};
+
+        columns.forEach((column) => {
+            if (typeof column.filterOptions === "function") {
+                filterValues[column.key] = column.filterOptions(rows);
+            }
+            else if (Array.isArray(column.filterOptions)) {
+                // if array of strings is provided, use it for name and value
+                filterValues[column.key] = column.filterOptions.map((val) => ({ name: val, value: val }));
+            }
+        });
+    };
 
 
-  $: {
-    let col = columnByKey[sortBy];
-    if (col !== undefined && col.sortable === true && typeof col.value === "function") {
-      sortFunction = r => col.value(r);
+    $: {
+        let col = columnByKey[sortBy];
+
+        console.log("col is:", col);
+
+        if (col !== undefined && col.sortable === true && typeof col.value === "function") {
+            sortFunction = (row) => col.value(row);
+        }
+    };
+
+    $: {
+        // if filters are enabled, watch rows and columns
+        if (showFilterHeader && columns && rows) {
+            calculateFilterValues();
+        }
+    };
+
+    const updateSortOrder = (colKey) => {
+        if (colKey === sortBy) {
+            sortOrder = sortOrder === 1 ? -1 : 1;
+        } else {
+            sortOrder = 1;
+        }
     }
-  };
 
-  $: {
-    // if filters are enabled, watch rows and columns
-    if (showFilterHeader && columns && rows) {
-      calculateFilterValues();
+    const updateSortBy = (colKey) => {
+        sortBy = colKey;
     }
-  };
+    
+    const handleClickCol = (event, col) => {
+        updateSortOrder(col.key);
+        updateSortBy(col.key);
 
-  const updateSortOrder = (colKey) => {
-    if (colKey === sortBy) {
-      sortOrder = sortOrder === 1 ? -1 : 1
-    } else {
-      sortOrder = 1;
+        dispatch('clickCol', { event, col, key: col.key });
     }
-  }
-  
-  const handleClickCol = (event, col) => {
-    updateSortOrder(col.key)
-    sortBy = col.key;
-    dispatch('clickCol', {event, col, key:col.key} );
-  }
-  
-  const handleClickRow = (event, row) => {
-    dispatch('clickRow', {event, row} );
-  }
-
-  const handleClickCell = (event, row, key) => {
-    dispatch('clickCell', {event, row, key} );
-  }
+    
+    const handleClickRow = (event, row) => dispatch('clickRow', { event, row });
+    const handleClickCell = (event, row, key) => dispatch('clickCell', { event, row, key });
 
 </script>
 
 <style>
-  table {
-    width: 100%;
-  }
-  .isSortable {
-    cursor: pointer;
-  }
+    table {
+        /* Layout Properties */
+        width:          100%;
+    }
 
-  tr th select {
-    width: 100%;
-  }
+    .isSortable {
+        /* UI Properties */
+        cursor:         pointer;
+    }
+
+    tr th select {
+        /* Layout Properties */
+        width:          100%;
+    }
 </style>
 
 <table class={asStringArray(classNameTable)}>
-  <thead class={asStringArray(classNameThead)}>
-    {#if showFilterHeader}
-      <tr>
-        {#each columns as col}
-          <th>
-            {#if filterValues[col.key] !== undefined}
-              <select bind:value={filterSettings[col.key]} class={asStringArray(classNameSelect)}>
-                <option value={undefined}></option>
-                {#each filterValues[col.key] as option}
-                  <option value={option.value}>{option.name}</option>
+    <thead class={asStringArray(classNameThead)}>
+        {#if showFilterHeader}
+            <tr>
+                {#each columns as col}
+                    <th>
+                        {#if filterValues[col.key] !== undefined}
+                            <select bind:value={filterSettings[col.key]} class={asStringArray(classNameSelect)}>
+                                <option value={undefined}></option>
+                                {#each filterValues[col.key] as option}
+                                    <option value={option.value}>{option.name}</option>
+                                {/each}
+                            </select>
+                        {/if}
+                    </th>
                 {/each}
-              </select>
-            {/if}
-          </th>
+            </tr>
+        {/if}
+
+        <slot name="header" sortOrder={sortOrder} sortBy={sortBy}>
+            <tr>
+                {#each columns as col}
+                    <th
+                        on:click={col.sortable ? (e) => handleClickCol(e, col) : undefined}
+                        class={asStringArray([col.sortable ? 'isSortable' : null, col.headerClass])}
+                    >
+                        {col.title}
+                        {#if sortBy === col.key}
+                            {sortOrder === 1 ? iconAsc : iconDesc}
+                        {/if}
+                    </th>
+                {/each}
+            </tr>
+        </slot>
+    </thead>
+
+    <tbody class={asStringArray(classNameTbody)}>
+        {#each c_rows as row, n}
+            <slot name="row" row={row} n={n}>
+                <tr on:click={(e)=> handleClickRow(e, row)} class={asStringArray(classNameRow)}>
+                    {#each columns as col}
+                        <td
+                            on:click={(e) => handleClickCell(e, row, col.key)}
+                            class={asStringArray([col.class, classNameCell])}
+                        >
+                            {@html col.renderValue ? col.renderValue(row) : col.value(row)}
+                        </td>
+                    {/each}
+                </tr>
+            </slot>
         {/each}
-      </tr>
-    {/if}
-      <slot name="header" sortOrder={sortOrder} sortBy={sortBy}>
-        <tr>
-          {#each columns as col}
-            <th
-              on:click={(e) => handleClickCol(e, col)}
-              class={asStringArray([col.sortable ? 'isSortable' : null, col.headerClass])}
-            >
-              {col.title}
-              {#if sortBy === col.key}
-                { sortOrder === 1 ? iconAsc : iconDesc}
-              {/if}
-            </th>
-          {/each}
-        </tr>
-      </slot>
-  </thead>
-  <tbody class={asStringArray(classNameTbody)}>
-    {#each c_rows as row, n}
-      <slot name="row" row={row} n={n} >
-        <tr on:click={(e)=>{handleClickRow(e, row)}} class={asStringArray(classNameRow)}>
-          {#each columns as col}
-            <td
-              on:click={(e)=>{handleClickCell(e, row, col.key)}}
-              class={asStringArray([col.class, classNameCell])}
-            >{@html col.renderValue ? col.renderValue(row) : col.value(row)}</td>
-          {/each}
-        </tr>
-      </slot>
-    {/each}
-  </tbody>
+    </tbody>
 </table>
