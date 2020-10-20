@@ -4,8 +4,6 @@
   import faker from "faker";
   faker.seed(5);
 
-  let example = 0;
-
   let sortBy = "id";
   let sortOrder = 1;
   let iconAsc = "↑";
@@ -16,7 +14,7 @@
       key: "id",
       title: "ID",
       value: v => v.id,
-      sortable: true,
+      sortable: false,
       filterOptions: rows => {
         let nums = {};
         rows.forEach(row => {
@@ -147,7 +145,4 @@
   }
 </style>
 
-<SvelteTable
-  columns={colums}
-  rows={data}
-></SvelteTable>
+<SvelteTable columns={colums} rows={data} />

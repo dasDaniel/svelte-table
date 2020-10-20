@@ -4,8 +4,6 @@
   import faker from "faker";
   faker.seed(5);
 
-  let example = 0;
-
   let sortBy = "id";
   let sortOrder = 1;
   let iconAsc = "↑";

@@ -1,4 +1,6 @@
 
+- Fix examples to use correct case
+
 0.1.11
 - updated dependency versions 
 - cleanup
