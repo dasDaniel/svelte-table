@@ -1,4 +1,5 @@
 
+0.1.12
 - disabled click handler for header on columns that are not sortable 
 - fix examples to use correct case
 
