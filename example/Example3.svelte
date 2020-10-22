@@ -3,8 +3,6 @@
   // import SvelteTable from "svelte-table";
   import faker from "faker";
 
-  let example = 0;
-
   let sortBy = "id";
   let sortOrder = 1;
   let iconAsc = "↑";

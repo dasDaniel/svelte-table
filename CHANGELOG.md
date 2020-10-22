@@ -1,4 +1,7 @@
 
+- disabled click handler for header on columns that are not sortable 
+- fix examples to use correct case
+
 0.1.11
 - updated dependency versions 
 - cleanup
