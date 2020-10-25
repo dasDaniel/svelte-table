@@ -194,6 +194,7 @@ _‡_ field allows 2-way binding
 | `value`           | Function       | table cell value. The function is passed row data                                       |
 | `[class]`         | String         | _optional_ table cell class name                                                        |
 | `[sortable]`      | Boolean        | _optional_ Whether the table can be sorted on column                                    |
+| `[search]`        | Function       | _optional_ search value function. function is passed row data.                          |
 | `[filterOptions]` | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows |
 | `[filterValue]`   | String         | _optional_ value to filter on, usually same as value                                    |
 | `[headerClass]`   | String         | _optional_ class to assign to header                                                    |
