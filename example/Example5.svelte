@@ -22,14 +22,14 @@
       title: "FIRST NAME",
       value: v => v.first_name,
       sortable: true,
-      search: v => v.first_name
+      searchValue: v => v.first_name
     },
     {
       key: "last_name",
       title: "LAST NAME",
       value: v => v.last_name,
       sortable: true,
-      search: v => v.last_name
+      searchValue: v => v.last_name
     },
     {
       key: "email",

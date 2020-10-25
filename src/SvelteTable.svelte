@@ -33,8 +33,8 @@
           // check search (text input) matches
           let resSearch = 
             filterSettings[f] === "" ||
-            (columnByKey[f].search &&
-              (columnByKey[f].search(r) + "")
+            (columnByKey[f].searchValue &&
+              (columnByKey[f].searchValue(r) + "")
                 .toLocaleLowerCase()
                 .indexOf((filterSettings[f] + "").toLocaleLowerCase()) >= 0);
           
@@ -129,7 +129,7 @@
       <tr>
         {#each columns as col}
           <th>
-            {#if col.search !== undefined}
+            {#if col.searchValue !== undefined}
               <input bind:value={filterSettings[col.key]}>
             {:else if filterValues[col.key] !== undefined}
               <select bind:value={filterSettings[col.key]} class={asStringArray(classNameSelect)}>
