@@ -19,6 +19,7 @@
   let sortFunction = () => "";
   let showFilterHeader = columns.some(c => c.filterOptions !== undefined);
   let filterValues = {};
+  let searchValues = {};
   let filterSettings = {};
   let columnByKey = {};
 
@@ -27,16 +28,28 @@
   });
 
   $: c_rows = rows
-    .filter(r =>
-      Object.keys(filterSettings).every(f => {
-        let ret = (
-          filterSettings[f] === undefined ||
-          // default to value() if filterValue() not provided in col
-          filterSettings[f] === (typeof columnByKey[f].filterValue === 'function' ? 
-            columnByKey[f].filterValue(r) : columnByKey[f].value(r))
-        );
-        return ret;
-      })
+    .filter(r => {
+        return Object.keys(filterSettings).every(f => {
+          // check search (text input) matches
+          let resSearch = 
+            filterSettings[f] === "" ||
+            (columnByKey[f].search &&
+              (columnByKey[f].search(r) + "")
+                .toLocaleLowerCase()
+                .indexOf((filterSettings[f] + "").toLocaleLowerCase()) >= 0);
+          
+          // check filter (dropdown) matchas
+          let resFilter =
+            resSearch ||
+            filterSettings[f] === undefined ||
+            // default to value() if filterValue() not provided in col
+            filterSettings[f] ===
+              (typeof columnByKey[f].filterValue === "function"
+                ? columnByKey[f].filterValue(r)
+                : columnByKey[f].value(r));
+          return resFilter;
+        })
+      }
     )
     .map(r => (Object.assign({}, r, {$sortOn: sortFunction(r)} ) ) )
     .sort((a, b) => {
@@ -58,7 +71,6 @@
       }
     });
   };
-
 
   $: {
     let col = columnByKey[sortBy];
@@ -117,7 +129,9 @@
       <tr>
         {#each columns as col}
           <th>
-            {#if filterValues[col.key] !== undefined}
+            {#if col.search !== undefined}
+              <input bind:value={filterSettings[col.key]}>
+            {:else if filterValues[col.key] !== undefined}
               <select bind:value={filterSettings[col.key]} class={asStringArray(classNameSelect)}>
                 <option value={undefined}></option>
                 {#each filterValues[col.key] as option}
