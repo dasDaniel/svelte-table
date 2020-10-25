@@ -30,7 +30,6 @@
   $: c_rows = rows
     .filter(r => {
         return Object.keys(filterSettings).every(f => {
-          console.log(f, columnByKey[f].search && columnByKey[f].search(r))
           // check search (text input) matches
           let resSearch = 
             filterSettings[f] === "" ||
