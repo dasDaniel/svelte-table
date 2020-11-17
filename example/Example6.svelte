@@ -63,12 +63,6 @@
 </script>
 
 <style>
-  div :global(.g_female) {
-    color: #f9e;
-  }
-  div :global(.g_male) {
-    color: #99e;
-  }
   div :global(.text-center) {
     text-align: center;
   }
