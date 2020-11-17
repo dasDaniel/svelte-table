@@ -34,4 +34,5 @@ export default [
   { ...CONFIG, input: "example3.js" },
   { ...CONFIG, input: "example4.js" },
   { ...CONFIG, input: "example5.js" },
+  { ...CONFIG, input: "example6.js" },
 ];
