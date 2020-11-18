@@ -20,8 +20,8 @@ export default [
   {
     input,
     output: {
-      customElement: true,
       sourcemap: true,
+      exports: 'default',
       format: 'cjs',
       name,
       file: 'dist/cjs/SvelteTable.js'
@@ -31,7 +31,6 @@ export default [
   {
     input,
     output: {
-      customElement: true,
       sourcemap: true,
       format: 'es',
       name,
@@ -42,7 +41,6 @@ export default [
   {
     input,
     output: {
-      customElement: true,
       sourcemap: true,
       format: 'umd',
       name,
@@ -53,7 +51,6 @@ export default [
   {
     input,
     output: {
-      customElement: true,
       sourcemap: true,
       format: 'iife',
       name,
