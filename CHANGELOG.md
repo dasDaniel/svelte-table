@@ -1,4 +1,12 @@
 
+0.1.15
+- added ability to render Svelte component as content via `col.renderComponent`
+- some cleanup on rollup config
+- updated readme
+
+0.1.14
+- added search support
+
 0.1.12
 - disabled click handler for header on columns that are not sortable 
 - fix examples to use correct case
