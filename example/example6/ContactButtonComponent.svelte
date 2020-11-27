@@ -1,6 +1,6 @@
 <script>
   export let row;
-  export let col;
+  export let onContactButtonClick;
 </script>
 
-<button on:click={() => alert(`Contacted ${row.first_name} ${row.last_name}`)}>Contact</button>
+<button on:click={() => onContactButtonClick(row)}>Contact {row.first_name} {row.last_name}</button>
