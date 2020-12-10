@@ -31,13 +31,13 @@
     .filter(r => {
         return Object.keys(filterSettings).every(f => {
           // check search (text input) matches
-          let resSearch = 
+          let resSearch =
             filterSettings[f] === "" ||
             (columnByKey[f].searchValue &&
               (columnByKey[f].searchValue(r) + "")
                 .toLocaleLowerCase()
                 .indexOf((filterSettings[f] + "").toLocaleLowerCase()) >= 0);
-          
+
           // check filter (dropdown) matchas
           let resFilter =
             resSearch ||
@@ -93,13 +93,13 @@
       sortOrder = 1;
     }
   }
-  
+
   const handleClickCol = (event, col) => {
     updateSortOrder(col.key)
     sortBy = col.key;
     dispatch('clickCol', {event, col, key:col.key} );
   }
-  
+
   const handleClickRow = (event, row) => {
     dispatch('clickRow', {event, row} );
   }
@@ -178,7 +178,13 @@
             <td
               on:click={(e)=>{handleClickCell(e, row, col.key)}}
               class={asStringArray([col.class, classNameCell])}
-            >{@html col.renderValue ? col.renderValue(row) : col.value(row)}</td>
+            >
+              {#if col.renderComponent}
+                <svelte:component this={col.renderComponent} row={row}/>
+              {:else}
+                {@html col.renderValue ? col.renderValue(row) : col.value(row)}
+              {/if}
+            </td>
           {/each}
         </tr>
       </slot>
