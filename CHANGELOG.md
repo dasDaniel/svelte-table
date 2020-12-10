@@ -1,3 +1,5 @@
+0.1.16
+- support passing props to renderComponent
 
 0.1.15
 - added ability to render Svelte component as content via `col.renderComponent`

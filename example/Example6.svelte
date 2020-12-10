@@ -1,9 +1,12 @@
 <script>
   import SvelteTable from "../src/SvelteTable.svelte";
   import ContactButtonComponent from "./example6/ContactButtonComponent.svelte";
+  import HelpButtonComponent from "./example6/HelpButtonComponent.svelte";
   // import SvelteTable from "svelte-table";
   import faker from "faker";
   faker.seed(15);
+
+  const onContactButtonClick = row => alert(`Contacted ${row.first_name} ${row.last_name}`);
 
   const colums = [
     {
@@ -35,10 +38,16 @@
       class: "text-center"
     },
     {
-      key: "actions",
+      key: "contact",
       title: "",
       sortable: false,
-      renderComponent: ContactButtonComponent
+      renderComponent: {component: ContactButtonComponent, props: {onContactButtonClick}}
+    },
+    {
+      key: "help",
+      title: "",
+      sortable: false,
+      renderComponent: HelpButtonComponent
     },
   ];
 
