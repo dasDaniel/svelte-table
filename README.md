@@ -3,6 +3,7 @@
 A _relatively_ minimal svelte table example. Allows sorting and filtering based on column values.
 
 ## Example
+
 [github pages IIFE example](https://dasdaniel.github.io/svelte-table/)
 
 ## Install
@@ -43,7 +44,7 @@ An iife version is also available in the `/dist/iife` folder. This allows for ea
   ];
   new SvelteTable({
     target: document.querySelector("#my-table"),
-    props: { rows, columns },
+    props: { rows, columns }
   });
 </script>
 ```
@@ -71,7 +72,7 @@ const rows = [
   { id: 16, first_name: "Albert", last_name: "Einstein", gender: "male" },
   { id: 17, first_name: "Paul", last_name: "McCartney", gender: "male" },
   { id: 18, first_name: "Queen", last_name: "Victoria", gender: "female" },
-  { id: 19, first_name: "Pope", last_name: "Francis", gender: "male" },
+  { id: 19, first_name: "Pope", last_name: "Francis", gender: "male" }
   // etc...
 ];
 
@@ -80,12 +81,12 @@ const columns = [
   {
     key: "id",
     title: "ID",
-    value: (v) => v.id,
+    value: v => v.id,
     sortable: true,
-    filterOptions: (rows) => {
+    filterOptions: rows => {
       // generate groupings of 0-10, 10-20 etc...
       let nums = {};
-      rows.forEach((row) => {
+      rows.forEach(row => {
         let num = Math.floor(row.id / 10);
         if (nums[num] === undefined)
           nums[num] = { name: `${num * 10} to ${(num + 1) * 10}`, value: num };
@@ -96,23 +97,23 @@ const columns = [
         .reduce((o, [k, v]) => ((o[k] = v), o), {});
       return Object.values(nums);
     },
-    filterValue: (v) => Math.floor(v.id / 10),
-    headerClass: "text-left",
+    filterValue: v => Math.floor(v.id / 10),
+    headerClass: "text-left"
   },
   {
     key: "first_name",
     title: "FIRST_NAME",
-    value: (v) => v.first_name,
+    value: v => v.first_name,
     sortable: true,
-    filterOptions: (rows) => {
+    filterOptions: rows => {
       // use first letter of first_name to generate filter
       let letrs = {};
-      rows.forEach((row) => {
+      rows.forEach(row => {
         let letr = row.first_name.charAt(0);
         if (letrs[letr] === undefined)
           letrs[letr] = {
             name: `${letr.toUpperCase()}`,
-            value: letr.toLowerCase(),
+            value: letr.toLowerCase()
           };
       });
       // fix order
@@ -121,22 +122,22 @@ const columns = [
         .reduce((o, [k, v]) => ((o[k] = v), o), {});
       return Object.values(letrs);
     },
-    filterValue: (v) => v.first_name.charAt(0).toLowerCase(),
+    filterValue: v => v.first_name.charAt(0).toLowerCase()
   },
   {
     key: "last_name",
     title: "LAST_NAME",
-    value: (v) => v.last_name,
+    value: v => v.last_name,
     sortable: true,
-    filterOptions: (rows) => {
+    filterOptions: rows => {
       // use first letter of last_name to generate filter
       let letrs = {};
-      rows.forEach((row) => {
+      rows.forEach(row => {
         let letr = row.last_name.charAt(0);
         if (letrs[letr] === undefined)
           letrs[letr] = {
             name: `${letr.toUpperCase()}`,
-            value: letr.toLowerCase(),
+            value: letr.toLowerCase()
           };
       });
       // fix order
@@ -145,17 +146,16 @@ const columns = [
         .reduce((o, [k, v]) => ((o[k] = v), o), {});
       return Object.values(letrs);
     },
-    filterValue: (v) => v.last_name.charAt(0).toLowerCase(),
+    filterValue: v => v.last_name.charAt(0).toLowerCase()
   },
   {
     key: "gender",
     title: "GENDER",
-    value: (v) => v.gender,
-    renderValue: (v) =>
-      v.gender.charAt(0).toUpperCase() + v.gender.substring(1), // capitalize
+    value: v => v.gender,
+    renderValue: v => v.gender.charAt(0).toUpperCase() + v.gender.substring(1), // capitalize
     sortable: true,
-    filterOptions: ["male", "female"], // provide array
-  },
+    filterOptions: ["male", "female"] // provide array
+  }
 ];
 ```
 
@@ -203,7 +203,39 @@ _‡_ field allows 2-way binding
 | `[filterValue]`     | String         | _optional_ value to filter on, usually same as value                                                          |
 | `[headerClass]`     | String         | _optional_ class to assign to header                                                                          |
 | `[renderValue]`     | Function       | _optional_ render function for rendering html content                                                         |
-| `[renderComponent]` | Component      | _optional_ pass a Svelte component, component will receive `row` and `key` variables (replaces `renderValue`) |
+| `[renderComponent]` | Component      | _optional_ pass a Svelte component, component will receive `row` and `col` variables (replaces `renderValue`) |
+
+### renderComponent
+
+Defining a component can be done dirrectly by passing the component as a value
+
+```js
+[
+  {
+    key: "myColumn",
+    //...
+    renderComponent: myComponent
+  }
+];
+```
+
+Or, if props need to be passed, an object with `component` and `props` can be passed.
+
+```js
+[
+  {
+    key: "myColumn",
+    //...
+    renderComponent: {
+      component: myComponent,
+      props: {
+        myProp: "someValue"
+      }
+    }
+  }
+];
+```
+
 
 ## Slots
 

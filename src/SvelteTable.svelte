@@ -180,7 +180,11 @@
               class={asStringArray([col.class, classNameCell])}
             >
               {#if col.renderComponent}
-                <svelte:component this={col.renderComponent.component} {...(col.renderComponent.props || {})} row={row}/>
+                <svelte:component
+                  this={col.renderComponent.component || col.renderComponent} {...(col.renderComponent.props || {})}
+                  row={row}
+                  col={col}
+                />
               {:else}
                 {@html col.renderValue ? col.renderValue(row) : col.value(row)}
               {/if}

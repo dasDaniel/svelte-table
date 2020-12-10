@@ -47,7 +47,7 @@
       key: "help",
       title: "",
       sortable: false,
-      renderComponent: {component: HelpButtonComponent, props: {onContactButtonClick}}
+      renderComponent: HelpButtonComponent
     },
   ];
 
