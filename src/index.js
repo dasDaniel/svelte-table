@@ -1,1 +1,1 @@
-export { default as default } from './SvelteTable.svelte';
+export {default as default} from "./SvelteTable.svelte";
