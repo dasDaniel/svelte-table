@@ -12,8 +12,10 @@ const CONFIG = {
     sourcemap: true,
     format: "iife",
     name: "app",
-    dir: "public/bundle"
+    dir: "public/bundle",
+    globals: { faker: "faker" }
   },
+  external: ["faker"],
   plugins: [
     svelte(),
     resolve({
@@ -34,5 +36,5 @@ export default [
   { ...CONFIG, input: "example3.js" },
   { ...CONFIG, input: "example4.js" },
   { ...CONFIG, input: "example5.js" },
-  { ...CONFIG, input: "example6.js" },
+  { ...CONFIG, input: "example6.js" }
 ];

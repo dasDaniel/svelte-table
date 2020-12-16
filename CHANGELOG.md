@@ -1,3 +1,8 @@
+
+- `filterSelections` allows setting/getting search and filter selection values
+- bugfix: no longer missing haeders when only search is provided (only worked for filters)
+- examples: faker dependency is now a global referenced via cdn for faster bundling
+
 0.1.16
 - support passing props to renderComponent
 
