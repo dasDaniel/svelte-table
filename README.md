@@ -200,9 +200,13 @@ example: (will preset column with key `first_name` to `a`)
 
 ```html
 <script>
-  const filterSelections = { first_name: "A" };
+  const selection = { first_name: "A" };
 </script>
-<SvelteTable columns="{colums}" rows="{data}" bind:filterSelections />
+<SvelteTable
+  columns="{colums}"
+  rows="{data}"
+  bind:filterSelections="{selection}"
+/>
 ```
 
 ## Column array object values

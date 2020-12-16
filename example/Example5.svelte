@@ -10,7 +10,7 @@
   let sortOrder = 1;
   let iconAsc = "↑";
   let iconDesc = "↓";
-  let filterSelections = {first_name: "a" };
+  let selection = {first_name: "a" };
 
   const colums = [
     {
@@ -75,14 +75,14 @@
     });
 
   function setFilter(key, value = undefined) {
-    console.log(filterSelections, key, filterSelections[key]);
-    if (filterSelections[key] || value != undefined) {
-      filterSelections[key] = value;
+    console.log(selection, key, selection[key]);
+    if (selection[key] || value != undefined) {
+      selection[key] = value;
     }
   }
 
   function clearAll() {
-    filterSelections = {};
+    selection = {};
   }
 </script>
 
@@ -104,25 +104,25 @@
 <div class="btn-group d-flex justify-content-center" role="group">
   <button
     class="btn btn-primary"
-    disabled={!Object.values(filterSelections).some(v => v != undefined)}
+    disabled={!Object.values(selection).some(v => v != undefined)}
     on:click={() => clearAll()}>
     CLEAR ALL
   </button>
   <button
     class="btn btn-primary"
-    disabled={filterSelections['first_name'] === undefined}
+    disabled={selection['first_name'] === undefined}
     on:click={() => setFilter('first_name')}>
     CLEAR FIRST NAME
   </button>
   <button
     class="btn btn-primary"
-    disabled={filterSelections['last_name'] === undefined}
+    disabled={selection['last_name'] === undefined}
     on:click={() => setFilter('last_name')}>
     CLEAR LAST NAME
   </button>
   <button
     class="btn btn-primary"
-    disabled={filterSelections['age'] === undefined}
+    disabled={selection['age'] === undefined}
     on:click={() => setFilter('age')}>
     CLEAR AGE
   </button>
@@ -136,4 +136,4 @@
   classNameTable="table"
   columns={colums}
   rows={data}
-  bind:filterSelections />
+  bind:filterSelections={selection} />
