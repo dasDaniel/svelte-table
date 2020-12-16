@@ -161,23 +161,26 @@ const columns = [
 
 ## Props
 
-| Option            | Type         | Description                                    |
-| ----------------- | ------------ | ---------------------------------------------- |
-| `columns`         | Object[]     | column config (details below)                  |
-| `rows`            | Object[]     | row (data) array                               |
-| `sortBy`          | String       | ‡ Sorting key                                  |
-| `sortOrder`       | Number       | ‡ `1` = Ascending, `-1` Descending             |
-| `iconAsc`         | String       | ascii string for ascending ordering character  |
-| `iconDesc`        | String       | ascii string for descending ordering character |
-| `clickCol`        | function     | event listener/callback                        |
-| `clickRow`        | function     | event listener/callback                        |
-| `clickCell`       | function     | event listener/callback                        |
-| `classNameTable`  | String/Array | _optional_ class name(s) for table element     |
-| `classNameThead`  | String/Array | _optional_ class name(s) for thead element     |
-| `classNameTbody`  | String/Array | _optional_ class name(s) for tbody element     |
-| `classNameSelect` | String/Array | _optional_ class name(s) for select elements   |
-| `classNameRow`    | String/Array | _optional_ class name(s) for row elements      |
-| `classNameCell`   | String/Array | _optional_ class name(s) for cell elements     |
+| Option             | Type         | Description                                    |
+| ------------------ | ------------ | ---------------------------------------------- |
+| `columns`          | Object[]     | column config (details below)                  |
+| `rows`             | Object[]     | row (data) array                               |
+| `sortBy`           | String       | ‡ Sorting key                                  |
+| `sortOrder`        | Number       | ‡ `1` = Ascending, `-1` Descending             |
+| `iconAsc`          | String       | ascii string for ascending ordering character  |
+| `iconDesc`         | String       | ascii string for descending ordering character |
+| `clickCol`         | function     | event listener/callback                        |
+| `clickRow`         | function     | event listener/callback                        |
+| `clickCell`        | function     | event listener/callback                        |
+| `classNameTable`   | String/Array | _optional_ class name(s) for table element     |
+| `classNameThead`   | String/Array | _optional_ class name(s) for thead element     |
+| `classNameTbody`   | String/Array | _optional_ class name(s) for tbody element     |
+| `classNameSelect`  | String/Array | _optional_ class name(s) for select elements   |
+| `classNameRow`     | String/Array | _optional_ class name(s) for row elements      |
+| `classNameCell`    | String/Array | _optional_ class name(s) for cell elements     |
+| `filterSelections` | Object[]     | ‡ _optional_ search or filter selection        |
+
+_‡_ field allows 2-way binding
 
 ### Events
 
@@ -187,7 +190,20 @@ Events pass a CustomEvent object with the following params in the `detail` objec
 - _clickRow_: `event`, `row`
 - _clickCell_: `event`, `row`, `key`
 
-_‡_ field allows 2-way binding
+### `filterSelections`
+
+Allows getting and setting the search or filter value. The `filterSelections` will update as the filter and search selection changes.
+Inside the object keys (matching row keys) will be used to get/set the filter and search values. Setting key to `undefined` or deleting
+it will remove filter or search setting.
+
+example: (will preset column with key `first_name` to `a`)
+
+```html
+<script>
+  const filterSelections = { first_name: "A" };
+</script>
+<SvelteTable columns="{colums}" rows="{data}" bind:filterSelections />
+```
 
 ## Column array object values
 
@@ -235,7 +251,6 @@ Or, if props need to be passed, an object with `component` and `props` can be pa
   }
 ];
 ```
-
 
 ## Slots
 

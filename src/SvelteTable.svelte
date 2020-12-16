@@ -15,12 +15,15 @@
   export let classNameSelect = '';
   export let classNameRow = '';
   export let classNameCell = '';
+  export let filterSelections = {};
 
   let sortFunction = () => "";
-  let showFilterHeader = columns.some(c => c.filterOptions !== undefined);
+  let showFilterHeader = columns.some(c => {
+    // check if there are any filter or search headers
+    return c.filterOptions !== undefined || c.searchValue !== undefined
+  });
   let filterValues = {};
   let searchValues = {};
-  let filterSettings = {};
   let columnByKey = {};
 
   columns.forEach(col => {
@@ -29,21 +32,22 @@
 
   $: c_rows = rows
     .filter(r => {
-        return Object.keys(filterSettings).every(f => {
+      // get search and filter results/matches
+      return Object.keys(filterSelections).every(f => {
           // check search (text input) matches
           let resSearch =
-            filterSettings[f] === "" ||
+            filterSelections[f] === "" ||
             (columnByKey[f].searchValue &&
               (columnByKey[f].searchValue(r) + "")
                 .toLocaleLowerCase()
-                .indexOf((filterSettings[f] + "").toLocaleLowerCase()) >= 0);
-
-          // check filter (dropdown) matchas
+                .indexOf((filterSelections[f] + "").toLocaleLowerCase()) >= 0);
+            
+          // check filter (dropdown) matches
           let resFilter =
             resSearch ||
-            filterSettings[f] === undefined ||
+            filterSelections[f] === undefined ||
             // default to value() if filterValue() not provided in col
-            filterSettings[f] ===
+            filterSelections[f] ===
               (typeof columnByKey[f].filterValue === "function"
                 ? columnByKey[f].filterValue(r)
                 : columnByKey[f].value(r));
@@ -130,9 +134,9 @@
         {#each columns as col}
           <th>
             {#if col.searchValue !== undefined}
-              <input bind:value={filterSettings[col.key]}>
+              <input bind:value={filterSelections[col.key]}>
             {:else if filterValues[col.key] !== undefined}
-              <select bind:value={filterSettings[col.key]} class={asStringArray(classNameSelect)}>
+              <select bind:value={filterSelections[col.key]} class={asStringArray(classNameSelect)}>
                 <option value={undefined}></option>
                 {#each filterValues[col.key] as option}
                   <option value={option.value}>{option.name}</option>

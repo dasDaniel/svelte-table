@@ -1,5 +1,7 @@
 <script>
-  import SvelteTable from "../src/SvelteTable.svelte";
+  // import SvelteTable from "../src/SvelteTable.svelte";
+  import SvelteTable from "../src/index.js";
+  import { generateFilter } from "./helper.js";
   // import SvelteTable from "svelte-table";
   import faker from "faker";
   faker.seed(15);
@@ -8,6 +10,7 @@
   let sortOrder = 1;
   let iconAsc = "↑";
   let iconDesc = "↓";
+  let filterSelections = {first_name: "a" };
 
   const colums = [
     {
@@ -39,19 +42,11 @@
       class: "text-center"
     },
     {
-      key: "gender",
-      title: "GENDER",
-      value: v => v.gender,
-      renderValue: v => {
-        const classNames = [`g_${v.gender.toLowerCase()}`];
-        let icon = v.gender.toLowerCase() === "female" ? "&female;" : "";
-        icon = v.gender.toLowerCase() === "male" ? "&male;" : icon;
-        return `<span class="${classNames.join(" ")}">${icon} ${
-          v.gender
-        }</span>`;
-      },
+      key: "age",
+      title: "Age",
+      value: v => v.age,
       sortable: true,
-      filterOptions: ["Male", "Female"]
+      filterOptions: generateFilter("age")
     },
     {
       key: "ip_address",
@@ -70,8 +65,7 @@
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         gender: faker.random.number(1) ? "Female" : "Male",
-        ip_address:
-          "192.168." + faker.random.number(128) + "." + faker.random.number(255)
+        age: 26 + faker.random.number(37)
       };
       d.email =
         d.first_name[0].toLowerCase() +
@@ -79,6 +73,17 @@
         "@zipit.org.ca";
       return d;
     });
+
+  function setFilter(key, value = undefined) {
+    console.log(filterSelections, key, filterSelections[key]);
+    if (filterSelections[key] || value != undefined) {
+      filterSelections[key] = value;
+    }
+  }
+
+  function clearAll() {
+    filterSelections = {};
+  }
 </script>
 
 <style>
@@ -96,4 +101,39 @@
   }
 </style>
 
-<SvelteTable columns={colums} rows={data} />
+<div class="btn-group d-flex justify-content-center" role="group">
+  <button
+    class="btn btn-primary"
+    disabled={!Object.values(filterSelections).some(v => v != undefined)}
+    on:click={() => clearAll()}>
+    CLEAR ALL
+  </button>
+  <button
+    class="btn btn-primary"
+    disabled={filterSelections['first_name'] === undefined}
+    on:click={() => setFilter('first_name')}>
+    CLEAR FIRST NAME
+  </button>
+  <button
+    class="btn btn-primary"
+    disabled={filterSelections['last_name'] === undefined}
+    on:click={() => setFilter('last_name')}>
+    CLEAR LAST NAME
+  </button>
+  <button
+    class="btn btn-primary"
+    disabled={filterSelections['age'] === undefined}
+    on:click={() => setFilter('age')}>
+    CLEAR AGE
+  </button>
+  <button
+    class="btn btn-primary"
+    on:click={() => setFilter('first_name', 'R') + setFilter('age', 48)}>
+    Find Rosie
+  </button>
+</div>
+<SvelteTable
+  classNameTable="table"
+  columns={colums}
+  rows={data}
+  bind:filterSelections />
