@@ -24,11 +24,13 @@
   });
   let filterValues = {};
   let searchValues = {};
-  let columnByKey = {};
-
-  columns.forEach(col => {
-    columnByKey[col.key] = col;
-  });
+  let columnByKey;
+  $: {
+    columnByKey = {};
+    columns.forEach(col => {
+      columnByKey[col.key] = col;
+    });
+  }
 
   $: c_rows = rows
     .filter(r => {

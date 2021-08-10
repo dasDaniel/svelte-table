@@ -1,3 +1,5 @@
+0.1.18
+- Handle dynamic column definition
 
 0.1.17
 - `filterSelections` allows setting/getting search and filter selection values
