@@ -101,8 +101,10 @@
   }
 
   const handleClickCol = (event, col) => {
-    updateSortOrder(col.key)
-    sortBy = col.key;
+    if (col.sortable) {
+      updateSortOrder(col.key)
+      sortBy = col.key;
+    }
     dispatch('clickCol', {event, col, key:col.key} );
   }
 
@@ -152,26 +154,15 @@
     <slot name="header" sortOrder={sortOrder} sortBy={sortBy}>
       <tr>
         {#each columns as col}
-          {#if col.sortable}
-            <th
-              on:click={(e) => handleClickCol(e, col)}
-              class={asStringArray(['isSortable', col.headerClass])}
-            >
-              {col.title}
-              {#if sortBy === col.key}
-                { sortOrder === 1 ? iconAsc : iconDesc}
-              {/if}
-            </th>
-          {:else}
-            <th
-              class={col.headerClass}
-            >
-              {col.title}
-              {#if sortBy === col.key}
-                { sortOrder === 1 ? iconAsc : iconDesc}
-              {/if}
-            </th>
-          {/if}
+          <th
+            on:click={(e) => handleClickCol(e, col)}
+            class={asStringArray([col.sortable ? 'isSortable' : '', col.headerClass])}
+          >
+            {col.title}
+            {#if sortBy === col.key}
+              { sortOrder === 1 ? iconAsc : iconDesc}
+            {/if}
+          </th>
         {/each}
       </tr>
     </slot>
