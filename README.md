@@ -14,7 +14,7 @@ npm install -save svelte-table
 
 # Usage
 
-The package includes exports for raw svelte, ES Module(.mjs)) and CJS (.js) exports. Your bundler will likely know which one to pick by using `import SvelteTable from "svelte-table"`
+The package includes exports for raw svelte, ES Module(.mjs) and CJS (.js) exports. Your bundler will likely know which one to pick by using `import SvelteTable from "svelte-table"`
 
 ```html
 <script>
@@ -30,7 +30,7 @@ The package includes exports for raw svelte, ES Module(.mjs)) and CJS (.js) expo
 <SvelteTable columns="{columns}" rows="{rows}"></SvelteTable>
 ```
 
-An iife version is also available in the `/dist/iife` folder. This allows for easy run-time use, such as a direct uncompiled dependecy for a use outside of a svelte project.
+An iife version is also available in the `/dist/iife` folder. This allows for easy run-time use, such as a direct uncompiled dependency for a use outside of a svelte project.
 
 ```html
 <script src="iife/SvelteTable.js"></script>
@@ -203,7 +203,7 @@ example: (will preset column with key `first_name` to `a`)
   const selection = { first_name: "A" };
 </script>
 <SvelteTable
-  columns="{colums}"
+  columns="{columns}"
   rows="{data}"
   bind:filterSelections="{selection}"
 />
@@ -227,7 +227,7 @@ example: (will preset column with key `first_name` to `a`)
 
 ### renderComponent
 
-Defining a component can be done dirrectly by passing the component as a value
+Defining a component can be done directly by passing the component as a value
 
 ```js
 [
