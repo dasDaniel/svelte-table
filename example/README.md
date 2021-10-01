@@ -1,4 +1,5 @@
-TODO: update docs, add more info
+# Examples
 
-App is served on http://localhost:5000  
-IIFE example is on http://localhost:5000/iife_example.html
+run `npm run examples` to build and serve the examples folder
+
+Example app is served on http://localhost:5000

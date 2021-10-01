@@ -1,12 +1,13 @@
 <script>
-  import SvelteTable from "../src/SvelteTable.svelte";
+  import SvelteTable from "../src/index.js";
   import ContactButtonComponent from "./example6/ContactButtonComponent.svelte";
   import HelpButtonComponent from "./example6/HelpButtonComponent.svelte";
   // import SvelteTable from "svelte-table";
   import faker from "faker";
   faker.seed(15);
 
-  const onContactButtonClick = row => alert(`Contacted ${row.first_name} ${row.last_name}`);
+  const onContactButtonClick = row =>
+    alert(`Contacted ${row.first_name} ${row.last_name}`);
 
   const colums = [
     {
@@ -14,40 +15,43 @@
       title: "ID",
       value: v => v.id,
       sortable: false,
-      headerClass: "text-left"
+      headerClass: "text-left",
     },
     {
       key: "first_name",
       title: "FIRST NAME",
       value: v => v.first_name,
       sortable: true,
-      searchValue: v => v.first_name
+      searchValue: v => v.first_name,
     },
     {
       key: "last_name",
       title: "LAST NAME",
       value: v => v.last_name,
       sortable: true,
-      searchValue: v => v.last_name
+      searchValue: v => v.last_name,
     },
     {
       key: "email",
       title: "EMAIL",
       value: v => v.email,
       sortable: true,
-      class: "text-center"
+      class: "text-center",
     },
     {
       key: "contact",
       title: "",
       sortable: false,
-      renderComponent: {component: ContactButtonComponent, props: {onContactButtonClick}}
+      renderComponent: {
+        component: ContactButtonComponent,
+        props: { onContactButtonClick },
+      },
     },
     {
       key: "help",
       title: "",
       sortable: false,
-      renderComponent: HelpButtonComponent
+      renderComponent: HelpButtonComponent,
     },
   ];
 
@@ -61,7 +65,10 @@
         last_name: faker.name.lastName(),
         gender: faker.random.number(1) ? "Female" : "Male",
         ip_address:
-          "192.168." + faker.random.number(128) + "." + faker.random.number(255)
+          "192.168." +
+          faker.random.number(128) +
+          "." +
+          faker.random.number(255),
       };
       d.email =
         d.first_name[0].toLowerCase() +
@@ -71,13 +78,13 @@
     });
 </script>
 
+<SvelteTable columns={colums} rows={data} />
+
 <style>
-  div :global(.text-center) {
+  :global(.text-center) {
     text-align: center;
   }
-  div :global(.text-left) {
+  :global(.text-left) {
     text-align: left;
   }
 </style>
-
-<SvelteTable columns={colums} rows={data} />
