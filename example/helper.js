@@ -1,4 +1,3 @@
-
 /**
  * Create filter array from rows
  * @param {string} key row key
@@ -11,7 +10,7 @@ export const generateFilter = key => rows => {
     if (values[val] === undefined)
       values[val] = {
         name: `${val}`,
-        value: val
+        value: val,
       };
   });
   // fix order

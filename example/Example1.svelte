@@ -4,11 +4,6 @@
   import faker from "faker";
   faker.seed(5);
 
-  let sortBy = "id";
-  let sortOrder = 1;
-  let iconAsc = "↑";
-  let iconDesc = "↓";
-
   const colums = [
     {
       key: "id",
@@ -22,7 +17,7 @@
           if (nums[num] === undefined)
             nums[num] = {
               name: `${num * 10} to ${(num + 1) * 10}`,
-              value: num
+              value: num,
             };
         });
         // fix order
@@ -32,7 +27,7 @@
         return Object.values(nums);
       },
       filterValue: v => Math.floor(v.id / 10),
-      headerClass: "text-left"
+      headerClass: "text-left",
     },
     {
       key: "first_name",
@@ -46,7 +41,7 @@
           if (letrs[letr] === undefined)
             letrs[letr] = {
               name: `${letr.toUpperCase()}`,
-              value: letr.toLowerCase()
+              value: letr.toLowerCase(),
             };
         });
         // fix order
@@ -55,7 +50,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.first_name.charAt(0).toLowerCase()
+      filterValue: v => v.first_name.charAt(0).toLowerCase(),
     },
     {
       key: "last_name",
@@ -69,7 +64,7 @@
           if (letrs[letr] === undefined)
             letrs[letr] = {
               name: `${letr.toUpperCase()}`,
-              value: letr.toLowerCase()
+              value: letr.toLowerCase(),
             };
         });
         // fix order
@@ -78,14 +73,14 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.last_name.charAt(0).toLowerCase()
+      filterValue: v => v.last_name.charAt(0).toLowerCase(),
     },
     {
       key: "email",
       title: "EMAIL",
       value: v => v.email,
       sortable: true,
-      class: "text-center"
+      class: "text-center",
     },
     {
       key: "gender",
@@ -100,14 +95,14 @@
         }</span>`;
       },
       sortable: true,
-      filterOptions: ["Male", "Female"]
+      filterOptions: ["Male", "Female"],
     },
     {
       key: "ip_address",
       title: "IP ADDRESS",
       value: v => v.ip_address,
-      sortable: true
-    }
+      sortable: true,
+    },
   ];
 
   const numRows = 50;
@@ -120,7 +115,10 @@
         last_name: faker.name.lastName(),
         gender: faker.random.number(1) ? "Female" : "Male",
         ip_address:
-          "192.168." + faker.random.number(128) + "." + faker.random.number(255)
+          "192.168." +
+          faker.random.number(128) +
+          "." +
+          faker.random.number(255),
       };
       d.email =
         d.first_name[0].toLowerCase() +
@@ -130,19 +128,19 @@
     });
 </script>
 
+<SvelteTable columns={colums} rows={data} />
+
 <style>
-  div :global(.g_female) {
+  :global(.g_female) {
     color: #f9e;
   }
-  div :global(.g_male) {
+  :global(.g_male) {
     color: #99e;
   }
-  div :global(.text-center) {
+  :global(.text-center) {
     text-align: center;
   }
-  div :global(.text-left) {
+  :global(.text-left) {
     text-align: left;
   }
 </style>
-
-<SvelteTable columns={colums} rows={data} />

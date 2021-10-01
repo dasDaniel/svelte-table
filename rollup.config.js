@@ -1,61 +1,61 @@
-
-import svelte from 'rollup-plugin-svelte';
-import resolve from '@rollup/plugin-node-resolve';
-// import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
-import pkg from './package.json';
+import svelte from "rollup-plugin-svelte";
+import resolve from "@rollup/plugin-node-resolve";
+import { terser } from "rollup-plugin-terser";
+import pkg from "./package.json";
 
 const minify = !process.env.MINIFY;
-const input = 'src/index.js';
-const name = 'SvelteTable';
+const input = "src/index.js";
+const name = "SvelteTable";
 
 const plugins = [
-  svelte(),
+  svelte({
+    emitCss: false,
+  }),
   resolve(),
   // commonjs(),
   minify && terser(),
-]
+];
 
 export default [
   {
     input,
     output: {
       sourcemap: true,
-      exports: 'default',
-      format: 'cjs',
+      exports: "default",
+      format: "cjs",
       name,
-      file: 'dist/cjs/SvelteTable.js'
+      file: "dist/cjs/SvelteTable.js",
     },
-    plugins
+    plugins,
   },
   {
     input,
     output: {
       sourcemap: true,
-      format: 'es',
+      format: "es",
       name,
-      file: pkg.module
+      file: pkg.module,
     },
-    plugins
+    plugins,
   },
   {
     input,
     output: {
       sourcemap: true,
-      format: 'umd',
+      format: "umd",
       name,
-      file: pkg.main
+      file: pkg.main,
     },
-    plugins
+    plugins,
   },
   {
     input,
     output: {
       sourcemap: true,
-      format: 'iife',
+      format: "iife",
       name,
-      file: 'dist/iife/SvelteTable.js'
+      file: "dist/iife/SvelteTable.js",
     },
-    plugins
+    plugins,
   },
 ];
