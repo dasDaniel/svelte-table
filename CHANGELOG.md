@@ -1,3 +1,8 @@
+## 0.1.19
+
+- Only sort columns if column is sortable [#43](https://github.com/dasDaniel/svelte-table/pull/43)
+- cleanup repo [#44](https://github.com/dasDaniel/svelte-table/pull/44)
+
 ## 0.1.18
 
 - Handle dynamic column definition
