@@ -1,40 +1,33 @@
 import svelte from "rollup-plugin-svelte";
-import resolve from "rollup-plugin-node-resolve";
-import commonjs from "rollup-plugin-commonjs";
-import livereload from "rollup-plugin-livereload";
-import buble from "rollup-plugin-buble";
-import serve from "rollup-plugin-serve";
+import resolve from "@rollup/plugin-node-resolve";
 
 const CONFIG = {
   input: "",
   output: {
     customElement: true,
-    sourcemap: true,
+    sourcemap: false,
     format: "iife",
     name: "app",
-    dir: "public/bundle",
-    globals: { faker: "faker" }
+    dir: "example/public/bundle",
+    globals: { faker: "faker" },
   },
   external: ["faker"],
   plugins: [
-    svelte(),
+    svelte({ emitCss: false }),
     resolve({
       jsnext: true,
       main: true,
-      browser: true
+      browser: true,
     }),
-    commonjs(),
-    buble({ transforms: { forOf: false } }),
-    serve("public"),
-    livereload({ watch: "public" })
-  ]
+    // commonjs(),
+  ],
 };
 
 export default [
-  { ...CONFIG, input: "example1.js" },
-  { ...CONFIG, input: "example2.js" },
-  { ...CONFIG, input: "example3.js" },
-  { ...CONFIG, input: "example4.js" },
-  { ...CONFIG, input: "example5.js" },
-  { ...CONFIG, input: "example6.js" }
+  { ...CONFIG, input: "./example/example1.js" },
+  { ...CONFIG, input: "./example/example2.js" },
+  { ...CONFIG, input: "./example/example3.js" },
+  { ...CONFIG, input: "./example/example4.js" },
+  { ...CONFIG, input: "./example/example5.js" },
+  { ...CONFIG, input: "./example/example6.js" },
 ];

@@ -14,7 +14,7 @@ npm install -save svelte-table
 
 # Usage
 
-The package includes exports for raw svelte, ES Module(.mjs)) and CJS (.js) exports. Your bundler will likely know which one to pick by using `import SvelteTable from "svelte-table"`
+The package includes exports for raw svelte, ES Module(.mjs) and CJS (.js) exports. Your bundler will likely know which one to pick by using `import SvelteTable from "svelte-table"`
 
 ```html
 <script>
@@ -30,7 +30,7 @@ The package includes exports for raw svelte, ES Module(.mjs)) and CJS (.js) expo
 <SvelteTable columns="{columns}" rows="{rows}"></SvelteTable>
 ```
 
-An iife version is also available in the `/dist/iife` folder. This allows for easy run-time use, such as a direct uncompiled dependecy for a use outside of a svelte project.
+An iife version is also available in the `/dist/iife` folder. This allows for easy run-time use, such as a direct uncompiled dependency for a use outside of a svelte project.
 
 ```html
 <script src="iife/SvelteTable.js"></script>
@@ -44,7 +44,7 @@ An iife version is also available in the `/dist/iife` folder. This allows for ea
   ];
   new SvelteTable({
     target: document.querySelector("#my-table"),
-    props: { rows, columns }
+    props: { rows, columns },
   });
 </script>
 ```
@@ -72,7 +72,7 @@ const rows = [
   { id: 16, first_name: "Albert", last_name: "Einstein", gender: "male" },
   { id: 17, first_name: "Paul", last_name: "McCartney", gender: "male" },
   { id: 18, first_name: "Queen", last_name: "Victoria", gender: "female" },
-  { id: 19, first_name: "Pope", last_name: "Francis", gender: "male" }
+  { id: 19, first_name: "Pope", last_name: "Francis", gender: "male" },
   // etc...
 ];
 
@@ -98,7 +98,7 @@ const columns = [
       return Object.values(nums);
     },
     filterValue: v => Math.floor(v.id / 10),
-    headerClass: "text-left"
+    headerClass: "text-left",
   },
   {
     key: "first_name",
@@ -113,7 +113,7 @@ const columns = [
         if (letrs[letr] === undefined)
           letrs[letr] = {
             name: `${letr.toUpperCase()}`,
-            value: letr.toLowerCase()
+            value: letr.toLowerCase(),
           };
       });
       // fix order
@@ -122,7 +122,7 @@ const columns = [
         .reduce((o, [k, v]) => ((o[k] = v), o), {});
       return Object.values(letrs);
     },
-    filterValue: v => v.first_name.charAt(0).toLowerCase()
+    filterValue: v => v.first_name.charAt(0).toLowerCase(),
   },
   {
     key: "last_name",
@@ -137,7 +137,7 @@ const columns = [
         if (letrs[letr] === undefined)
           letrs[letr] = {
             name: `${letr.toUpperCase()}`,
-            value: letr.toLowerCase()
+            value: letr.toLowerCase(),
           };
       });
       // fix order
@@ -146,7 +146,7 @@ const columns = [
         .reduce((o, [k, v]) => ((o[k] = v), o), {});
       return Object.values(letrs);
     },
-    filterValue: v => v.last_name.charAt(0).toLowerCase()
+    filterValue: v => v.last_name.charAt(0).toLowerCase(),
   },
   {
     key: "gender",
@@ -154,8 +154,8 @@ const columns = [
     value: v => v.gender,
     renderValue: v => v.gender.charAt(0).toUpperCase() + v.gender.substring(1), // capitalize
     sortable: true,
-    filterOptions: ["male", "female"] // provide array
-  }
+    filterOptions: ["male", "female"], // provide array
+  },
 ];
 ```
 
@@ -203,7 +203,7 @@ example: (will preset column with key `first_name` to `a`)
   const selection = { first_name: "A" };
 </script>
 <SvelteTable
-  columns="{colums}"
+  columns="{columns}"
   rows="{data}"
   bind:filterSelections="{selection}"
 />
@@ -227,15 +227,15 @@ example: (will preset column with key `first_name` to `a`)
 
 ### renderComponent
 
-Defining a component can be done dirrectly by passing the component as a value
+Defining a component can be done directly by passing the component as a value
 
 ```js
 [
   {
     key: "myColumn",
     //...
-    renderComponent: myComponent
-  }
+    renderComponent: myComponent,
+  },
 ];
 ```
 
@@ -249,10 +249,10 @@ Or, if props need to be passed, an object with `component` and `props` can be pa
     renderComponent: {
       component: myComponent,
       props: {
-        myProp: "someValue"
-      }
-    }
-  }
+        myProp: "someValue",
+      },
+    },
+  },
 ];
 ```
 

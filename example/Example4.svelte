@@ -1,5 +1,5 @@
 <script>
-  import SvelteTable from "../src/SvelteTable.svelte";
+  import SvelteTable from "../src/index.js";
   // import SvelteTable from "svelte-table";
   import faker from "faker";
   faker.seed(5);
@@ -19,7 +19,7 @@
         let d = {
           id: i,
           first_name: faker.name.firstName(),
-          last_name: faker.name.lastName()
+          last_name: faker.name.lastName(),
         };
         d.email =
           d.first_name[0].toLowerCase() +
@@ -48,7 +48,7 @@
           if (letrs[letr] === undefined)
             letrs[letr] = {
               name: `${letr.toUpperCase()}`,
-              value: letr.toLowerCase()
+              value: letr.toLowerCase(),
             };
         });
         // fix order
@@ -57,7 +57,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.first_name.charAt(0).toLowerCase()
+      filterValue: v => v.first_name.charAt(0).toLowerCase(),
     },
     last_name: {
       key: "last_name",
@@ -71,7 +71,7 @@
           if (letrs[letr] === undefined)
             letrs[letr] = {
               name: `${letr.toUpperCase()}`,
-              value: letr.toLowerCase()
+              value: letr.toLowerCase(),
             };
         });
         // fix order
@@ -80,15 +80,15 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.last_name.charAt(0).toLowerCase()
+      filterValue: v => v.last_name.charAt(0).toLowerCase(),
     },
     email: {
       key: "email",
       title: "EMAIL",
       value: v => v.email,
       sortable: true,
-      class: "text-center"
-    }
+      class: "text-center",
+    },
   };
 
   $: cols = selectedCols.map(key => COLUMNS[key]);
@@ -100,7 +100,7 @@
     <button class="btn btn-primary" on:click={generateData}>
       Generate Data
     </button>
-    <input bind:value={numRows} class="form-control">
+    <input bind:value={numRows} class="form-control" />
 
     <button
       class="btn btn-primary"
@@ -108,7 +108,8 @@
         sortOrder = 1;
       }}
       disabled={sortOrder === 1}
-      style="float:right;">
+      style="float:right;"
+    >
       SORT {iconAsc}
     </button>
     <button
@@ -117,7 +118,8 @@
         sortOrder = -1;
       }}
       disabled={sortOrder === -1}
-      style="float:right;">
+      style="float:right;"
+    >
       SORT {iconDesc}
     </button>
   </div>
@@ -128,8 +130,9 @@
       rows={data}
       bind:sortBy
       bind:sortOrder
-      classNameTable={['table table-striped']}
-      classNameThead={['table-primary']}
-      classNameSelect={['custom-select']} />
+      classNameTable={["table table-striped"]}
+      classNameThead={["table-primary"]}
+      classNameSelect={["custom-select"]}
+    />
   </div>
 </div>
