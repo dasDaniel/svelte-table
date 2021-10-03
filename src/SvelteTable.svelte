@@ -1,23 +1,81 @@
 <script>
   import { createEventDispatcher } from "svelte";
 
-  const dispatch = createEventDispatcher();
-
+  /** @type {Array<Object>} */
   export let columns;
+
+  /** @type {Array<Object>} */
   export let rows;
+
+  // READ AND WRITE
+
+  /** @type {string} */
   export let sortBy = "";
+
+  /** @type {number} */
   export let sortOrder = 1;
-  export let iconAsc = "▲";
-  export let iconDesc = "▼";
-  export let classNameTable = "";
-  export let classNameThead = "";
-  export let classNameTbody = "";
-  export let classNameSelect = "";
-  export let classNameRow = "";
-  export let classNameCell = "";
+
+  /** @type {Object} */
   export let filterSelections = {};
 
+  // expand
+  /** @type {Array.<string|number>} */
+  export let expanded = [];
+
+  // READ ONLY
+
+  /** @type {string} */
+  export let expandRowKey = null;
+
+  /** @type {string} */
+  export let expandSingle = false;
+
+  /** @type {string} */
+  export let iconAsc = "▲";
+
+  /** @type {string} */
+  export let iconDesc = "▼";
+
+  /** @type {string} */
+  export let iconExpand = "▼";
+
+  /** @type {string} */
+  export let iconExpanded = "▲";
+
+  /** @type {boolean} */
+  export let showExpandIcon = false;
+
+  /** @type {string} */
+  export let classNameTable = "";
+
+  /** @type {string} */
+  export let classNameThead = "";
+
+  /** @type {string} */
+  export let classNameTbody = "";
+
+  /** @type {string} */
+  export let classNameSelect = "";
+
+  /** @type {string} */
+  export let classNameRow = "";
+
+  /** @type {string} */
+  export let classNameCell = "";
+
+  /** @type {string} class added to the expanded row*/
+  export let classNameRowExpanded = "";
+
+  /** @type {string} class added to the cell that allows expanding/closing */
+  export let classNameCellExpand = "";
+
+  const dispatch = createEventDispatcher();
+
   let sortFunction = () => "";
+
+  // Validation
+  if (!Array.isArray(expanded)) throw "'expanded' needs to be an array";
+
   let showFilterHeader = columns.some(c => {
     // check if there are any filter or search headers
     return c.filterOptions !== undefined || c.searchValue !== undefined;
@@ -30,6 +88,8 @@
       columnByKey[col.key] = col;
     });
   }
+
+  $: colspan = (showExpandIcon ? 1 : 0) + columns.length;
 
   $: c_rows = rows
     .filter(r => {
@@ -55,7 +115,15 @@
         return resFilter;
       });
     })
-    .map(r => Object.assign({}, r, { $sortOn: sortFunction(r) }))
+    .map(r =>
+      Object.assign({}, r, {
+        // internal row property for sort order
+        $sortOn: sortFunction(r),
+        // internal row property for expanded rows
+        $expanded:
+          expandRowKey !== null && expanded.indexOf(r[expandRowKey]) >= 0,
+      })
+    )
     .sort((a, b) => {
       if (a.$sortOn > b.$sortOn) return sortOrder;
       else if (a.$sortOn < b.$sortOn) return -sortOrder;
@@ -121,6 +189,21 @@
     dispatch("clickRow", { event, row });
   };
 
+  const handleClickExpand = (event, row) => {
+    row.$expanded = !row.$expanded;
+    const keyVal = row[expandRowKey];
+    if (expandSingle && row.$expanded) {
+      expanded = [keyVal];
+    } else if (expandSingle) {
+      expanded = [];
+    } else if (!row.$expanded) {
+      expanded = expanded.filter(r => r != keyVal);
+    } else {
+      expanded = [...expanded, keyVal];
+    }
+    dispatch("clickExpand", { event, row });
+  };
+
   const handleClickCell = (event, row, key) => {
     dispatch("clickCell", { event, row, key });
   };
@@ -147,6 +230,9 @@
             {/if}
           </th>
         {/each}
+        {#if showExpandIcon}
+          <th />
+        {/if}
       </tr>
     {/if}
     <slot name="header" {sortOrder} {sortBy}>
@@ -165,6 +251,9 @@
             {/if}
           </th>
         {/each}
+        {#if showExpandIcon}
+          <th />
+        {/if}
       </tr>
     </slot>
   </thead>
@@ -197,7 +286,22 @@
               {/if}
             </td>
           {/each}
+          {#if showExpandIcon}
+            <td
+              on:click={e => handleClickExpand(e, row)}
+              class={asStringArray(["isClickable", classNameCellExpand])}
+            >
+              {row.$expanded ? iconExpand : iconExpanded}
+            </td>
+          {/if}
         </tr>
+        {#if row.$expanded}
+          <tr class={asStringArray(classNameRowExpanded)}
+            ><td {colspan}>
+              <slot name="expanded" {row} {n} />
+            </td></tr
+          >
+        {/if}
       </slot>
     {/each}
   </tbody>
@@ -208,6 +312,10 @@
     width: 100%;
   }
   .isSortable {
+    cursor: pointer;
+  }
+
+  .isClickable {
     cursor: pointer;
   }
 

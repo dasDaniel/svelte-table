@@ -161,24 +161,29 @@ const columns = [
 
 ## Props
 
-| Option             | Type         | Description                                    |
-| ------------------ | ------------ | ---------------------------------------------- |
-| `columns`          | Object[]     | column config (details below)                  |
-| `rows`             | Object[]     | row (data) array                               |
-| `sortBy`           | String       | ‡ Sorting key                                  |
-| `sortOrder`        | Number       | ‡ `1` = Ascending, `-1` Descending             |
-| `iconAsc`          | String       | ascii string for ascending ordering character  |
-| `iconDesc`         | String       | ascii string for descending ordering character |
-| `clickCol`         | function     | event listener/callback                        |
-| `clickRow`         | function     | event listener/callback                        |
-| `clickCell`        | function     | event listener/callback                        |
-| `classNameTable`   | String/Array | _optional_ class name(s) for table element     |
-| `classNameThead`   | String/Array | _optional_ class name(s) for thead element     |
-| `classNameTbody`   | String/Array | _optional_ class name(s) for tbody element     |
-| `classNameSelect`  | String/Array | _optional_ class name(s) for select elements   |
-| `classNameRow`     | String/Array | _optional_ class name(s) for row elements      |
-| `classNameCell`    | String/Array | _optional_ class name(s) for cell elements     |
-| `filterSelections` | Object[]     | ‡ _optional_ search or filter selection        |
+| Option                 | Type         | Description                                                 |
+| ---------------------- | ------------ | ----------------------------------------------------------- |
+| `columns`              | Object[]     | column config (details below)                               |
+| `rows`                 | Object[]     | row (data) array                                            |
+| `sortBy`               | String       | ‡ Sorting key                                               |
+| `sortOrder`            | Number       | ‡ `1` = Ascending, `-1` Descending                          |
+| `iconAsc`              | String       | ascii string for ascending ordering character               |
+| `iconDesc`             | String       | ascii string for descending ordering character              |
+| `clickCol`             | function     | event listener/callback                                     |
+| `clickRow`             | function     | event listener/callback                                     |
+| `clickCell`            | function     | event listener/callback                                     |
+| `classNameTable`       | String/Array | _optional_ class name(s) for table element                  |
+| `classNameThead`       | String/Array | _optional_ class name(s) for thead element                  |
+| `classNameTbody`       | String/Array | _optional_ class name(s) for tbody element                  |
+| `classNameSelect`      | String/Array | _optional_ class name(s) for select elements                |
+| `classNameRow`         | String/Array | _optional_ class name(s) for row elements                   |
+| `classNameRowExpanded` | String/Array | _optional_ class name(s) for expanded row content           |
+| `classNameCell`        | String/Array | _optional_ class name(s) for cell elements                  |
+| `classNameCellExpand`  | String/Array | _optional_ class name(s) for cell with expand icon          |
+| `expanded`             | any[]        | _optional_ array of key values of expanded rows             |
+| `expandRowKey`         | string       | _optional_ key for expanded row (use unique values like id) |
+| `expandSingle`         | Object[]     | _optional_ allow only one row to be expanded                |
+| `filterSelections`     | Object[]     | ‡ _optional_ search or filter selection                     |
 
 _‡_ field allows 2-way binding
 
@@ -189,6 +194,7 @@ Events pass a CustomEvent object with the following params in the `detail` objec
 - _clickCol_: `event`, `col`, `key`
 - _clickRow_: `event`, `row`
 - _clickCell_: `event`, `row`, `key`
+- _clickExpand_: `event`, `row`
 
 ### `filterSelections`
 
@@ -258,7 +264,8 @@ Or, if props need to be passed, an object with `component` and `props` can be pa
 
 ## Slots
 
-| Option   | Description                                                                                    |
-| -------- | ---------------------------------------------------------------------------------------------- |
-| `header` | slot for rendering the `tr` and `th` content. This will replace `title` in the header          |
-| `row`    | slot for rendering the `tr` and `td` content. This will replace the rendering of `renderValue` |
+| Option     | Description                                                                                    |
+| ---------- | ---------------------------------------------------------------------------------------------- |
+| `header`   | slot for rendering the `tr` and `th` content. This will replace `title` in the header          |
+| `row`      | slot for rendering the `tr` and `td` content. This will replace the rendering of `renderValue` |
+| `expanded` | slot for rendering the content of the expanded row                                             |
