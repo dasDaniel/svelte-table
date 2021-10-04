@@ -8,7 +8,7 @@
   let iconAsc = "↑";
   let iconDesc = "↓";
 
-  $: selectedCols = ["id", "first_name", "last_name", "email", "gender"];
+  $: selectedCols = ["id", "first_name", "last_name", "email", "mobile"];
 
   $: numRows = 50;
   $: seed = 5;
@@ -30,7 +30,7 @@
           id: i,
           first_name: faker.name.firstName(),
           last_name: faker.name.lastName(),
-          gender: faker.random.number(1) ? "Female" : "Male",
+          mobile: faker.random.number(1) ? "Android" : "iPhone",
           ip_address:
             "192.168." +
             faker.random.number(128) +
@@ -123,20 +123,20 @@
       sortable: true,
       class: "text-center",
     },
-    gender: {
-      key: "gender",
-      title: "GENDER",
-      value: v => v.gender,
+    mobile: {
+      key: "mobile",
+      title: "mobile",
+      value: v => v.mobile,
       renderValue: v => {
-        const classNames = [`g_${v.gender.toLowerCase()}`];
-        let icon = v.gender.toLowerCase() === "female" ? "&female;" : "";
-        icon = v.gender.toLowerCase() === "male" ? "&male;" : icon;
+        const classNames = [`g_${v.mobile.toLowerCase()}`];
+        let icon = v.mobile.toLowerCase() === "android" ? "🍅" : "";
+        icon = v.mobile.toLowerCase() === "iphone" ? "🍏" : icon;
         return `<span class="${classNames.join(" ")}">${icon} ${
-          v.gender
+          v.mobile
         }</span>`;
       },
       sortable: true,
-      filterOptions: ["Male", "Female"],
+      filterOptions: ["Android", "iPhone"],
     },
     ip_address: {
       key: "ip_address",
@@ -257,11 +257,11 @@
 </div>
 
 <style>
-  div :global(.g_female) {
-    color: #f9e;
+  div :global(.m_android) {
+    color: rgb(123, 230, 101);
   }
-  div :global(.g_male) {
-    color: #99e;
+  div :global(.m_iphone) {
+    color: rgb(155, 164, 173);
   }
   div :global(.text-center) {
     text-align: center;
