@@ -167,11 +167,14 @@ const columns = [
 | `rows`                 | Object[]     | row (data) array                                            |
 | `sortBy`               | String       | ‡ Sorting key                                               |
 | `sortOrder`            | Number       | ‡ `1` = Ascending, `-1` Descending                          |
-| `iconAsc`              | String       | ascii string for ascending ordering character               |
-| `iconDesc`             | String       | ascii string for descending ordering character              |
+| `iconAsc`              | String       | override ascending order indication                         |
+| `iconDesc`             | String       | override descending order indication                        |
+| `iconExpand`           | String       | row collapsed indicator/button                              |
+| `iconExpanded`         | String       | row expanded indicator/button                               |
 | `clickCol`             | function     | event listener/callback                                     |
 | `clickRow`             | function     | event listener/callback                                     |
 | `clickCell`            | function     | event listener/callback                                     |
+| `clickExpand`          | function     | event listener/callback                                     |
 | `classNameTable`       | String/Array | _optional_ class name(s) for table element                  |
 | `classNameThead`       | String/Array | _optional_ class name(s) for thead element                  |
 | `classNameTbody`       | String/Array | _optional_ class name(s) for tbody element                  |
@@ -184,6 +187,7 @@ const columns = [
 | `expandRowKey`         | string       | _optional_ key for expanded row (use unique values like id) |
 | `expandSingle`         | Object[]     | _optional_ allow only one row to be expanded                |
 | `filterSelections`     | Object[]     | ‡ _optional_ search or filter selection                     |
+| `showExpandIcon`       | boolean      | should a expand column be visible                           |
 
 _‡_ field allows 2-way binding
 
@@ -195,6 +199,32 @@ Events pass a CustomEvent object with the following params in the `detail` objec
 - _clickRow_: `event`, `row`
 - _clickCell_: `event`, `row`, `key`
 - _clickExpand_: `event`, `row`
+
+### Expanding Rows
+
+- Row expanding is tracked using the `expanded` property. (supports 2-way binding)
+- The keys are defined using the `expandRowKey` property. It's a good idea to use a key that is unique to each row like a dedicated
+  id or key field, to prevent conflict.
+- The content for the field is passed through the `expanded` slot.
+- The expanding can be managed manually or by using the built-in column using `showExpandIcon` property
+- Expand events can be listened to using `on:clickExpand` which will include the `row` object in the `event.detail` object.
+- `expandSingle` can be set to true to only allow a single column open at a time (only works when `expanded` is managed internally)
+
+Example:
+
+```html
+<div class="row">
+  <SvelteTable
+    columns="{cols}"
+    rows="{data}"
+    showExpandIcon="{true}"
+    expandSingle="{true}"
+    expandRowKey="id"
+  >
+    <svelte:fragment slot="expanded" let:row>{row.detail}</svelte:fragment>
+  </SvelteTable>
+</div>
+```
 
 ### `filterSelections`
 

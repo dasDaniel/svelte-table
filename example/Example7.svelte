@@ -15,7 +15,6 @@
   let expanded1 = "";
   let expandedCache = "";
   let expandedArr = [4, 3, 1];
-  let expanded3 = ["Kelley", "Kobe"];
 
   $: {
     // 2-way binding setup between input and table expanded items
@@ -51,6 +50,8 @@
   data1 = generateData(5);
   data2 = generateData(5);
   data3 = generateData(5);
+
+  let expanded3 = [data3[2].first_name, data3[4].first_name];
 
   const COLUMNS = {
     id: {
@@ -94,36 +95,20 @@
 
   function handleExpand(event) {
     const row = event.detail.row;
-    const operation = !row.$expanded ? "open" : "close";
+    const operation = row.$expanded ? "open" : "close";
     console.log(`${operation} ${row.first_name} ${row.last_name}`);
   }
 </script>
 
 <div class="container">
   <h1>SvelteTable example 7 ~ expand</h1>
+
+  <h2>Expand row example 1</h2>
+
+  <p>Uses manual override of selected row ids through input or clicking on row</p>
+
   <div class="input-group pb-3">
     <input bind:value={expanded1} class="form-control" />
-
-    <button
-      class="btn btn-primary"
-      on:click={() => {
-        sortOrder = 1;
-      }}
-      disabled={sortOrder === 1}
-      style="float:right;"
-    >
-      SORT {iconAsc}
-    </button>
-    <button
-      class="btn btn-primary"
-      on:click={() => {
-        sortOrder = -1;
-      }}
-      disabled={sortOrder === -1}
-      style="float:right;"
-    >
-      SORT {iconDesc}
-    </button>
   </div>
 
   <div class="row">
@@ -148,6 +133,13 @@
   </div>
 
   <div class="row">
+    <h2>Expand row example 2</h2>
+
+    <p>
+      Only 1 row can be expanded at a time<br />
+      Console logs selection change
+    </p>
+
     <SvelteTable
       columns={cols}
       rows={data2}
@@ -166,7 +158,12 @@
   </div>
 
   <div class="row">
-    Using first_name as keys: <pre>{expanded3.join(', ')}</pre>
+    <h2>Expand row example 3</h2>
+
+    <p>uses name as key and custom expand/collapse icons</p>
+
+    Using first_name as keys:
+    <pre>{expanded3.join(', ')}</pre>
     <SvelteTable
       columns={cols}
       rows={data3}
