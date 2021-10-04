@@ -1,15 +1,10 @@
 <script>
-  // import SvelteTable from "../src/SvelteTable.svelte";
   import SvelteTable from "../src/index.js";
   import { generateFilter } from "./helper.js";
   // import SvelteTable from "svelte-table";
   import faker from "faker";
   faker.seed(15);
 
-  let sortBy = "id";
-  let sortOrder = 1;
-  let iconAsc = "↑";
-  let iconDesc = "↓";
   let selection = { first_name: "a" };
 
   const colums = [
@@ -66,6 +61,11 @@
         last_name: faker.name.lastName(),
         gender: faker.random.number(1) ? "Female" : "Male",
         age: 26 + faker.random.number(37),
+        ip_address:
+          "192.168." +
+          faker.random.number(128) +
+          "." +
+          faker.random.number(255),
       };
       d.email =
         d.first_name[0].toLowerCase() +

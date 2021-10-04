@@ -1,3 +1,7 @@
+## 0.2.0
+
+- New feature: added ability to expand rows
+
 ## 0.1.19
 
 - Only sort columns if column is sortable [#43](https://github.com/dasDaniel/svelte-table/pull/43)
