@@ -69,6 +69,9 @@
   /** @type {string} class added to the cell that allows expanding/closing */
   export let classNameCellExpand = "";
 
+  /** @type {boolean} */
+  export let paginate = false;
+
   const dispatch = createEventDispatcher();
 
   let sortFunction = () => "";
@@ -306,6 +309,12 @@
     {/each}
   </tbody>
 </table>
+
+{#if paginate}
+  <ul>
+    <li>1</li>
+  </ul>
+{/if}
 
 <style>
   table {
