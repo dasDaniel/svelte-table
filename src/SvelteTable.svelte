@@ -1,5 +1,8 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import paginate from 'jw-paginate';
+
+  import Pagination from './Pagination.svelte';
 
   /** @type {Array<Object>} */
   export let columns;
@@ -21,6 +24,29 @@
   // expand
   /** @type {Array.<string|number>} */
   export let expanded = [];
+
+  /** @type {Object} */
+  export let usePagination = false;
+
+  /** @type {boolean} */
+  export let showPageCount = false;
+
+  /** @type {Object} */
+  export let paginationOpts = {
+    info: "Showing {start} to {end} of {rows}",
+    previous: "◄",
+    next: "►",
+    noResults: "No data found"
+  };
+
+  /** @type {number} */
+  export let currentPage;
+
+  /** @type {number} */
+  export let pageSize;
+
+  /** @type {number} */
+  export let maxPages;
 
   // READ ONLY
 
@@ -68,9 +94,6 @@
 
   /** @type {string} class added to the cell that allows expanding/closing */
   export let classNameCellExpand = "";
-
-  /** @type {boolean} */
-  export let paginate = false;
 
   const dispatch = createEventDispatcher();
 
@@ -132,6 +155,17 @@
       else if (a.$sortOn < b.$sortOn) return -sortOrder;
       return 0;
     });
+
+  let pagination, d_rows;
+  $: if(c_rows && usePagination) {
+    pagination = paginate(c_rows.length, currentPage, pageSize, maxPages);
+    console.log(pagination);
+
+    d_rows = c_rows.slice(usePagination ? pagination.startIndex : 0,
+      usePagination ? pagination.endIndex + 1 : rows.length - 1);
+  } else {
+    d_rows = c_rows;
+  }
 
   const asStringArray = v =>
     []
@@ -212,6 +246,11 @@
   };
 </script>
 
+{#if usePagination && usePagination.top}
+  <Pagination bind:pagination={pagination} bind:currentPage={currentPage}
+    bind:showPageCount={showPageCount} bind:paginationOpts={paginationOpts} />
+{/if}
+
 <table class={asStringArray(classNameTable)}>
   <thead class={asStringArray(classNameThead)}>
     {#if showFilterHeader}
@@ -262,7 +301,7 @@
   </thead>
 
   <tbody class={asStringArray(classNameTbody)}>
-    {#each c_rows as row, n}
+    {#each d_rows as row, n}
       <slot name="row" {row} {n}>
         <tr
           on:click={e => {
@@ -310,10 +349,9 @@
   </tbody>
 </table>
 
-{#if paginate}
-  <ul>
-    <li>1</li>
-  </ul>
+{#if usePagination && usePagination.bottom}
+  <Pagination bind:pagination={pagination} bind:currentPage={currentPage}
+    bind:showPageCount={showPageCount} bind:paginationOpts={paginationOpts} />
 {/if}
 
 <style>

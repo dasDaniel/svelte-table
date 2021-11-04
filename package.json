@@ -30,5 +30,8 @@
     "table",
     "svelte",
     "svelte3"
-  ]
+  ],
+  "dependencies": {
+    "jw-paginate": "^1.0.4"
+  }
 }
