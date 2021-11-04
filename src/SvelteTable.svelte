@@ -159,7 +159,6 @@
   let pagination, d_rows;
   $: if(c_rows && usePagination) {
     pagination = paginate(c_rows.length, currentPage, pageSize, maxPages);
-    console.log(pagination);
 
     d_rows = c_rows.slice(usePagination ? pagination.startIndex : 0,
       usePagination ? pagination.endIndex + 1 : rows.length - 1);
