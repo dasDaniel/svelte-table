@@ -5,8 +5,6 @@
 
   let sortBy = "id";
   let sortOrder = 1;
-  let iconAsc = "↑";
-  let iconDesc = "↓";
   let selectedCols = ["id", "first_name", "last_name", "email"];
   let data1 = [];
   let data2 = [];
@@ -105,7 +103,9 @@
 
   <h2>Expand row example 1</h2>
 
-  <p>Uses manual override of selected row ids through input or clicking on row</p>
+  <p>
+    Uses manual override of selected row ids through input or clicking on row
+  </p>
 
   <div class="input-group pb-3">
     <input bind:value={expanded1} class="form-control" />
@@ -117,10 +117,12 @@
       rows={data1}
       bind:sortBy
       bind:sortOrder
-      classNameTable={["table"]}
-      classNameThead={["table-primary"]}
-      classNameRow={"cursor-pointer"}
-      classNameSelect={["custom-select"]}
+      classNameTable="table"
+      classNameThead="table-primary"
+      classNameRow="cursor-pointer"
+      classNameSelect="custom-select"
+      classNameRowExpanded="row-expanded"
+      classNameExpandedContent="expanded-content"
       bind:expanded={expandedArr}
       expandRowKey="id"
       on:clickRow={handleRowClick}
@@ -143,8 +145,8 @@
     <SvelteTable
       columns={cols}
       rows={data2}
-      classNameTable={["table"]}
-      classNameThead={["table-info"]}
+      classNameTable="table"
+      classNameThead="table-info"
       showExpandIcon={true}
       expandSingle={true}
       expandRowKey="id"
@@ -167,8 +169,8 @@
     <SvelteTable
       columns={cols}
       rows={data3}
-      classNameTable={["table"]}
-      classNameThead={["table-secondary"]}
+      classNameTable="table"
+      classNameThead="table-secondary"
       showExpandIcon={true}
       expandSingle={false}
       bind:expanded={expanded3}
@@ -183,3 +185,14 @@
     </SvelteTable>
   </div>
 </div>
+
+<style>
+  :global(.row-expanded) {
+    background-color: #333;
+    color: #fff;
+    cursor: crosshair;
+  }
+  :global(.expanded-content) {
+    background-color: #ccc;
+  }
+</style>

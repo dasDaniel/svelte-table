@@ -1,3 +1,13 @@
+## 0.3.0
+
+### Breaking Change
+
+class name `classNameRowExpanded` now refers to the **row, not the content**
+
+- added `classNameExpandedContent` for targetting the expanded content
+- set `classNameRowExpanded` to target the row being expanded
+- did more cleanup on examples
+
 ## 0.2.0
 
 - New feature: added ability to expand rows
