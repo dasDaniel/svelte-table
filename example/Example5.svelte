@@ -44,6 +44,13 @@
       filterOptions: generateFilter("age"),
     },
     {
+      key: "pet",
+      title: "Pet",
+      value: v => v.pet,
+      sortable: true,
+      filterOptions: generateFilter("pet"),
+    },
+    {
       key: "ip_address",
       title: "IP ADDRESS",
       value: v => v.ip_address,
@@ -59,7 +66,7 @@
         id: i,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
-        gender: faker.random.number(1) ? "Female" : "Male",
+        pet: faker.random.number(1) ? "Dog" : "Cat",
         age: 26 + faker.random.number(37),
         ip_address:
           "192.168." +
@@ -130,12 +137,6 @@
 />
 
 <style>
-  div :global(.g_female) {
-    color: #f9e;
-  }
-  div :global(.g_male) {
-    color: #99e;
-  }
   div :global(.text-center) {
     text-align: center;
   }

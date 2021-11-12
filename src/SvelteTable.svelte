@@ -66,6 +66,9 @@
   /** @type {string} class added to the expanded row*/
   export let classNameRowExpanded = "";
 
+  /** @type {string} class added to the expanded row*/
+  export let classNameExpandedContent = "";
+
   /** @type {string} class added to the cell that allows expanding/closing */
   export let classNameCellExpand = "";
 
@@ -265,7 +268,10 @@
           on:click={e => {
             handleClickRow(e, row);
           }}
-          class={asStringArray(classNameRow)}
+          class={asStringArray([
+            classNameRow,
+            row.$expanded && classNameRowExpanded,
+          ])}
         >
           {#each columns as col}
             <td
@@ -296,7 +302,7 @@
           {/if}
         </tr>
         {#if row.$expanded}
-          <tr class={asStringArray(classNameRowExpanded)}
+          <tr class={asStringArray(classNameExpandedContent)}
             ><td {colspan}>
               <slot name="expanded" {row} {n} />
             </td></tr
