@@ -83,19 +83,17 @@
       class: "text-center",
     },
     {
-      key: "gender",
-      title: "GENDER",
-      value: v => v.gender,
+      key: "pet",
+      title: "pet",
+      value: v => v.pet,
       renderValue: v => {
-        const classNames = [`g_${v.gender.toLowerCase()}`];
-        let icon = v.gender.toLowerCase() === "female" ? "&female;" : "";
-        icon = v.gender.toLowerCase() === "male" ? "&male;" : icon;
-        return `<span class="${classNames.join(" ")}">${icon} ${
-          v.gender
-        }</span>`;
+        const classNames = [`g_${v.pet.toLowerCase()}`];
+        let icon = v.pet.toLowerCase() === "cat" ? "🐱" : "";
+        icon = v.pet.toLowerCase() === "dog" ? "🐶" : icon;
+        return `<span class="${classNames.join(" ")}">${icon} ${v.pet}</span>`;
       },
       sortable: true,
-      filterOptions: ["Male", "Female"],
+      filterOptions: ["dog", "cat"],
     },
     {
       key: "ip_address",
@@ -113,7 +111,7 @@
         id: i,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
-        gender: faker.random.number(1) ? "Female" : "Male",
+        pet: faker.random.number(1) ? "cat" : "dog",
         ip_address:
           "192.168." +
           faker.random.number(128) +
@@ -131,11 +129,11 @@
 <SvelteTable columns={colums} rows={data} />
 
 <style>
-  :global(.g_female) {
-    color: #f9e;
+  :global(.g_cat) {
+    color: rgb(146, 130, 82);
   }
-  :global(.g_male) {
-    color: #99e;
+  :global(.g_dog) {
+    color: rgb(176, 111, 206);
   }
   :global(.text-center) {
     text-align: center;

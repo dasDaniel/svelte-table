@@ -8,14 +8,7 @@
   let sortOrder = 1;
   let iconAsc = "↑";
   let iconDesc = "↓";
-  let selectedCols = [
-    "id",
-    "first_name",
-    "last_name",
-    "email",
-    "gender",
-    "ip_address",
-  ];
+  let selectedCols = ["id", "first_name", "last_name", "email", "ip_address"];
 
   const COLUMNS = {
     id: {
@@ -95,21 +88,6 @@
       sortable: true,
       class: "text-center",
     },
-    gender: {
-      key: "gender",
-      title: "GENDER",
-      value: v => v.gender,
-      renderValue: v => {
-        const classNames = [`g_${v.gender.toLowerCase()}`];
-        let icon = v.gender.toLowerCase() === "female" ? "&female;" : "";
-        icon = v.gender.toLowerCase() === "male" ? "&male;" : icon;
-        return `<span class="${classNames.join(" ")}">${icon} ${
-          v.gender
-        }</span>`;
-      },
-      sortable: true,
-      filterOptions: ["Male", "Female"],
-    },
     ip_address: {
       key: "ip_address",
       title: "IP ADDRESS",
@@ -128,7 +106,6 @@
         id: i,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
-        gender: faker.random.number(1) ? "Female" : "Male",
         ip_address:
           "192.168." +
           faker.random.number(128) +
@@ -225,7 +202,6 @@
         LAST NAME
       </th>
       <th>EMAIL</th>
-      <th>GENDER</th>
       <th>IP ADDRESS</th>
     </tr>
 
@@ -237,7 +213,6 @@
       <td>{row.first_name}</td>
       <td>{row.last_name}</td>
       <td>{row.email}</td>
-      <td>{row.gender}</td>
       <td>{row.ip_address}</td>
     </tr>
   </SvelteTable>

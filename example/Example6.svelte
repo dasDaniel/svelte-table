@@ -63,7 +63,7 @@
         id: i,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
-        gender: faker.random.number(1) ? "Female" : "Male",
+        pet: faker.random.number(1) ? "Dog" : "Cat",
         ip_address:
           "192.168." +
           faker.random.number(128) +
