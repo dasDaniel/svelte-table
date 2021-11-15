@@ -250,7 +250,7 @@
           >
             {col.title}
             {#if sortBy === col.key}
-              {sortOrder === 1 ? iconAsc : iconDesc}
+              {@html sortOrder === 1 ? iconAsc : iconDesc}
             {/if}
           </th>
         {/each}
@@ -297,7 +297,7 @@
               on:click={e => handleClickExpand(e, row)}
               class={asStringArray(["isClickable", classNameCellExpand])}
             >
-              {row.$expanded ? iconExpand : iconExpanded}
+              {@html row.$expanded ? iconExpand : iconExpanded}
             </td>
           {/if}
         </tr>
