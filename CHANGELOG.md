@@ -1,3 +1,8 @@
+
+## 0.3.1
+
+- `iconAsc`, `iconDesc`, `iconExpand`, `iconExpanded` now support html content
+
 ## 0.3.0
 
 ### Breaking Change
