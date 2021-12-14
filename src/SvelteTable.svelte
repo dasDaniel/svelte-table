@@ -7,6 +7,9 @@
   /** @type {Array<Object>} */
   export let rows;
 
+  /** @type {Array<Object>} */
+  export let c_rows;
+
   // READ AND WRITE
 
   /** @type {string} */
