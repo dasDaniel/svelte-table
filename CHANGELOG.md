@@ -1,4 +1,9 @@
 
+## 0.3.2
+
+- set svelte version to 3.39.0 and recompiled to address [sveltejs/svelte#6584](https://github.com/sveltejs/svelte/issues/6584) 
+- `c_rows` internal exposed (the name may change in future)
+
 ## 0.3.1
 
 - `iconAsc`, `iconDesc`, `iconExpand`, `iconExpanded` now support html content
