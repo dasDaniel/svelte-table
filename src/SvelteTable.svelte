@@ -10,13 +10,16 @@
   /** @type {Array<Object>} */
   export let c_rows;
 
+  /** @type {Array<number>} */
+  export let sortOrders = [1, -1];
+
   // READ AND WRITE
 
   /** @type {string} */
   export let sortBy = "";
 
   /** @type {number} */
-  export let sortOrder = 1;
+  export let sortOrder = sortOrders?.[0] || 1;
 
   /** @type {Object} */
   export let filterSelections = {};
@@ -38,6 +41,9 @@
 
   /** @type {string} */
   export let iconDesc = "▼";
+
+  /** @type {string} */
+  export let iconSortable = "";
 
   /** @type {string} */
   export let iconExpand = "▼";
@@ -131,7 +137,8 @@
       })
     )
     .sort((a, b) => {
-      if (a.$sortOn > b.$sortOn) return sortOrder;
+      if (!sortBy) return 0
+      else if (a.$sortOn > b.$sortOn) return sortOrder;
       else if (a.$sortOn < b.$sortOn) return -sortOrder;
       return 0;
     });
@@ -175,18 +182,16 @@
     }
   }
 
-  const updateSortOrder = colKey => {
-    if (colKey === sortBy) {
-      sortOrder = sortOrder === 1 ? -1 : 1;
-    } else {
-      sortOrder = 1;
-    }
+  const updateSortOrder = (colKey) => {
+    return colKey === sortBy ?
+      sortOrders[(sortOrders.findIndex(o =>  o === sortOrder) + 1) % sortOrders.length] :
+      sortOrders[0];
   };
 
   const handleClickCol = (event, col) => {
     if (col.sortable) {
-      updateSortOrder(col.key);
-      sortBy = col.key;
+      sortOrder = updateSortOrder(col.key);
+      sortBy = sortOrder ? col.key : undefined;
     }
     dispatch("clickCol", { event, col, key: col.key });
   };
@@ -254,6 +259,8 @@
             {col.title}
             {#if sortBy === col.key}
               {@html sortOrder === 1 ? iconAsc : iconDesc}
+            {:else if col.sortable}
+              {@html iconSortable}
             {/if}
           </th>
         {/each}

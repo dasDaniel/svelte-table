@@ -240,6 +240,8 @@
     rows={data}
     bind:sortBy
     bind:sortOrder
+    sortOrders={[-1, 1, 0]}
+    iconSortable="<span style='color: grey;'>▲▼</span>"
     classNameTable={["table highlight responsive-table"]}
     classNameThead={["thead"]}
     classNameSelect={["custom-select"]}
