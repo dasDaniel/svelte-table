@@ -166,9 +166,11 @@ const columns = [
 | `columns`                  | Object[]     | column config (details below)                               |
 | `rows`                     | Object[]     | row (data) array                                            |
 | `sortBy`                   | String       | ‡ Sorting key                                               |
-| `sortOrder`                | Number       | ‡ `1` = Ascending, `-1` Descending                          |
-| `iconAsc`                  | String       | override ascending order indication                         |
-| `iconDesc`                 | String       | override descending order indication                        |
+| `sortOrder`                | Number       | ‡ `1` = Ascending, `-1` Descending, `0` no filtering        |
+| `sortOrders`               | Number[]     | availability of order options                               |
+| `iconAsc`                  | String       | (_html_) override ascending order indication                |
+| `iconDesc`                 | String       | (_html_) override descending order indication               |
+| `iconFilterable`           | String       | (_html_) override filterable column indication              |
 | `iconExpand`               | String       | row collapsed indicator/button                              |
 | `iconExpanded`             | String       | row expanded indicator/button                               |
 | `clickCol`                 | function     | event listener/callback                                     |
@@ -226,6 +228,10 @@ Example:
   </SvelteTable>
 </div>
 ```
+
+### Filtering order
+
+Providing `sortOrders` specifies the column filtering orders. `sortOrders = [1, -1, 0]` indicates that the row will be sorted ascending (`1`), then descending (`-1`), then going back without any filter (`0`),
 
 ### `filterSelections`
 
