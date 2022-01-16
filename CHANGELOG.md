@@ -1,7 +1,10 @@
+## 0.3.3
+
+- Customize sort order using `sortOrders` prop [#73](https://github.com/dasDaniel/svelte-table/issues/73)
 
 ## 0.3.2
 
-- set svelte version to 3.39.0 and recompiled to address [sveltejs/svelte#6584](https://github.com/sveltejs/svelte/issues/6584) 
+- set svelte version to 3.39.0 and recompiled to address [sveltejs/svelte#6584](https://github.com/sveltejs/svelte/issues/6584)
 - `c_rows` internal exposed (the name may change in future)
 
 ## 0.3.1

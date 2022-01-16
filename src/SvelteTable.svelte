@@ -137,7 +137,7 @@
       })
     )
     .sort((a, b) => {
-      if (!sortBy) return 0
+      if (!sortBy) return 0;
       else if (a.$sortOn > b.$sortOn) return sortOrder;
       else if (a.$sortOn < b.$sortOn) return -sortOrder;
       return 0;
@@ -182,10 +182,12 @@
     }
   }
 
-  const updateSortOrder = (colKey) => {
-    return colKey === sortBy ?
-      sortOrders[(sortOrders.findIndex(o =>  o === sortOrder) + 1) % sortOrders.length] :
-      sortOrders[0];
+  const updateSortOrder = colKey => {
+    return colKey === sortBy
+      ? sortOrders[
+          (sortOrders.findIndex(o => o === sortOrder) + 1) % sortOrders.length
+        ]
+      : sortOrders[0];
   };
 
   const handleClickCol = (event, col) => {

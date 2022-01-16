@@ -162,7 +162,7 @@ const columns = [
 ## Props
 
 | Option                     | Type         | Description                                                 |
-|----------------------------|--------------|-------------------------------------------------------------|
+| -------------------------- | ------------ | ----------------------------------------------------------- |
 | `columns`                  | Object[]     | column config (details below)                               |
 | `rows`                     | Object[]     | row (data) array                                            |
 | `sortBy`                   | String       | ‡ Sorting key                                               |
@@ -231,7 +231,7 @@ Example:
 
 ### Filtering order
 
-Providing `sortOrders` specifies the column filtering orders. `sortOrders = [1, -1, 0]` indicates that the row will be sorted ascending (`1`), then descending (`-1`), then going back without any filter (`0`), 
+Providing `sortOrders` specifies the column filtering orders. `sortOrders = [1, -1, 0]` indicates that the row will be sorted ascending (`1`), then descending (`-1`), then going back without any filter (`0`),
 
 ### `filterSelections`
 
