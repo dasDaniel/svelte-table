@@ -180,7 +180,8 @@ const columns = [
 | `classNameTable`           | String/Array | _optional_ class name(s) for table element                  |
 | `classNameThead`           | String/Array | _optional_ class name(s) for thead element                  |
 | `classNameTbody`           | String/Array | _optional_ class name(s) for tbody element                  |
-| `classNameSelect`          | String/Array | _optional_ class name(s) for select elements                |
+| `classNameSelect`          | String/Array | _optional_ class name(s) for filter select elements         |
+| `classNameInput`           | String/Array | _optional_ class name(s) for search input elements          |
 | `classNameRow`             | String/Array | _optional_ class name(s) for row elements                   |
 | `classNameRowExpanded`     | String/Array | _optional_ class name(s) for expanded row                   |
 | `classNameExpandedContent` | String/Array | _optional_ class name(s) for expanded row content           |
@@ -254,19 +255,20 @@ example: (will preset column with key `first_name` to `a`)
 
 ## Column array object values
 
-| Option              | Type           | Description                                                                                                   |
-| ------------------- | -------------- | ------------------------------------------------------------------------------------------------------------- |
-| `key`               | String         | Unique key identifying the column                                                                             |
-| `title`             | String         | Title for header                                                                                              |
-| `value`             | Function       | table cell value. The function is passed row data                                                             |
-| `[class]`           | String         | _optional_ table cell class name                                                                              |
-| `[sortable]`        | Boolean        | _optional_ Whether the table can be sorted on column                                                          |
-| `[searchValue]`     | Function       | _optional_ search value function. function is passed row data.                                                |
-| `[filterOptions]`   | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows                       |
-| `[filterValue]`     | String         | _optional_ value to filter on, usually same as value                                                          |
-| `[headerClass]`     | String         | _optional_ class to assign to header                                                                          |
-| `[renderValue]`     | Function       | _optional_ render function for rendering html content                                                         |
-| `[renderComponent]` | Component      | _optional_ pass a Svelte component, component will receive `row` and `col` variables (replaces `renderValue`) |
+| Option                | Type           | Description                                                                                                   |
+| --------------------- | -------------- | ------------------------------------------------------------------------------------------------------------- |
+| `key`                 | String         | Unique key identifying the column                                                                             |
+| `title`               | String         | Title for header                                                                                              |
+| `value`               | Function       | table cell value. The function is passed row data                                                             |
+| `[class]`             | String         | _optional_ table cell class name                                                                              |
+| `[sortable]`          | Boolean        | _optional_ Whether the table can be sorted on column                                                          |
+| `[searchValue]`       | Function       | _optional_ search value function. function is passed row data.                                                |
+| `[filterOptions]`     | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows                       |
+| `[filterValue]`       | String         | _optional_ value to filter on, usually same as value                                                          |
+| `[headerClass]`       | String         | _optional_ class to assign to header element                                                                  |
+| `[headerFilterClass]` | String         | _optional_ class to assign to search/filter header element                                                    |
+| `[renderValue]`       | Function       | _optional_ render function for rendering html content                                                         |
+| `[renderComponent]`   | Component      | _optional_ pass a Svelte component, component will receive `row` and `col` variables (replaces `renderValue`) |
 
 ### renderComponent
 
