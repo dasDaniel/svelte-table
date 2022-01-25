@@ -67,6 +67,9 @@
   export let classNameSelect = "";
 
   /** @type {string} */
+  export let classNameInput = "";
+
+  /** @type {string} */
   export let classNameRow = "";
 
   /** @type {string} */
@@ -227,9 +230,12 @@
     {#if showFilterHeader}
       <tr>
         {#each columns as col}
-          <th>
+          <th class={asStringArray([col.headerFilterClass])}>
             {#if col.searchValue !== undefined}
-              <input bind:value={filterSelections[col.key]} />
+              <input
+                bind:value={filterSelections[col.key]}
+                class={asStringArray(classNameInput)}
+              />
             {:else if filterValues[col.key] !== undefined}
               <select
                 bind:value={filterSelections[col.key]}
