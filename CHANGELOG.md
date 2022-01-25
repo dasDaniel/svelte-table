@@ -1,3 +1,7 @@
+## 0.3.4
+
+- Add `classNameInput` prop and a `headerFilterClass` column object key [#76](https://github.com/dasDaniel/svelte-table/issues/76)
+
 ## 0.3.3
 
 - Customize sort order using `sortOrders` prop [#73](https://github.com/dasDaniel/svelte-table/issues/73)
