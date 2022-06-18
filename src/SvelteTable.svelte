@@ -30,6 +30,9 @@
 
   // READ ONLY
 
+  /** @type {string} used for rendering optimization */
+  export let key = null;
+
   /** @type {string} */
   export let expandRowKey = null;
 
@@ -75,6 +78,9 @@
   /** @type {string} */
   export let classNameCell = "";
 
+  /** @type {string} class added to the selected row*/
+  export let classNameRowSelected = "";
+
   /** @type {string} class added to the expanded row*/
   export let classNameRowExpanded = "";
 
@@ -84,12 +90,15 @@
   /** @type {string} class added to the cell that allows expanding/closing */
   export let classNameCellExpand = "";
 
+  let selectedRow = null;
+
   const dispatch = createEventDispatcher();
 
   let sortFunction = () => "";
 
   // Validation
   if (!Array.isArray(expanded)) throw "'expanded' needs to be an array";
+  if (classNameRowSelected && !key) console.warn("'key' is needed to use 'classNameRowSelected'");
 
   let showFilterHeader = columns.some(c => {
     // check if there are any filter or search headers
@@ -202,6 +211,7 @@
   };
 
   const handleClickRow = (event, row) => {
+    selectedRow = row;
     dispatch("clickRow", { event, row });
   };
 
@@ -289,6 +299,7 @@
           class={asStringArray([
             classNameRow,
             row.$expanded && classNameRowExpanded,
+            key && (row[key] === selectedRow?.[key]) && classNameRowSelected,
           ])}
         >
           {#each columns as col}

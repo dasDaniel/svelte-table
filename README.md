@@ -163,6 +163,7 @@ const columns = [
 
 | Option                     | Type         | Description                                                 |
 | -------------------------- | ------------ | ----------------------------------------------------------- |
+| `key`                      | String       | _optional/recommended_ the name of the unique value of rows, it help SvelteTable keep track of data and do rendering optimization |
 | `columns`                  | Object[]     | column config (details below)                               |
 | `rows`                     | Object[]     | row (data) array                                            |
 | `sortBy`                   | String       | ‡ Sorting key                                               |
@@ -183,6 +184,7 @@ const columns = [
 | `classNameSelect`          | String/Array | _optional_ class name(s) for filter select elements         |
 | `classNameInput`           | String/Array | _optional_ class name(s) for search input elements          |
 | `classNameRow`             | String/Array | _optional_ class name(s) for row elements                   |
+| `classNameRowSelected`     | String/Array | _optional_ class name(s) for selected row, this option requires 'key' option |
 | `classNameRowExpanded`     | String/Array | _optional_ class name(s) for expanded row                   |
 | `classNameExpandedContent` | String/Array | _optional_ class name(s) for expanded row content           |
 | `classNameCell`            | String/Array | _optional_ class name(s) for cell elements                  |
