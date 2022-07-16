@@ -1,3 +1,8 @@
+## 0.3.5
+
+- bump svelte from 3.39.0 to 3.49.0
+- update package-lock
+
 ## 0.3.4
 
 - Add `classNameInput` prop and a `headerFilterClass` column object key [#76](https://github.com/dasDaniel/svelte-table/issues/76)
