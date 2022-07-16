@@ -1,5 +1,6 @@
 <script lang="ts">
   import SvelteTable from "../src/index";
+  import type { TableColumns } from "../types";
   globalThis.faker.seed(5);
 
   type RowData = {
@@ -63,7 +64,7 @@
 
   let expanded3 = [data3[2].first_name, data3[4].first_name];
 
-  const COLUMNS: TTAbleColumns<RowData> = {
+  const COLUMNS: TableColumns<RowData> = {
     id: {
       key: "id",
       title: "ID",

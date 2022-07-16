@@ -1,8 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import type { TTAbleColumn } from "../types";
+  import type { TableColumn } from "../types";
 
-  export let columns: TTAbleColumn<any>[];
+  export let columns: TableColumn<any>[];
 
   export let rows: any[];
 
@@ -83,7 +83,7 @@
 
   const dispatch = createEventDispatcher();
 
-  let sortFunction = (row?: any) => "";
+  let sortFunction = (row?: any): string | number => "";
 
   // Validation
   if (!Array.isArray(expanded)) throw "'expanded' needs to be an array";
@@ -93,7 +93,7 @@
     return c.filterOptions !== undefined || c.searchValue !== undefined;
   });
   let filterValues = {};
-  let columnByKey;
+  let columnByKey: Record<string | number | symbol, TableColumn<any>>;
   $: {
     columnByKey = {};
     columns.forEach(col => {
