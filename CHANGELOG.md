@@ -1,3 +1,5 @@
+- TypeScript support
+
 ## 0.3.5
 
 - bump svelte from 3.39.0 to 3.49.0
