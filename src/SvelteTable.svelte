@@ -25,13 +25,21 @@
   /** @type {Array.<string|number>} */
   export let expanded = [];
 
+  // selection
+  /** @type {Array.<string|number>} */
+  export let selected: (string | number)[] = [];
+
   // READ ONLY
 
-  /** @type {string} */
-  export let expandRowKey = null;
+  // TODO: remove in some future release in favour of rowKey
+  export let expandRowKey: string | null = null;
 
   /** @type {string} */
-  export let expandSingle = false;
+  export let rowKey: string | null = expandRowKey;
+
+  export let expandSingle: Boolean = false;
+  export let selectSingle: Boolean = false;
+  export let selectOnClick: Boolean = true;
 
   /** @type {string} */
   export let iconAsc = "▲";
@@ -73,7 +81,10 @@
   export let classNameCell = "";
 
   /** @type {string} class added to the expanded row*/
-  export let classNameRowExpanded = "";
+  export let classNameRowSelected: string | null = null;
+
+  /** @type {string} class added to the expanded row*/
+  export let classNameRowExpanded: string | null = null;
 
   /** @type {string} class added to the expanded row*/
   export let classNameExpandedContent = "";
@@ -87,6 +98,12 @@
 
   // Validation
   if (!Array.isArray(expanded)) throw "'expanded' needs to be an array";
+  if (!Array.isArray(selected)) throw "'selection' needs to be an array";
+  if (expandRowKey !== null) {
+    console.warn("'expandRowKey' is depricated in favour of 'rowKey'");
+  }
+  if (classNameRowSelected && !rowKey)
+    console.warn("'rowKey' is needed to use 'classNameRowSelected'");
 
   let showFilterHeader = columns.some(c => {
     // check if there are any filter or search headers
@@ -132,8 +149,8 @@
         // internal row property for sort order
         $sortOn: sortFunction(r),
         // internal row property for expanded rows
-        $expanded:
-          expandRowKey !== null && expanded.indexOf(r[expandRowKey]) >= 0,
+        $expanded: rowKey !== null && expanded.indexOf(r[rowKey]) >= 0,
+        $selected: rowKey !== null && selected.indexOf(r[rowKey]) >= 0,
       })
     )
     .sort((a, b) => {
@@ -199,12 +216,28 @@
   };
 
   const handleClickRow = (event, row) => {
+    if (selectOnClick) {
+      if (selectSingle) {
+        // replace selection is default behaviour
+        if (selected.includes(row[rowKey])) {
+          selected = [];
+        } else {
+          selected = [row[rowKey]];
+        }
+      } else {
+        if (selected.includes(row[rowKey])) {
+          selected = selected.filter(r => r != row[rowKey]);
+        } else {
+          selected = [...selected, row[rowKey]].sort();
+        }
+      }
+    }
     dispatch("clickRow", { event, row });
   };
 
   const handleClickExpand = (event, row) => {
     row.$expanded = !row.$expanded;
-    const keyVal = row[expandRowKey];
+    const keyVal = row[rowKey];
     if (expandSingle && row.$expanded) {
       expanded = [keyVal];
     } else if (expandSingle) {
@@ -286,6 +319,7 @@
           class={asStringArray([
             classNameRow,
             row.$expanded && classNameRowExpanded,
+            row.$selected && classNameRowSelected,
           ])}
         >
           {#each columns as col}

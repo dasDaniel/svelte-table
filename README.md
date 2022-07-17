@@ -161,37 +161,42 @@ const columns = [
 
 ## Props
 
-| Option                     | Type         | Description                                                 |
-| -------------------------- | ------------ | ----------------------------------------------------------- |
-| `columns`                  | Object[]     | column config (details below)                               |
-| `rows`                     | Object[]     | row (data) array                                            |
-| `sortBy`                   | String       | ‡ Sorting key                                               |
-| `sortOrder`                | Number       | ‡ `1` = Ascending, `-1` Descending, `0` no filtering        |
-| `sortOrders`               | Number[]     | availability of order options                               |
-| `iconAsc`                  | String       | (_html_) override ascending order indication                |
-| `iconDesc`                 | String       | (_html_) override descending order indication               |
-| `iconFilterable`           | String       | (_html_) override filterable column indication              |
-| `iconExpand`               | String       | row collapsed indicator/button                              |
-| `iconExpanded`             | String       | row expanded indicator/button                               |
-| `clickCol`                 | function     | event listener/callback                                     |
-| `clickRow`                 | function     | event listener/callback                                     |
-| `clickCell`                | function     | event listener/callback                                     |
-| `clickExpand`              | function     | event listener/callback                                     |
-| `classNameTable`           | String/Array | _optional_ class name(s) for table element                  |
-| `classNameThead`           | String/Array | _optional_ class name(s) for thead element                  |
-| `classNameTbody`           | String/Array | _optional_ class name(s) for tbody element                  |
-| `classNameSelect`          | String/Array | _optional_ class name(s) for filter select elements         |
-| `classNameInput`           | String/Array | _optional_ class name(s) for search input elements          |
-| `classNameRow`             | String/Array | _optional_ class name(s) for row elements                   |
-| `classNameRowExpanded`     | String/Array | _optional_ class name(s) for expanded row                   |
-| `classNameExpandedContent` | String/Array | _optional_ class name(s) for expanded row content           |
-| `classNameCell`            | String/Array | _optional_ class name(s) for cell elements                  |
-| `classNameCellExpand`      | String/Array | _optional_ class name(s) for cell with expand icon          |
-| `expanded`                 | any[]        | _optional_ array of key values of expanded rows             |
-| `expandRowKey`             | string       | _optional_ key for expanded row (use unique values like id) |
-| `expandSingle`             | Object[]     | _optional_ allow only one row to be expanded                |
-| `filterSelections`         | Object[]     | ‡ _optional_ search or filter selection                     |
-| `showExpandIcon`           | boolean      | should a expand column be visible                           |
+| Option                     | Type         | Description                                                             |
+| -------------------------- | ------------ | ----------------------------------------------------------------------- |
+| `columns`                  | Object[]     | column config (details below)                                           |
+| `rows`                     | Object[]     | row (data) array                                                        |
+| `sortBy`                   | String       | ‡ Sorting key                                                           |
+| `sortOrder`                | Number       | ‡ `1` = Ascending, `-1` Descending, `0` no filtering                    |
+| `sortOrders`               | Number[]     | availability of order options                                           |
+| `iconAsc`                  | String       | (_html_) override ascending order indication                            |
+| `iconDesc`                 | String       | (_html_) override descending order indication                           |
+| `iconFilterable`           | String       | (_html_) override filterable column indication                          |
+| `iconExpand`               | String       | row collapsed indicator/button                                          |
+| `iconExpanded`             | String       | row expanded indicator/button                                           |
+| `clickCol`                 | function     | event listener/callback                                                 |
+| `clickRow`                 | function     | event listener/callback                                                 |
+| `clickCell`                | function     | event listener/callback                                                 |
+| `clickExpand`              | function     | event listener/callback                                                 |
+| `classNameTable`           | String/Array | _optional_ class name(s) for table element                              |
+| `classNameThead`           | String/Array | _optional_ class name(s) for thead element                              |
+| `classNameTbody`           | String/Array | _optional_ class name(s) for tbody element                              |
+| `classNameSelect`          | String/Array | _optional_ class name(s) for filter select elements                     |
+| `classNameInput`           | String/Array | _optional_ class name(s) for search input elements                      |
+| `classNameRow`             | String/Array | _optional_ class name(s) for row elements                               |
+| `classNameRowExpanded`     | String/Array | _optional_ class name(s) for expanded row                               |
+| `classNameExpandedContent` | String/Array | _optional_ class name(s) for expanded row content                       |
+| `classNameRowSelected`     | String/Array | _optional_ class name(s) for selected row                               |
+| `classNameCell`            | String/Array | _optional_ class name(s) for cell elements                              |
+| `classNameCellExpand`      | String/Array | _optional_ class name(s) for cell with expand icon                      |
+| `expanded`                 | any[]        | ‡ _optional_ array of key values of expanded rows                       |
+| `expandRowKey`             | string       | _optional_ **depricated** use `rowKey`                                  |
+| `rowKey`                   | string       | _optional_ key for expanded or selected row (use unique values like id) |
+| `expandSingle`             | Boolean      | _optional_ default: `false` allow only one row to be selected           |
+| `selected`                 | any[]        | ‡ _optional_ array of key values of selected rows                       |
+| `selectSingle`             | Boolean      | _optional_ default: `false` allow only one row to be selected           |
+| `selectOnClick`            | Boolean      | _optional_ default: `true` will clicking on row will update selection   |
+| `filterSelections`         | Object[]     | ‡ _optional_ search or filter selection                                 |
+| `showExpandIcon`           | Boolean      | should a expand column be visible                                       |
 
 _‡_ field allows 2-way binding
 
@@ -207,8 +212,7 @@ Events pass a CustomEvent object with the following params in the `detail` objec
 ### Expanding Rows
 
 - Row expanding is tracked using the `expanded` property. (supports 2-way binding)
-- The keys are defined using the `expandRowKey` property. It's a good idea to use a key that is unique to each row like a dedicated
-  id or key field, to prevent conflict.
+- The keys are defined using the `rowKey` property (previously `expandRowKey` which is depricated). It's a good idea to use a key that is unique to each row like a dedicated id or key field, to prevent conflict.
 - The content for the field is passed through the `expanded` slot.
 - The expanding can be managed manually or by using the built-in column using `showExpandIcon` property
 - Expand events can be listened to using `on:clickExpand` which will include the `row` object in the `event.detail` object.
@@ -223,12 +227,20 @@ Example:
     rows="{data}"
     showExpandIcon="{true}"
     expandSingle="{true}"
-    expandRowKey="id"
+    rowKey="id"
   >
     <svelte:fragment slot="expanded" let:row>{row.detail}</svelte:fragment>
   </SvelteTable>
 </div>
 ```
+
+### Selecting Rows
+
+- Row selection is tracked by `selection` property and supports 2-way binding
+- Selection is tracked using the key defined by the `rowKey` property
+- The selection prop is an array because it supports both single and mutliple selections
+- Mutliple vs. single selection is handled through `selectSingle`
+- Selection happens when user clicks on row (can be disabled through `selectOnClick` property)
 
 ### Filtering order
 
