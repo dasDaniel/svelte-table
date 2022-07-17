@@ -1,11 +1,12 @@
 import svelte from "rollup-plugin-svelte";
 import resolve from "@rollup/plugin-node-resolve";
+import autoPreprocess from "svelte-preprocess";
+import typescript from "@rollup/plugin-typescript";
 
 const CONFIG = {
   input: "",
   output: {
-    customElement: true,
-    sourcemap: false,
+    sourcemap: true,
     format: "iife",
     name: "app",
     dir: "example/public/bundle",
@@ -13,7 +14,11 @@ const CONFIG = {
   },
   external: ["faker"],
   plugins: [
-    svelte({ emitCss: false }),
+    svelte({
+      emitCss: false,
+      preprocess: autoPreprocess(),
+    }),
+    typescript({ sourceMap: true }),
     resolve({
       jsnext: true,
       main: true,
@@ -30,5 +35,5 @@ export default [
   { ...CONFIG, input: "./example/example4.js" },
   { ...CONFIG, input: "./example/example5.js" },
   { ...CONFIG, input: "./example/example6.js" },
-  { ...CONFIG, input: "./example/example7.js" },
+  { ...CONFIG, input: "./example/example7.ts" },
 ];

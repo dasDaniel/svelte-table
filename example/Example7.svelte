@@ -1,7 +1,17 @@
-<script>
-  import SvelteTable from "../src/index.js";
-  import faker from "faker";
-  faker.seed(5);
+<script lang="ts">
+  import SvelteTable from "../src/index";
+  import type { TableColumns } from "../types";
+  globalThis.faker.seed(5);
+
+  type RowData = {
+    id: number;
+    first_name: string;
+    last_name: string;
+    county: string;
+    state: string;
+    country: string;
+    email: string;
+  };
 
   let sortBy = "id";
   let sortOrder = 1;
@@ -32,12 +42,15 @@
       .map((n, i) => {
         let d = {
           id: i,
-          first_name: faker.name.firstName(),
-          last_name: faker.name.lastName(),
-          county: faker.address.county(),
-          state: faker.address.state(),
-          country: faker.address.country(),
-        };
+          first_name: globalThis.faker.name.firstName() + "",
+          last_name: globalThis.faker.name.lastName() + "",
+          county: globalThis.faker.address.county() + "",
+          state: globalThis.faker.address.state() + "",
+          country: globalThis.faker.address.country() + "",
+          email: "",
+        } as RowData;
+
+        // update email
         d.email =
           d.first_name[0].toLowerCase() +
           d.last_name.toLowerCase() +
@@ -51,7 +64,7 @@
 
   let expanded3 = [data3[2].first_name, data3[4].first_name];
 
-  const COLUMNS = {
+  const COLUMNS: TableColumns<RowData> = {
     id: {
       key: "id",
       title: "ID",
@@ -165,7 +178,7 @@
     <p>uses name as key and custom expand/collapse icons</p>
 
     Using first_name as keys:
-    <pre>{expanded3.join(', ')}</pre>
+    <pre>{expanded3.join(", ")}</pre>
     <SvelteTable
       columns={cols}
       rows={data3}

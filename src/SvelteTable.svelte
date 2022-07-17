@@ -1,16 +1,13 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import type { TableColumn } from "../types";
 
-  /** @type {Array<Object>} */
-  export let columns;
+  export let columns: TableColumn<any>[];
 
-  /** @type {Array<Object>} */
-  export let rows;
+  export let rows: any[];
 
-  /** @type {Array<Object>} */
-  export let c_rows;
+  export let c_rows: any[] | undefined = undefined;
 
-  /** @type {Array<number>} */
   export let sortOrders = [1, -1];
 
   // READ AND WRITE
@@ -86,7 +83,7 @@
 
   const dispatch = createEventDispatcher();
 
-  let sortFunction = () => "";
+  let sortFunction = (row?: any): string | number => "";
 
   // Validation
   if (!Array.isArray(expanded)) throw "'expanded' needs to be an array";
@@ -96,7 +93,7 @@
     return c.filterOptions !== undefined || c.searchValue !== undefined;
   });
   let filterValues = {};
-  let columnByKey;
+  let columnByKey: Record<string | number | symbol, TableColumn<any>>;
   $: {
     columnByKey = {};
     columns.forEach(col => {
@@ -174,7 +171,7 @@
       col.sortable === true &&
       typeof col.value === "function"
     ) {
-      sortFunction = r => col.value(r);
+      sortFunction = (r: any) => col.value(r);
     }
   }
 
