@@ -243,10 +243,10 @@ Example:
 - Selection happens when user clicks on row
 - Use `classNameRowSelected` to assign class to a selected row
 - Selection is tracked using the key defined by the `rowKey` property
-- The selection prop is an array because it supports both single and mutliple selections
-- Mutliple vs. single selection is handled through `selectSingle`
-- `selectSingle` does not inforce single row selection when multiple keys are is passed to `selection`
-- Row selection status is available through the `$selected` property of the row, but is consdered an internal and may be removed
+- The selection prop is an array because it supports both single and multiple selections
+- Multiple vs. single selection is handled through `selectSingle`
+- `selectSingle` does not enforce single row selection when multiple keys are is passed to `selection`
+- Row selection status is available through the `$selected` property of the row, but is considered an internal and may be removed
 
 ### Filtering order
 
