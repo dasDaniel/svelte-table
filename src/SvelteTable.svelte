@@ -1,8 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import type { TableColumn } from "../types";
+  import type { RowClassName, TableColumn, TableColumns } from "../types";
 
-  export let columns: TableColumn<any>[];
+  export let columns: TableColumns<any>;
 
   export let rows: any[];
 
@@ -74,8 +74,7 @@
   /** @type {string} */
   export let classNameInput = "";
 
-  /** @type {string} */
-  export let classNameRow = "";
+  export let classNameRow: RowClassName<any> = null;
 
   /** @type {string} */
   export let classNameCell = "";
@@ -163,7 +162,7 @@
   const asStringArray = v =>
     []
       .concat(v)
-      .filter(v => typeof v === "string" && v !== "")
+      .filter(v => v !== null && typeof v === "string" && v !== "")
       .join(" ");
 
   const calculateFilterValues = () => {
@@ -317,17 +316,25 @@
             handleClickRow(e, row);
           }}
           class={asStringArray([
-            classNameRow,
+            typeof classNameRow === "string" ? classNameRow : null,
+            typeof classNameRow === "function" ? classNameRow(row, n) : null,
+            ,
             row.$expanded && classNameRowExpanded,
             row.$selected && classNameRowSelected,
           ])}
         >
-          {#each columns as col}
+          {#each columns as col, colIndex}
             <td
               on:click={e => {
                 handleClickCell(e, row, col.key);
               }}
-              class={asStringArray([col.class, classNameCell])}
+              class={asStringArray([
+                typeof col.class === "string" ? col.class : null,
+                typeof col.class === "function"
+                  ? col.class(row, n, colIndex)
+                  : null,
+                classNameCell,
+              ])}
             >
               {#if col.renderComponent}
                 <svelte:component
