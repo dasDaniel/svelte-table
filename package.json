@@ -1,6 +1,6 @@
 {
   "name": "svelte-table",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "license": "MIT",
   "repository": "dasDaniel/svelte-table",
   "module": "dist/es/SvelteTable.mjs",
