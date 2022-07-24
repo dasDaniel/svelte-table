@@ -161,42 +161,42 @@ const columns = [
 
 ## Props
 
-| Option                     | Type         | Description                                                             |
-| -------------------------- | ------------ | ----------------------------------------------------------------------- |
-| `columns`                  | Object[]     | column config (details below)                                           |
-| `rows`                     | Object[]     | row (data) array                                                        |
-| `sortBy`                   | String       | ‡ Sorting key                                                           |
-| `sortOrder`                | Number       | ‡ `1` = Ascending, `-1` Descending, `0` no filtering                    |
-| `sortOrders`               | Number[]     | availability of order options                                           |
-| `iconAsc`                  | String       | (_html_) override ascending order indication                            |
-| `iconDesc`                 | String       | (_html_) override descending order indication                           |
-| `iconFilterable`           | String       | (_html_) override filterable column indication                          |
-| `iconExpand`               | String       | row collapsed indicator/button                                          |
-| `iconExpanded`             | String       | row expanded indicator/button                                           |
-| `clickCol`                 | function     | event listener/callback                                                 |
-| `clickRow`                 | function     | event listener/callback                                                 |
-| `clickCell`                | function     | event listener/callback                                                 |
-| `clickExpand`              | function     | event listener/callback                                                 |
-| `classNameTable`           | String/Array | _optional_ class name(s) for table element                              |
-| `classNameThead`           | String/Array | _optional_ class name(s) for thead element                              |
-| `classNameTbody`           | String/Array | _optional_ class name(s) for tbody element                              |
-| `classNameSelect`          | String/Array | _optional_ class name(s) for filter select elements                     |
-| `classNameInput`           | String/Array | _optional_ class name(s) for search input elements                      |
-| `classNameRow`             | String/Array | _optional_ class name(s) for row elements                               |
-| `classNameRowExpanded`     | String/Array | _optional_ class name(s) for expanded row                               |
-| `classNameExpandedContent` | String/Array | _optional_ class name(s) for expanded row content                       |
-| `classNameRowSelected`     | String/Array | _optional_ class name(s) for selected row                               |
-| `classNameCell`            | String/Array | _optional_ class name(s) for cell elements                              |
-| `classNameCellExpand`      | String/Array | _optional_ class name(s) for cell with expand icon                      |
-| `expanded`                 | any[]        | ‡ _optional_ array of key values of expanded rows                       |
-| `expandRowKey`             | string       | _optional_ **depricated** use `rowKey`                                  |
-| `rowKey`                   | string       | _optional_ key for expanded or selected row (use unique values like id) |
-| `expandSingle`             | Boolean      | _optional_ default: `false` allow only one row to be selected           |
-| `selected`                 | any[]        | ‡ _optional_ array of key values of selected rows                       |
-| `selectSingle`             | Boolean      | _optional_ default: `false` allow only one row to be selected           |
-| `selectOnClick`            | Boolean      | _optional_ default: `true` will clicking on row will update selection   |
-| `filterSelections`         | Object[]     | ‡ _optional_ search or filter selection                                 |
-| `showExpandIcon`           | Boolean      | should a expand column be visible                                       |
+| Option                     | Type            | Description                                                             |
+| -------------------------- | --------------- | ----------------------------------------------------------------------- |
+| `columns`                  | Object[]        | column config (details below)                                           |
+| `rows`                     | Object[]        | row (data) array                                                        |
+| `sortBy`                   | String          | ‡ Sorting key                                                           |
+| `sortOrder`                | Number          | ‡ `1` = Ascending, `-1` Descending, `0` no filtering                    |
+| `sortOrders`               | Number[]        | availability of order options                                           |
+| `iconAsc`                  | String          | (_html_) override ascending order indication                            |
+| `iconDesc`                 | String          | (_html_) override descending order indication                           |
+| `iconFilterable`           | String          | (_html_) override filterable column indication                          |
+| `iconExpand`               | String          | row collapsed indicator/button                                          |
+| `iconExpanded`             | String          | row expanded indicator/button                                           |
+| `clickCol`                 | function        | event listener/callback                                                 |
+| `clickRow`                 | function        | event listener/callback                                                 |
+| `clickCell`                | function        | event listener/callback                                                 |
+| `clickExpand`              | function        | event listener/callback                                                 |
+| `classNameTable`           | String/Array    | _optional_ class name(s) for table element                              |
+| `classNameThead`           | String/Array    | _optional_ class name(s) for thead element                              |
+| `classNameTbody`           | String/Array    | _optional_ class name(s) for tbody element                              |
+| `classNameSelect`          | String/Array    | _optional_ class name(s) for filter select elements                     |
+| `classNameInput`           | String/Array    | _optional_ class name(s) for search input elements                      |
+| `classNameRow`             | String/function | _optional_ class name(s) for row elements. Supports passing function    |
+| `classNameRowExpanded`     | String/Array    | _optional_ class name(s) for expanded row                               |
+| `classNameExpandedContent` | String/Array    | _optional_ class name(s) for expanded row content                       |
+| `classNameRowSelected`     | String/Array    | _optional_ class name(s) for selected row                               |
+| `classNameCell`            | String/Array    | _optional_ class name(s) for cell elements                              |
+| `classNameCellExpand`      | String/Array    | _optional_ class name(s) for cell with expand icon                      |
+| `expanded`                 | any[]           | ‡ _optional_ array of key values of expanded rows                       |
+| `expandRowKey`             | string          | _optional_ **depricated** use `rowKey`                                  |
+| `rowKey`                   | string          | _optional_ key for expanded or selected row (use unique values like id) |
+| `expandSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
+| `selected`                 | any[]           | ‡ _optional_ array of key values of selected rows                       |
+| `selectSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
+| `selectOnClick`            | Boolean         | _optional_ default: `true` will clicking on row will update selection   |
+| `filterSelections`         | Object[]        | ‡ _optional_ search or filter selection                                 |
+| `showExpandIcon`           | Boolean         | should a expand column be visible                                       |
 
 _‡_ field allows 2-way binding
 

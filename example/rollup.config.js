@@ -36,4 +36,5 @@ export default [
   { ...CONFIG, input: "./example/example5.js" },
   { ...CONFIG, input: "./example/example6.js" },
   { ...CONFIG, input: "./example/example7.ts" },
+  { ...CONFIG, input: "./example/example8.ts" },
 ];

@@ -2,7 +2,9 @@ export type TableColumn<T> = {
   key: string | number;
   title: string;
   value: (row: T) => string | number;
-  class?: string;
+  class?:
+    | string
+    | ((row: T, rowIndex?: number, colIndex?: number) => string | null);
   sortable?: boolean;
   searchValue?: (row: T) => string | number;
   filterOptions?: ((row: T) => any) | any[];
@@ -13,4 +15,6 @@ export type TableColumn<T> = {
   renderComponent?: any; // svelte component
 };
 
-export type TableColumns<T> = Record<string | number, TableColumn<T>>;
+export type TableColumns<T> = TableColumn<T>[];
+
+export type RowClassName<T> = null | string | ((T, rowIndex) => string | null);

@@ -1,3 +1,5 @@
+- `classNameRow` prop and column `class` support passing functions to resolve by using column data or index
+- row selection support
 - TypeScript support
 
 ## 0.3.5
