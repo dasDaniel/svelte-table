@@ -3,3 +3,5 @@ dist/
 docs/
 .github/
 public/
+package-lock.json
+package.json

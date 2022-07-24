@@ -1,16 +1,13 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import type { RowClassName, TableColumn, TableColumns } from "../types";
 
-  /** @type {Array<Object>} */
-  export let columns;
+  export let columns: TableColumns<any>;
 
-  /** @type {Array<Object>} */
-  export let rows;
+  export let rows: any[];
 
-  /** @type {Array<Object>} */
-  export let c_rows;
+  export let c_rows: any[] | undefined = undefined;
 
-  /** @type {Array<number>} */
   export let sortOrders = [1, -1];
 
   // READ AND WRITE
@@ -28,13 +25,21 @@
   /** @type {Array.<string|number>} */
   export let expanded = [];
 
+  // selection
+  /** @type {Array.<string|number>} */
+  export let selected: (string | number)[] = [];
+
   // READ ONLY
 
-  /** @type {string} */
-  export let expandRowKey = null;
+  // TODO: remove in some future release in favour of rowKey
+  export let expandRowKey: string | null = null;
 
   /** @type {string} */
-  export let expandSingle = false;
+  export let rowKey: string | null = expandRowKey;
+
+  export let expandSingle: Boolean = false;
+  export let selectSingle: Boolean = false;
+  export let selectOnClick: Boolean = false;
 
   /** @type {string} */
   export let iconAsc = "▲";
@@ -69,14 +74,16 @@
   /** @type {string} */
   export let classNameInput = "";
 
-  /** @type {string} */
-  export let classNameRow = "";
+  export let classNameRow: RowClassName<any> = null;
 
   /** @type {string} */
   export let classNameCell = "";
 
+  /** @type {string} class added to the selected row*/
+  export let classNameRowSelected: string | null = null;
+
   /** @type {string} class added to the expanded row*/
-  export let classNameRowExpanded = "";
+  export let classNameRowExpanded: string | null = null;
 
   /** @type {string} class added to the expanded row*/
   export let classNameExpandedContent = "";
@@ -86,17 +93,23 @@
 
   const dispatch = createEventDispatcher();
 
-  let sortFunction = () => "";
+  let sortFunction = (row?: any): string | number => "";
 
   // Validation
   if (!Array.isArray(expanded)) throw "'expanded' needs to be an array";
+  if (!Array.isArray(selected)) throw "'selection' needs to be an array";
+  if (expandRowKey !== null) {
+    console.warn("'expandRowKey' is depricated in favour of 'rowKey'");
+  }
+  if (classNameRowSelected && !rowKey)
+    console.warn("'rowKey' is needed to use 'classNameRowSelected'");
 
   let showFilterHeader = columns.some(c => {
     // check if there are any filter or search headers
     return c.filterOptions !== undefined || c.searchValue !== undefined;
   });
   let filterValues = {};
-  let columnByKey;
+  let columnByKey: Record<string | number | symbol, TableColumn<any>>;
   $: {
     columnByKey = {};
     columns.forEach(col => {
@@ -135,8 +148,8 @@
         // internal row property for sort order
         $sortOn: sortFunction(r),
         // internal row property for expanded rows
-        $expanded:
-          expandRowKey !== null && expanded.indexOf(r[expandRowKey]) >= 0,
+        $expanded: rowKey !== null && expanded.indexOf(r[rowKey]) >= 0,
+        $selected: rowKey !== null && selected.indexOf(r[rowKey]) >= 0,
       })
     )
     .sort((a, b) => {
@@ -149,7 +162,7 @@
   const asStringArray = v =>
     []
       .concat(v)
-      .filter(v => typeof v === "string" && v !== "")
+      .filter(v => v !== null && typeof v === "string" && v !== "")
       .join(" ");
 
   const calculateFilterValues = () => {
@@ -174,7 +187,7 @@
       col.sortable === true &&
       typeof col.value === "function"
     ) {
-      sortFunction = r => col.value(r);
+      sortFunction = (r: any) => col.value(r);
     }
   }
 
@@ -202,12 +215,28 @@
   };
 
   const handleClickRow = (event, row) => {
+    if (selectOnClick) {
+      if (selectSingle) {
+        // replace selection is default behaviour
+        if (selected.includes(row[rowKey])) {
+          selected = [];
+        } else {
+          selected = [row[rowKey]];
+        }
+      } else {
+        if (selected.includes(row[rowKey])) {
+          selected = selected.filter(r => r != row[rowKey]);
+        } else {
+          selected = [...selected, row[rowKey]].sort();
+        }
+      }
+    }
     dispatch("clickRow", { event, row });
   };
 
   const handleClickExpand = (event, row) => {
     row.$expanded = !row.$expanded;
-    const keyVal = row[expandRowKey];
+    const keyVal = row[rowKey];
     if (expandSingle && row.$expanded) {
       expanded = [keyVal];
     } else if (expandSingle) {
@@ -287,16 +316,25 @@
             handleClickRow(e, row);
           }}
           class={asStringArray([
-            classNameRow,
+            typeof classNameRow === "string" ? classNameRow : null,
+            typeof classNameRow === "function" ? classNameRow(row, n) : null,
+            ,
             row.$expanded && classNameRowExpanded,
+            row.$selected && classNameRowSelected,
           ])}
         >
-          {#each columns as col}
+          {#each columns as col, colIndex}
             <td
               on:click={e => {
                 handleClickCell(e, row, col.key);
               }}
-              class={asStringArray([col.class, classNameCell])}
+              class={asStringArray([
+                typeof col.class === "string" ? col.class : null,
+                typeof col.class === "function"
+                  ? col.class(row, n, colIndex)
+                  : null,
+                classNameCell,
+              ])}
             >
               {#if col.renderComponent}
                 <svelte:component

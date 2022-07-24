@@ -2,15 +2,19 @@ import svelte from "rollup-plugin-svelte";
 import resolve from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 import pkg from "./package.json";
+import autoPreprocess from "svelte-preprocess";
+import typescript from "@rollup/plugin-typescript";
 
 const minify = !process.env.MINIFY;
-const input = "src/index.js";
+const input = "src/index.ts";
 const name = "SvelteTable";
 
 const plugins = [
   svelte({
     emitCss: false,
+    preprocess: autoPreprocess(),
   }),
+  typescript({ sourceMap: true }),
   resolve(),
   // commonjs(),
   minify && terser(),

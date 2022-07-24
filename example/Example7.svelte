@@ -1,7 +1,17 @@
-<script>
-  import SvelteTable from "../src/index.js";
-  import faker from "faker";
-  faker.seed(5);
+<script lang="ts">
+  import SvelteTable from "../src/index";
+  import type { TableColumns } from "../types";
+  globalThis.faker.seed(5);
+
+  type RowData = {
+    id: number;
+    first_name: string;
+    last_name: string;
+    county: string;
+    state: string;
+    country: string;
+    email: string;
+  };
 
   let sortBy = "id";
   let sortOrder = 1;
@@ -9,10 +19,13 @@
   let data1 = [];
   let data2 = [];
   let data3 = [];
+  let data4selection = [];
 
   let expanded1 = "";
   let expandedCache = "";
   let expandedArr = [4, 3, 1];
+  let selectionMultiple = [1, 2];
+  let selectionSingle = [3];
 
   $: {
     // 2-way binding setup between input and table expanded items
@@ -32,12 +45,15 @@
       .map((n, i) => {
         let d = {
           id: i,
-          first_name: faker.name.firstName(),
-          last_name: faker.name.lastName(),
-          county: faker.address.county(),
-          state: faker.address.state(),
-          country: faker.address.country(),
-        };
+          first_name: globalThis.faker.name.firstName() + "",
+          last_name: globalThis.faker.name.lastName() + "",
+          county: globalThis.faker.address.county() + "",
+          state: globalThis.faker.address.state() + "",
+          country: globalThis.faker.address.country() + "",
+          email: "",
+        } as RowData;
+
+        // update email
         d.email =
           d.first_name[0].toLowerCase() +
           d.last_name.toLowerCase() +
@@ -48,10 +64,11 @@
   data1 = generateData(5);
   data2 = generateData(5);
   data3 = generateData(5);
+  data4selection = generateData(5);
 
   let expanded3 = [data3[2].first_name, data3[4].first_name];
 
-  const COLUMNS = {
+  const COLUMNS: TableColumns<RowData> = {
     id: {
       key: "id",
       title: "ID",
@@ -75,7 +92,6 @@
       title: "EMAIL",
       value: v => v.email,
       sortable: true,
-      class: "text-center",
     },
   };
 
@@ -99,7 +115,7 @@
 </script>
 
 <div class="container">
-  <h1>SvelteTable example 7 ~ expand</h1>
+  <h1>SvelteTable example 7 ~ expand and select</h1>
 
   <h2>Expand row example 1</h2>
 
@@ -124,7 +140,7 @@
       classNameRowExpanded="row-expanded"
       classNameExpandedContent="expanded-content"
       bind:expanded={expandedArr}
-      expandRowKey="id"
+      rowKey="id"
       on:clickRow={handleRowClick}
     >
       <svelte:fragment slot="expanded" let:row>
@@ -149,7 +165,7 @@
       classNameThead="table-info"
       showExpandIcon={true}
       expandSingle={true}
-      expandRowKey="id"
+      rowKey="id"
       on:clickExpand={handleExpand}
     >
       <div slot="expanded" let:row class="text-center">
@@ -165,7 +181,7 @@
     <p>uses name as key and custom expand/collapse icons</p>
 
     Using first_name as keys:
-    <pre>{expanded3.join(', ')}</pre>
+    <pre>{expanded3.join(", ")}</pre>
     <SvelteTable
       columns={cols}
       rows={data3}
@@ -174,7 +190,7 @@
       showExpandIcon={true}
       expandSingle={false}
       bind:expanded={expanded3}
-      expandRowKey="first_name"
+      rowKey="first_name"
       iconExpand="⌄"
       iconExpanded="⌃"
     >
@@ -183,6 +199,56 @@
         {row.country}
       </svelte:fragment>
     </SvelteTable>
+  </div>
+
+  <div class="row">
+    <h2>Selection</h2>
+
+    <div>
+      <button class="btn btn-primary" on:click={() => (selectionMultiple = [])}>
+        none
+      </button>
+      <button
+        class="btn btn-primary"
+        on:click={() => (selectionMultiple = [0, 1, 2, 3, 4])}
+      >
+        all
+      </button>
+    </div>
+
+    <pre>Selection: [{selectionMultiple.join(", ")}]</pre>
+
+    Using first_name as keys:
+    <SvelteTable
+      columns={cols}
+      rows={data4selection}
+      classNameTable="table"
+      classNameThead="table-success"
+      classNameRowSelected="row-selected"
+      bind:selected={selectionMultiple}
+      selectSingle={false}
+      rowKey="id"
+      selectOnClick={true}
+    />
+  </div>
+
+  <div class="row">
+    <h2>Selection</h2>
+
+    <pre>Selection: [{selectionSingle.join(", ")}]</pre>
+
+    Using first_name as keys:
+    <SvelteTable
+      columns={cols}
+      rows={data4selection}
+      classNameTable="table"
+      classNameThead="table-info"
+      classNameRowSelected="row-selected"
+      bind:selected={selectionSingle}
+      selectSingle={true}
+      rowKey="id"
+      selectOnClick={true}
+    />
   </div>
 </div>
 
@@ -194,5 +260,8 @@
   }
   :global(.expanded-content) {
     background-color: #ccc;
+  }
+  :global(.row-selected) {
+    background-color: #f8c;
   }
 </style>
