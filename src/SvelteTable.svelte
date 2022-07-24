@@ -39,7 +39,7 @@
 
   export let expandSingle: Boolean = false;
   export let selectSingle: Boolean = false;
-  export let selectOnClick: Boolean = true;
+  export let selectOnClick: Boolean = false;
 
   /** @type {string} */
   export let iconAsc = "▲";
@@ -80,7 +80,7 @@
   /** @type {string} */
   export let classNameCell = "";
 
-  /** @type {string} class added to the expanded row*/
+  /** @type {string} class added to the selected row*/
   export let classNameRowSelected: string | null = null;
 
   /** @type {string} class added to the expanded row*/

@@ -212,11 +212,13 @@ Events pass a CustomEvent object with the following params in the `detail` objec
 ### Expanding Rows
 
 - Row expanding is tracked using the `expanded` property. (supports 2-way binding)
-- The keys are defined using the `rowKey` property (previously `expandRowKey` which is depricated). It's a good idea to use a key that is unique to each row like a dedicated id or key field, to prevent conflict.
+- The keys are defined using the `rowKey` property (previously `expandRowKey` which is getting depricated). It is recommended to use a key that is unique to each row like a dedicated id or key field, to prevent conflict.
 - The content for the field is passed through the `expanded` slot.
 - The expanding can be managed manually or by using the built-in column using `showExpandIcon` property
 - Expand events can be listened to using `on:clickExpand` which will include the `row` object in the `event.detail` object.
-- `expandSingle` can be set to true to only allow a single column open at a time (only works when `expanded` is managed internally)
+- `expandSingle` can be set to true to only allow a single column open at a time
+- `expandSingle` does not inforce single row expansion when multiple keys are is passed to `expanded`
+- Row expanded status is available through the `$expanded` property of the row, but is consdered an internal and may be removed
 
 Example:
 
@@ -236,11 +238,15 @@ Example:
 
 ### Selecting Rows
 
+- By default, selection functionality is disabled, enable through `selectOnClick`
 - Row selection is tracked by `selection` property and supports 2-way binding
+- Selection happens when user clicks on row
+- Use `classNameRowSelected` to assign class to a selected row
 - Selection is tracked using the key defined by the `rowKey` property
 - The selection prop is an array because it supports both single and mutliple selections
 - Mutliple vs. single selection is handled through `selectSingle`
-- Selection happens when user clicks on row (can be disabled through `selectOnClick` property)
+- `selectSingle` does not inforce single row selection when multiple keys are is passed to `selection`
+- Row selection status is available through the `$selected` property of the row, but is consdered an internal and may be removed
 
 ### Filtering order
 

@@ -92,7 +92,6 @@
       title: "EMAIL",
       value: v => v.email,
       sortable: true,
-      class: "text-center",
     },
   };
 
@@ -229,12 +228,8 @@
       bind:selected={selectionMultiple}
       selectSingle={false}
       rowKey="id"
-    >
-      <svelte:fragment slot="expanded" let:row>
-        {row.county}, {row.state}<br />
-        {row.country}
-      </svelte:fragment>
-    </SvelteTable>
+      selectOnClick={true}
+    />
   </div>
 
   <div class="row">
@@ -247,17 +242,13 @@
       columns={cols}
       rows={data4selection}
       classNameTable="table"
-      classNameThead="table-success"
+      classNameThead="table-info"
       classNameRowSelected="row-selected"
       bind:selected={selectionSingle}
       selectSingle={true}
       rowKey="id"
-    >
-      <svelte:fragment slot="expanded" let:row>
-        {row.county}, {row.state}<br />
-        {row.country}
-      </svelte:fragment>
-    </SvelteTable>
+      selectOnClick={true}
+    />
   </div>
 </div>
 
