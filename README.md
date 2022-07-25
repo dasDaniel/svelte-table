@@ -194,7 +194,7 @@ const columns = [
 | `expandSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
 | `selected`                 | any[]           | ‡ _optional_ array of key values of selected rows                       |
 | `selectSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
-| `selectOnClick`            | Boolean         | _optional_ default: `true` will clicking on row will update selection   |
+| `selectOnClick`            | Boolean         | _optional_ default: `false` will clicking on row will update selection   |
 | `filterSelections`         | Object[]        | ‡ _optional_ search or filter selection                                 |
 | `showExpandIcon`           | Boolean         | should a expand column be visible                                       |
 
