@@ -1,6 +1,6 @@
 # svelte-table
 
-A _relatively_ minimal svelte table example. Allows sorting and filtering based on column values.
+A _relatively_ minimal table component. Allows sorting and filtering based on column values, and row selection/expanding.
 
 ## Example
 
