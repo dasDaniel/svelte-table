@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import type { RowClassName, TableColumn, TableColumns } from "../types";
+  import type { RowClassName, TableColumn, TableColumns } from "./types";
 
   export let columns: TableColumns<any>;
 

@@ -1,7 +1,6 @@
 import svelte from "rollup-plugin-svelte";
 import resolve from "@rollup/plugin-node-resolve";
 import autoPreprocess from "svelte-preprocess";
-import typescript from "@rollup/plugin-typescript";
 
 const CONFIG = {
   input: "",
@@ -18,7 +17,6 @@ const CONFIG = {
       emitCss: false,
       preprocess: autoPreprocess(),
     }),
-    typescript({ sourceMap: true }),
     resolve({
       jsnext: true,
       main: true,

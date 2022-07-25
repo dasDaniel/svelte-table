@@ -1,5 +1,5 @@
 <script>
-  import SvelteTable from "../src/index.js";
+  import SvelteTable from "../src/SvelteTable.svelte";
   import ContactButtonComponent from "./example6/ContactButtonComponent.svelte";
   import HelpButtonComponent from "./example6/HelpButtonComponent.svelte";
   // import SvelteTable from "svelte-table";

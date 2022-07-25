@@ -1,6 +1,6 @@
 <script lang="ts">
-  import SvelteTable from "../src/index";
-  import type { RowClassName, TableColumns } from "../types";
+  import SvelteTable from "../src/SvelteTable.svelte";
+  import type { RowClassName, TableColumns } from "../src/types";
   globalThis.faker.seed(5);
 
   type RowData = {
