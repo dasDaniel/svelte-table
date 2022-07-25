@@ -12,6 +12,11 @@ A _relatively_ minimal table component. Allows sorting and filtering based on co
 npm install -save svelte-table
 ```
 
+# REPL Usage
+
+The TypeScript integration breaks use with REPL (until https://github.com/sveltejs/sites/issues/156 gets resolved)
+You can continue using oldest js versions with `import SvelteTable from 'svelte-table@0.3.5';`
+
 # Usage
 
 The package includes exports for raw svelte, ES Module(.mjs) and CJS (.js) exports. Your bundler will likely know which one to pick by using `import SvelteTable from "svelte-table"`

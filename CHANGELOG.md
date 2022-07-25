@@ -1,7 +1,8 @@
-## 0.4.0
+## 0.4.5
 
+- Fix package.json (v0.4.0 bugfix)
 - `classNameRow` prop and column `class` support passing functions to resolve by using column data or index
-- row selection support
+- Row selection support
 - TypeScript support
 
 ## 0.3.5
