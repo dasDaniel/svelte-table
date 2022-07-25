@@ -1,6 +1,6 @@
 <script>
-  // import SvelteTable from "../src/SvelteTable.svelte";
-  import SvelteTable from "svelte-table";
+  import SvelteTable from "../src/SvelteTable.svelte";
+  // import SvelteTable from "svelte-table";
   import faker from "faker";
 
   let sortBy = "id";
