@@ -1,12 +1,14 @@
-<script lang="ts">
+<script>
   import { createEventDispatcher } from "svelte";
-  import type { RowClassName, TableColumn, TableColumns } from "./types";
 
-  export let columns: TableColumns<any>;
+  /** @type {TableColumns<any>} */
+  export let columns;
 
-  export let rows: any[];
+  /** @type {any[]} */
+  export let rows;
 
-  export let c_rows: any[] | undefined = undefined;
+  /** @type { any[] | undefined } */
+  export let c_rows = undefined;
 
   export let sortOrders = [1, -1];
 
@@ -22,24 +24,30 @@
   export let filterSelections = {};
 
   // expand
-  /** @type {Array.<string|number>} */
+  /** @type {(string | number)[]} */
   export let expanded = [];
 
   // selection
-  /** @type {Array.<string|number>} */
-  export let selected: (string | number)[] = [];
+  /** @type {(string | number)[]} */
+  export let selected = [];
 
   // READ ONLY
 
   // TODO: remove in some future release in favour of rowKey
-  export let expandRowKey: string | null = null;
+  /** @type {string | null} */
+  export let expandRowKey = null;
 
-  /** @type {string} */
-  export let rowKey: string | null = expandRowKey;
+  /** @type {string | null} */
+  export let rowKey = expandRowKey;
 
-  export let expandSingle: Boolean = false;
-  export let selectSingle: Boolean = false;
-  export let selectOnClick: Boolean = false;
+  /** @type {Boolean} */
+  export let expandSingle = false;
+
+  /** @type {Boolean} */
+  export let selectSingle = false;
+
+  /** @type {Boolean} */
+  export let selectOnClick = false;
 
   /** @type {string} */
   export let iconAsc = "▲";
@@ -74,16 +82,17 @@
   /** @type {string} */
   export let classNameInput = "";
 
-  export let classNameRow: RowClassName<any> = null;
+  /** @type {RowClassName<any>} */
+  export let classNameRow = null;
 
   /** @type {string} */
   export let classNameCell = "";
 
-  /** @type {string} class added to the selected row*/
-  export let classNameRowSelected: string | null = null;
+  /** @type {string | null} class added to the selected row*/
+  export let classNameRowSelected = null;
 
-  /** @type {string} class added to the expanded row*/
-  export let classNameRowExpanded: string | null = null;
+  /** @type {string | null} class added to the expanded row*/
+  export let classNameRowExpanded = null;
 
   /** @type {string} class added to the expanded row*/
   export let classNameExpandedContent = "";
@@ -93,7 +102,8 @@
 
   const dispatch = createEventDispatcher();
 
-  let sortFunction = (row?: any): string | number => "";
+  /** @type {function}*/
+  let sortFunction = () => "";
 
   // Validation
   if (!Array.isArray(expanded)) throw "'expanded' needs to be an array";
@@ -109,7 +119,9 @@
     return c.filterOptions !== undefined || c.searchValue !== undefined;
   });
   let filterValues = {};
-  let columnByKey: Record<string | number | symbol, TableColumn<any>>;
+
+  /** @type {Record<string | number | symbol, TableColumn<any>>}*/
+  let columnByKey;
   $: {
     columnByKey = {};
     columns.forEach(col => {
@@ -187,7 +199,7 @@
       col.sortable === true &&
       typeof col.value === "function"
     ) {
-      sortFunction = (r: any) => col.value(r);
+      sortFunction = r => col.value(r);
     }
   }
 
