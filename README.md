@@ -1,6 +1,6 @@
 # svelte-table
 
-A _relatively_ minimal svelte table example. Allows sorting and filtering based on column values.
+A _relatively_ minimal table component. Allows sorting and filtering based on column values, and row selection/expanding.
 
 ## Example
 
@@ -11,6 +11,11 @@ A _relatively_ minimal svelte table example. Allows sorting and filtering based 
 ```sh
 npm install -save svelte-table
 ```
+
+# REPL Usage
+
+The TypeScript integration breaks use with REPL (until https://github.com/sveltejs/sites/issues/156 gets resolved)
+You can continue using oldest js versions with `import SvelteTable from 'svelte-table@0.3.5';`
 
 # Usage
 
