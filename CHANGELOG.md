@@ -1,3 +1,7 @@
+## 0.5.0
+
+- Droped typescript usage. Causing issues, especially with use in REPL
+
 ## 0.4.5
 
 - Fix package.json (v0.4.0 bugfix)
