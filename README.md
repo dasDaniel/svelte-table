@@ -12,7 +12,7 @@ A _relatively_ minimal table component. Allows sorting and filtering based on co
 npm install -save svelte-table
 ```
 
-# Usage
+## Usage
 
 The package includes exports for raw svelte, ES Module(.mjs) and CJS (.js) exports. Your bundler will likely know which one to pick by using `import SvelteTable from "svelte-table"`
 
@@ -189,7 +189,7 @@ const columns = [
 | `classNameCell`            | String/Array    | _optional_ class name(s) for cell elements                              |
 | `classNameCellExpand`      | String/Array    | _optional_ class name(s) for cell with expand icon                      |
 | `expanded`                 | any[]           | ‡ _optional_ array of key values of expanded rows                       |
-| `expandRowKey`             | string          | _optional_ **depricated** use `rowKey`                                  |
+| `expandRowKey`             | string          | _optional_ **deprecated** use `rowKey`                                  |
 | `rowKey`                   | string          | _optional_ key for expanded or selected row (use unique values like id) |
 | `expandSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
 | `selected`                 | any[]           | ‡ _optional_ array of key values of selected rows                       |
