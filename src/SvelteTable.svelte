@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import RangeSlider from "svelte-range-slider-pips";
 
   /** @type {TableColumns<any>} */
   export let columns;
@@ -116,9 +117,15 @@
 
   let showFilterHeader = columns.some(c => {
     // check if there are any filter or search headers
-    return c.filterOptions !== undefined || c.searchValue !== undefined;
+    return (
+      c.filterOptions !== undefined ||
+      c.searchValue !== undefined ||
+      c.rangeValues !== undefined
+    );
   });
+
   let filterValues = {};
+  //let rangeValues = {};
 
   /** @type {Record<string | number | symbol, TableColumn<any>>}*/
   let columnByKey;
@@ -143,9 +150,19 @@
               .toLocaleLowerCase()
               .indexOf((filterSelections[f] + "").toLocaleLowerCase()) >= 0);
 
+        // check if in min-max range
+        let resRange =
+          resSearch ||
+          filterSelections[f] === undefined ||
+          parseFloat(columnByKey[f].value(r)) !== columnByKey[f].value(r) ||
+          (columnByKey[f].rangeValues &&
+            columnByKey[f].value(r) >= columnByKey[f].rangeValues.range[0] &&
+            columnByKey[f].value(r) <= columnByKey[f].rangeValues.range[1]);
+
         // check filter (dropdown) matches
         let resFilter =
           resSearch ||
+          resRange ||
           filterSelections[f] === undefined ||
           // default to value() if filterValue() not provided in col
           filterSelections[f] ===
@@ -188,6 +205,9 @@
           name: val,
           value: val,
         }));
+      } else if (c.filterOptions == "range") {
+        filterValues[c.key] = c.rangeValues;
+        filterSelections[c.key] = [...c.rangeValues.range];
       }
     });
   };
@@ -276,6 +296,14 @@
               <input
                 bind:value={filterSelections[col.key]}
                 class={asStringArray(classNameInput)}
+              />
+            {:else if col.rangeValues !== undefined}
+              <RangeSlider
+                range
+                step={col.rangeValues.step}
+                min={col.rangeValues.min}
+                max={col.rangeValues.max}
+                bind:values={col.rangeValues.range}
               />
             {:else if filterValues[col.key] !== undefined}
               <select

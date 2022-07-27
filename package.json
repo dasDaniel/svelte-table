@@ -27,7 +27,8 @@
     "rollup-plugin-terser": "^7.0.2",
     "sirv-cli": "^1.0.0",
     "svelte": "3.49.0",
-    "svelte-preprocess": "^4.10.7"
+    "svelte-preprocess": "^4.10.7",
+    "svelte-range-slider-pips": "^2.0.3"
   },
   "keywords": [
     "table",

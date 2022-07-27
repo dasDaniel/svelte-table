@@ -287,6 +287,7 @@ example: (will preset column with key `first_name` to `a`)
 | `[headerFilterClass]` | String         | _optional_ class to assign to search/filter header element                                                    |
 | `[renderValue]`       | Function       | _optional_ render function for rendering html content                                                         |
 | `[renderComponent]`   | Component      | _optional_ pass a Svelte component, component will receive `row` and `col` variables (replaces `renderValue`) |
+| `[rangeValues]`       | Object         | _optional_ Object with keys: min, max, step, and range to build a two point slider range filter |
 
 ### renderComponent
 
