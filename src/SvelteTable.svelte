@@ -109,7 +109,7 @@
   if (!Array.isArray(expanded)) throw "'expanded' needs to be an array";
   if (!Array.isArray(selected)) throw "'selection' needs to be an array";
   if (expandRowKey !== null) {
-    console.warn("'expandRowKey' is depricated in favour of 'rowKey'");
+    console.warn("'expandRowKey' is deprecated in favour of 'rowKey'");
   }
   if (classNameRowSelected && !rowKey)
     console.warn("'rowKey' is needed to use 'classNameRowSelected'");
