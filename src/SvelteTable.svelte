@@ -112,8 +112,7 @@
     console.warn("'expandRowKey' is deprecated in favour of 'rowKey'");
   }
   if (classNameRowSelected && !rowKey) {
-    // TODO: Switch to error after this functionality will be removed
-    console.warn("'rowKey' is needed to use 'classNameRowSelected'");
+    console.error("'rowKey' is needed to use 'classNameRowSelected'");
   }
 
   let showFilterHeader = columns.some(c => {
