@@ -111,8 +111,9 @@
   if (expandRowKey !== null) {
     console.warn("'expandRowKey' is deprecated in favour of 'rowKey'");
   }
-  if (classNameRowSelected && !rowKey)
-    console.warn("'rowKey' is needed to use 'classNameRowSelected'");
+  if (classNameRowSelected && !rowKey) {
+    console.error("'rowKey' is needed to use 'classNameRowSelected'");
+  }
 
   let showFilterHeader = columns.some(c => {
     // check if there are any filter or search headers
