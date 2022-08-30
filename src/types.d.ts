@@ -1,7 +1,7 @@
 export type TableColumn<T> = {
   key: string | number;
   title: string;
-  value: (row: T) => string | number;
+  value?: (row: T) => string | number;
   class?:
     | string
     | ((row: T, rowIndex?: number, colIndex?: number) => string | null);
