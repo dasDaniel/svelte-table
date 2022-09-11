@@ -12,7 +12,7 @@ A _relatively_ minimal table component. Allows sorting and filtering based on co
 npm install -save svelte-table
 ```
 
-# Usage
+## Usage
 
 The package includes exports for raw svelte, ES Module(.mjs) and CJS (.js) exports. Your bundler will likely know which one to pick by using `import SvelteTable from "svelte-table"`
 
@@ -189,12 +189,12 @@ const columns = [
 | `classNameCell`            | String/Array    | _optional_ class name(s) for cell elements                              |
 | `classNameCellExpand`      | String/Array    | _optional_ class name(s) for cell with expand icon                      |
 | `expanded`                 | any[]           | ‡ _optional_ array of key values of expanded rows                       |
-| `expandRowKey`             | string          | _optional_ **depricated** use `rowKey`                                  |
+| `expandRowKey`             | string          | _optional_ **deprecated** use `rowKey`                                  |
 | `rowKey`                   | string          | _optional_ key for expanded or selected row (use unique values like id) |
 | `expandSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
 | `selected`                 | any[]           | ‡ _optional_ array of key values of selected rows                       |
 | `selectSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
-| `selectOnClick`            | Boolean         | _optional_ default: `true` will clicking on row will update selection   |
+| `selectOnClick`            | Boolean         | _optional_ default: `false` will clicking on row will update selection  |
 | `filterSelections`         | Object[]        | ‡ _optional_ search or filter selection                                 |
 | `showExpandIcon`           | Boolean         | should a expand column be visible                                       |
 
@@ -212,7 +212,7 @@ Events pass a CustomEvent object with the following params in the `detail` objec
 ### Expanding Rows
 
 - Row expanding is tracked using the `expanded` property. (supports 2-way binding)
-- The keys are defined using the `rowKey` property (previously `expandRowKey` which is getting depricated). It is recommended to use a key that is unique to each row like a dedicated id or key field, to prevent conflict.
+- The keys are defined using the `rowKey` property (previously `expandRowKey` which is getting deprecated). It is recommended to use a key that is unique to each row like a dedicated id or key field, to prevent conflict.
 - The content for the field is passed through the `expanded` slot.
 - The expanding can be managed manually or by using the built-in column using `showExpandIcon` property
 - Expand events can be listened to using `on:clickExpand` which will include the `row` object in the `event.detail` object.

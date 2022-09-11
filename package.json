@@ -1,6 +1,6 @@
 {
   "name": "svelte-table",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "license": "MIT",
   "repository": "dasDaniel/svelte-table",
   "module": "dist/es/SvelteTable.mjs",
@@ -12,6 +12,7 @@
     "dev": "rollup -c -w",
     "prepublishOnly": "npm run build",
     "format": "prettier --write --plugin-search-dir=. .",
+    "lint": "prettier --check --plugin-search-dir=. .",
     "examples": "run-p examples:build examples:serve",
     "examples:build": "rollup -c example/rollup.config.js -w",
     "examples:serve": "sirv example/public --dev"
