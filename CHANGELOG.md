@@ -1,3 +1,9 @@
+## 0.5.1
+
+- [#107] types: value optional
+- [ST-103] Added lint check in actions
+- [#101] Fix typo and print "is needed" message as error
+
 ## 0.5.0
 
 - Droped typescript usage. Causing issues, especially with use in REPL
