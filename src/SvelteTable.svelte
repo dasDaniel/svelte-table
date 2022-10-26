@@ -195,12 +195,16 @@
 
   $: {
     let col = columnByKey[sortBy];
+
     if (
       col !== undefined &&
       col.sortable === true &&
-      typeof col.value === "function"
+      (
+        typeof col.value === "function" ||
+        typeof col.sortValue === "function"
+      )
     ) {
-      sortFunction = r => col.value(r);
+      sortFunction = r => (col.sortValue ? col.sortValue(r) : col.value(r));
     }
   }
 

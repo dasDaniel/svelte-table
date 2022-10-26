@@ -280,6 +280,7 @@ example: (will preset column with key `first_name` to `a`)
 | `value`               | Function       | table cell value. The function is passed row data                                                             |
 | `[class]`             | String         | _optional_ table cell class name                                                                              |
 | `[sortable]`          | Boolean        | _optional_ Whether the table can be sorted on column                                                          |
+| `[sortValue]`         | Function       | _optional_ alternate sort value function. function is passed row data.                                                |
 | `[searchValue]`       | Function       | _optional_ search value function. function is passed row data.                                                |
 | `[filterOptions]`     | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows                       |
 | `[filterValue]`       | String         | _optional_ value to filter on, usually same as value                                                          |
@@ -315,6 +316,19 @@ Or, if props need to be passed, an object with `component` and `props` can be pa
         myProp: "someValue",
       },
     },
+  },
+];
+```
+
+You can also assign an alternate sort value to any column using a component
+
+```js
+[
+  {
+    key: "myColumn",
+    //...
+    sortValue: (row) => row.someValueUsedToSort,
+    renderComponent: myComponent
   },
 ];
 ```

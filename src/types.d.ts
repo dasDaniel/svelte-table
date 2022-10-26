@@ -6,6 +6,7 @@ export type TableColumn<T> = {
     | string
     | ((row: T, rowIndex?: number, colIndex?: number) => string | null);
   sortable?: boolean;
+  sortValue?: (row: T) => string | number;
   searchValue?: (row: T) => string | number;
   filterOptions?: ((row: T) => any) | any[];
   filterValue?: (row: T) => any;
