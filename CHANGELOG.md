@@ -1,3 +1,7 @@
+## 0.5.2
+
+- [#112] a11y imporovements: add `on:keypress` listeners and `tabindex="0"` to interactive elements
+
 ## 0.5.1
 
 - [#107] types: value optional
