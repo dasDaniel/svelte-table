@@ -1,6 +1,6 @@
 {
   "name": "svelte-table",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "license": "MIT",
   "repository": "dasDaniel/svelte-table",
   "module": "dist/es/SvelteTable.mjs",
@@ -27,7 +27,7 @@
     "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "sirv-cli": "^1.0.0",
-    "svelte": "3.49.0",
+    "svelte": "3.52.0",
     "svelte-preprocess": "^4.10.7"
   },
   "keywords": [

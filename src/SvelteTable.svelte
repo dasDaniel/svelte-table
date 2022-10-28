@@ -301,10 +301,12 @@
         {#each columns as col}
           <th
             on:click={e => handleClickCol(e, col)}
+            on:keypress={e => e.key === "Enter" && handleClickCol(e, col)}
             class={asStringArray([
               col.sortable ? "isSortable" : "",
               col.headerClass,
             ])}
+            tabindex="0"
           >
             {col.title}
             {#if sortBy === col.key}
@@ -325,9 +327,8 @@
     {#each c_rows as row, n}
       <slot name="row" {row} {n}>
         <tr
-          on:click={e => {
-            handleClickRow(e, row);
-          }}
+          on:click={e => handleClickRow(e, row)}
+          on:keypress={e => e.key === "Enter" && handleClickRow(e, row)}
           class={asStringArray([
             typeof classNameRow === "string" ? classNameRow : null,
             typeof classNameRow === "function" ? classNameRow(row, n) : null,
@@ -335,12 +336,13 @@
             row.$expanded && classNameRowExpanded,
             row.$selected && classNameRowSelected,
           ])}
+          tabIndex={selectOnClick ? "0" : null}
         >
           {#each columns as col, colIndex}
             <td
-              on:click={e => {
-                handleClickCell(e, row, col.key);
-              }}
+              on:click={e => handleClickCell(e, row, col.key)}
+              on:keypress={e =>
+                e.key === "Enter" && handleClickCell(e, row, col.key)}
               class={asStringArray([
                 typeof col.class === "string" ? col.class : null,
                 typeof col.class === "function"
@@ -364,7 +366,10 @@
           {#if showExpandIcon}
             <td
               on:click={e => handleClickExpand(e, row)}
+              on:keypress={e => e.key === "Enter" && handleClickExpand(e, row)}
               class={asStringArray(["isClickable", classNameCellExpand])}
+              tabindex="0"
+              role="button"
             >
               {@html row.$expanded ? iconExpand : iconExpanded}
             </td>
