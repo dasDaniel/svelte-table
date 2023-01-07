@@ -1,6 +1,6 @@
 ## 0.5.3
 
-- [#120] add support for user-defined search function
+- [#120] add support for user-defined search function with `searchValue`
 
 ## 0.5.2
 
