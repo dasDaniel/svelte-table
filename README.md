@@ -288,7 +288,28 @@ example: (will preset column with key `first_name` to `a`)
 | `[renderValue]`       | Function       | _optional_ render function for rendering html content                                                         |
 | `[renderComponent]`   | Component      | _optional_ pass a Svelte component, component will receive `row` and `col` variables (replaces `renderValue`) |
 
-### renderComponent
+### `searchValue`
+
+#### Option 1: `searchValue(row, searchTerm):boolean`
+
+Define a function that accepts a row and the searchTerm, the comparison is defined within the function and the match is returned in the form of a boolean.
+
+This is the recommended way of using the search (added in v0.5.3)
+
+#### Option 2: `searchValue(row):string`
+
+Define a function that accepts a row and returns a string. SveltTable does the comparison internally, but only supports case-insensitive compare using `includes`
+
+This behaviour is set for deprecation and should not be used.
+
+If you want to migrate the existing behaviour you can use this example:
+
+```js
+searchValue: (v, s) =>
+  v["some_key"].toString().toLowerCase().includes(s.toLowerCase()),
+```
+
+### `renderComponent`
 
 Defining a component can be done directly by passing the component as a value
 

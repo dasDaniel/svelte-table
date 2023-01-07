@@ -27,7 +27,8 @@
       title: "LAST NAME",
       value: v => v.last_name,
       sortable: true,
-      searchValue: v => v.last_name,
+      searchValue: (v, s) =>
+        v.last_name.toString().toLowerCase().startsWith(s.toLowerCase()),
     },
     {
       key: "email",
@@ -93,37 +94,59 @@
   }
 </script>
 
-<div class="btn-group d-flex justify-content-center" role="group">
+<div class="card" style="width: 100%; margin:8px auto;">
+  <div class="card-body">
+    <p class="card-text">
+      This search example uses <code>searchValue</code> for both first and last name
+      fields
+    </p>
+    <p class="card-text">
+      The first name field uses a <strong>single parameter</strong> searchValue
+      function which returns a <code>string</code>. The search logic is handled
+      by SvelteTable.
+      <strong>
+        This funcitonality will likely be deprecated in the future.
+      </strong>
+    </p>
+    <p class="card-text">
+      The last name field uses a <strong>two parameters</strong> searchValue
+      function which returns a <code>boolean</code>. This allows more
+      flexibility in the search behaviour.
+    </p>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center" role="group">
   <button
-    class="btn btn-primary"
-    disabled={!Object.values(selection).some(v => v != undefined)}
-    on:click={() => clearAll()}
-  >
-    CLEAR ALL
-  </button>
-  <button
-    class="btn btn-primary"
+    class="btn btn-outline-primary"
     disabled={selection["first_name"] === undefined}
     on:click={() => setFilter("first_name")}
   >
     CLEAR FIRST NAME
   </button>
   <button
-    class="btn btn-primary"
+    class="btn btn-outline-primary"
     disabled={selection["last_name"] === undefined}
     on:click={() => setFilter("last_name")}
   >
     CLEAR LAST NAME
   </button>
   <button
-    class="btn btn-primary"
+    class="btn btn-outline-primary"
     disabled={selection["age"] === undefined}
     on:click={() => setFilter("age")}
   >
     CLEAR AGE
   </button>
   <button
-    class="btn btn-primary"
+    class="btn btn-outline-primary"
+    disabled={!Object.values(selection).some(v => v != undefined)}
+    on:click={() => clearAll()}
+  >
+    CLEAR ALL
+  </button>
+  <button
+    class="btn btn-outline-primary"
     on:click={() => setFilter("first_name", "R") + setFilter("age", 48)}
   >
     Find Rosie
