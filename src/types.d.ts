@@ -8,7 +8,9 @@ export type TableColumn<T> = {
   sortable?: boolean;
   searchValue?: (row: T) => string | number;
   filterOptions?: ((row: T) => any) | any[];
-  filterValue?: (row: T) => any;
+  filterValue?:
+    | ((row: T, searchTerm?: string) => string)
+    | ((row: T) => boolean);
   headerClass?: string;
   headerFilterClass?: string;
   renderValue?: (row: T) => any;
