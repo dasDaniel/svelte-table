@@ -136,13 +136,28 @@
     .filter(r => {
       // get search and filter results/matches
       return Object.keys(filterSelections).every(f => {
-        // check search (text input) matches
-        let resSearch =
-          filterSelections[f] === "" ||
-          (columnByKey[f].searchValue &&
+        /**
+         * @type {boolean}
+         * Determine whether search term matches a row.
+         * If the searchValue function has ONE parameter it expects to return a string value
+         *     which will be compared to the search string. This should be depricated in a
+         *     future release, since it's very limiting to search functionality.
+         * If the searchValue function has TWO parameters, pass the row and the search term
+         *     and expect a boolean response.
+         */
+        let resSearch = null;
+        if (filterSelections[f] === "" || !columnByKey[f].searchValue) {
+          resSearch = true;
+        } else if (columnByKey[f].searchValue.length === 1) {
+          // does search comparison using string result
+          // TODO: DEPRECATE
+          resSearch =
             (columnByKey[f].searchValue(r) + "")
               .toLocaleLowerCase()
-              .indexOf((filterSelections[f] + "").toLocaleLowerCase()) >= 0);
+              .indexOf((filterSelections[f] + "").toLocaleLowerCase()) >= 0;
+        } else if (columnByKey[f].searchValue.length === 2) {
+          resSearch = !!columnByKey[f].searchValue(r, filterSelections[f] + "");
+        }
 
         // check filter (dropdown) matches
         let resFilter =
