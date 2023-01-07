@@ -288,9 +288,7 @@ example: (will preset column with key `first_name` to `a`)
 | `[renderValue]`       | Function       | _optional_ render function for rendering html content                                                         |
 | `[renderComponent]`   | Component      | _optional_ pass a Svelte component, component will receive `row` and `col` variables (replaces `renderValue`) |
 
-### searchValue
-
-The `searchValue` has two modes of operation.
+### `searchValue`
 
 #### Option 1: `searchValue(row, searchTerm):boolean`
 
@@ -311,7 +309,7 @@ searchValue: (v, s) =>
   v["some_key"].toString().toLowerCase().includes(s.toLowerCase()),
 ```
 
-### renderComponent
+### `renderComponent`
 
 Defining a component can be done directly by passing the component as a value
 
