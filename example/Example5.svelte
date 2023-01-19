@@ -48,6 +48,7 @@
       key: "pet",
       title: "Pet",
       value: v => v.pet,
+      filterValue: v => v.pet,
       sortable: true,
       filterOptions: generateFilter("pet"),
     },
@@ -83,7 +84,6 @@
     });
 
   function setFilter(key, value = undefined) {
-    console.log(selection, key, selection[key]);
     if (selection[key] || value != undefined) {
       selection[key] = value;
     }
@@ -105,7 +105,7 @@
       function which returns a <code>string</code>. The search logic is handled
       by SvelteTable.
       <strong>
-        This funcitonality will likely be deprecated in the future.
+        This functionality will likely be deprecated in the future.
       </strong>
     </p>
     <p class="card-text">

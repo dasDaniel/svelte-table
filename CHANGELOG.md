@@ -1,3 +1,7 @@
+## 0.5.4
+
+- [#123] fix filter bug introduced in v0.5.3
+
 ## 0.5.3
 
 - [#120] add support for user-defined search function with `searchValue`
