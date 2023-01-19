@@ -151,7 +151,7 @@
           // if no searchValue is defined, set to false for filter (resFilter) to handle it
           resSearch = false;
         } else if (filterSelections[f] === "") {
-          // if searchValue exists and filter is empty string, return true without further processing
+          // if searchValue exists and the search string is empty, return true immediately
           return true;
         } else if (columnByKey[f].searchValue.length === 1) {
           // does search comparison using string result
