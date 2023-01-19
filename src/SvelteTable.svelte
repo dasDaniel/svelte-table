@@ -146,8 +146,13 @@
          *     and expect a boolean response.
          */
         let resSearch = null;
-        if (filterSelections[f] === "" || !columnByKey[f].searchValue) {
-          resSearch = true;
+
+        if (!columnByKey[f].searchValue) {
+          // if no searchValue is defined, set to false for filter (resFilter) to handle it
+          resSearch = false;
+        } else if (filterSelections[f] === "") {
+          // if searchValue exists and filter is empty string, return true without further processing
+          return true;
         } else if (columnByKey[f].searchValue.length === 1) {
           // does search comparison using string result
           // TODO: DEPRECATE
@@ -156,6 +161,7 @@
               .toLocaleLowerCase()
               .indexOf((filterSelections[f] + "").toLocaleLowerCase()) >= 0;
         } else if (columnByKey[f].searchValue.length === 2) {
+          // search using function (with 2 parameters)
           resSearch = !!columnByKey[f].searchValue(r, filterSelections[f] + "");
         }
 
@@ -168,6 +174,7 @@
             (typeof columnByKey[f].filterValue === "function"
               ? columnByKey[f].filterValue(r)
               : columnByKey[f].value(r));
+
         return resFilter;
       });
     })
