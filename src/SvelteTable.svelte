@@ -117,7 +117,10 @@
 
   let showFilterHeader = columns.some(c => {
     // check if there are any filter or search headers
-    return c.filterOptions !== undefined || c.searchValue !== undefined;
+    return (
+      !c.hideFilterHeader &&
+      (c.filterOptions !== undefined || c.searchValue !== undefined)
+    );
   });
   let filterValues = {};
 
@@ -295,12 +298,12 @@
       <tr>
         {#each columns as col}
           <th class={asStringArray([col.headerFilterClass])}>
-            {#if col.searchValue !== undefined}
+            {#if !col.hideFilterHeader && col.searchValue !== undefined}
               <input
                 bind:value={filterSelections[col.key]}
                 class={asStringArray(classNameInput)}
               />
-            {:else if filterValues[col.key] !== undefined}
+            {:else if !col.hideFilterHeader && filterValues[col.key] !== undefined}
               <select
                 bind:value={filterSelections[col.key]}
                 class={asStringArray(classNameSelect)}

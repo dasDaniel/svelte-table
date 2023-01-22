@@ -1,3 +1,7 @@
+## 0.5.5
+
+- [#128] Add ability to hide search
+
 ## 0.5.4
 
 - [#123] fix filter bug introduced in v0.5.3
