@@ -283,6 +283,7 @@ example: (will preset column with key `first_name` to `a`)
 | `[searchValue]`       | Function       | _optional_ search value function. function is passed row data.                                                |
 | `[filterOptions]`     | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows                       |
 | `[filterValue]`       | String         | _optional_ value to filter on, usually same as value                                                          |
+| `[hideFilterHeader]`  | Boolean        | _optional_ will hide search or filter input in header                                                         |
 | `[headerClass]`       | String         | _optional_ class to assign to header element                                                                  |
 | `[headerFilterClass]` | String         | _optional_ class to assign to search/filter header element                                                    |
 | `[renderValue]`       | Function       | _optional_ render function for rendering html content                                                         |
