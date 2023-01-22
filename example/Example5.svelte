@@ -5,7 +5,7 @@
   import faker from "faker";
   faker.seed(15);
 
-  let selection = { first_name: "a" };
+  let selection = { first_name: "", last_name: "b" };
 
   const colums = [
     {
@@ -21,6 +21,7 @@
       value: v => v.first_name,
       sortable: true,
       searchValue: v => v.first_name,
+      hideFilterHeader: true,
     },
     {
       key: "last_name",
@@ -117,6 +118,7 @@
 </div>
 
 <div class="d-flex justify-content-center" role="group">
+  <input bind:value={selection["first_name"]} placeholder="First Name" />
   <button
     class="btn btn-outline-primary"
     disabled={selection["first_name"] === undefined}
@@ -152,6 +154,7 @@
     Find Rosie
   </button>
 </div>
+
 <SvelteTable
   classNameTable="table"
   columns={colums}

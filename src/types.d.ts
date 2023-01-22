@@ -15,6 +15,7 @@ export type TableColumn<T> = {
   headerFilterClass?: string;
   renderValue?: (row: T) => any;
   renderComponent?: any; // svelte component
+  hideFilterHeader?: boolean;
 };
 
 export type TableColumns<T> = TableColumn<T>[];
