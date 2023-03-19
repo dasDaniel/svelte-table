@@ -1,3 +1,6 @@
+- [#132] fix error `A11y: Non-interactive element <td> cannot have interactive role 'button'`
+- bump svelte to `3.57.0`
+
 ## 0.5.5
 
 - [#128] Add ability to hide search

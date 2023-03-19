@@ -389,14 +389,16 @@
             </td>
           {/each}
           {#if showExpandIcon}
-            <td
-              on:click={e => handleClickExpand(e, row)}
-              on:keypress={e => e.key === "Enter" && handleClickExpand(e, row)}
-              class={asStringArray(["isClickable", classNameCellExpand])}
-              tabindex="0"
-              role="button"
-            >
-              {@html row.$expanded ? iconExpand : iconExpanded}
+            <td class={asStringArray(["isClickable", classNameCellExpand])}>
+              <span
+                on:click={e => handleClickExpand(e, row)}
+                on:keypress={e =>
+                  e.key === "Enter" && handleClickExpand(e, row)}
+                tabindex="0"
+                role="button"
+              >
+                {@html row.$expanded ? iconExpand : iconExpanded}
+                </span>
             </td>
           {/if}
         </tr>
