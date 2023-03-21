@@ -349,3 +349,42 @@ Or, if props need to be passed, an object with `component` and `props` can be pa
 | `header`   | slot for rendering the `tr` and `th` content. This will replace `title` in the header          |
 | `row`      | slot for rendering the `tr` and `td` content. This will replace the rendering of `renderValue` |
 | `expanded` | slot for rendering the content of the expanded row                                             |
+
+---
+
+### Conditional row and cell class names
+
+By passing a function to `classNameRow` the rows can have class assigned for the tr element based on the row value.
+The function is provided two arguments, the row value, and the row index.
+
+```js
+// classNameRow function type definition
+(row: Row, rowIndex?: number) => string | null;
+```
+
+This is an example of using the row index make a striped table, which may be needed when rows are expandable.
+
+```js
+(row, rowIndex) => (rowIndex % 2 == 0 ? null : "row-odd");
+```
+
+Individual cells can also be formatted by passing a function to the `class` prop in the column object.
+The class function is provided three parameters. In addition to the row and rowIndex, it also provides the column index
+
+```js
+// classs function type definition
+(row: Row, rowIndex?: number, colIndex?: number) => string | null;
+```
+
+example for a checker-board pattern:
+
+```js
+(row, rowIndex, colIndex) =>
+  (rowIndex + colIndex) % 2 == 0 ? null : "cell-odd";
+```
+
+example using a value from the row object:
+
+```js
+row => row.count > 10 && "cell-valid";
+```
