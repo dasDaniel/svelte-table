@@ -79,6 +79,8 @@
       key: "email",
       title: "EMAIL",
       value: v => v.email,
+      searchValue: v => v.email,
+      filterPlaceholder: "email",
       sortable: true,
       class: "text-center",
     },
