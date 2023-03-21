@@ -398,7 +398,7 @@
                 role="button"
               >
                 {@html row.$expanded ? iconExpand : iconExpanded}
-                </span>
+              </span>
             </td>
           {/if}
         </tr>
