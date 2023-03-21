@@ -358,7 +358,6 @@
           class={asStringArray([
             typeof classNameRow === "string" ? classNameRow : null,
             typeof classNameRow === "function" ? classNameRow(row, n) : null,
-            ,
             row.$expanded && classNameRowExpanded,
             row.$selected && classNameRowSelected,
           ])}
