@@ -302,6 +302,7 @@
               <input
                 bind:value={filterSelections[col.key]}
                 class={asStringArray(classNameInput)}
+                placeholder={col.filterPlaceholder}
               />
             {:else if !col.hideFilterHeader && filterValues[col.key] !== undefined}
               <select
@@ -357,7 +358,6 @@
           class={asStringArray([
             typeof classNameRow === "string" ? classNameRow : null,
             typeof classNameRow === "function" ? classNameRow(row, n) : null,
-            ,
             row.$expanded && classNameRowExpanded,
             row.$selected && classNameRowSelected,
           ])}
@@ -389,14 +389,16 @@
             </td>
           {/each}
           {#if showExpandIcon}
-            <td
-              on:click={e => handleClickExpand(e, row)}
-              on:keypress={e => e.key === "Enter" && handleClickExpand(e, row)}
-              class={asStringArray(["isClickable", classNameCellExpand])}
-              tabindex="0"
-              role="button"
-            >
-              {@html row.$expanded ? iconExpand : iconExpanded}
+            <td class={asStringArray(["isClickable", classNameCellExpand])}>
+              <span
+                on:click={e => handleClickExpand(e, row)}
+                on:keypress={e =>
+                  e.key === "Enter" && handleClickExpand(e, row)}
+                tabindex="0"
+                role="button"
+              >
+                {@html row.$expanded ? iconExpand : iconExpanded}
+              </span>
             </td>
           {/if}
         </tr>
