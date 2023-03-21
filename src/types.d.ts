@@ -11,6 +11,7 @@ export type TableColumn<T> = {
   filterValue?:
     | ((row: T, searchTerm?: string) => string)
     | ((row: T) => boolean);
+  filterPlaceholder?: string;
   headerClass?: string;
   headerFilterClass?: string;
   renderValue?: (row: T) => any;

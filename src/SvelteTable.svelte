@@ -302,6 +302,7 @@
               <input
                 bind:value={filterSelections[col.key]}
                 class={asStringArray(classNameInput)}
+                placeholder={col.filterPlaceholder}
               />
             {:else if !col.hideFilterHeader && filterValues[col.key] !== undefined}
               <select
