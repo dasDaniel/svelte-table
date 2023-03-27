@@ -1,3 +1,7 @@
+## WIP
+
+- [#139] fix bug in Example3
+
 ## 0.5.6
 
 - [#134] add `filterPlaceholder` option to column
