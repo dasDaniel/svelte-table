@@ -185,14 +185,14 @@
       class="waves-effect waves-light btn"
       on:click={() => {
         if (selectedCols.length > 5) {
-          selectedCols = ["id", "first_name", "last_name", "email", "gender"];
+          selectedCols = ["id", "first_name", "last_name", "email", "mobile"];
         } else {
           selectedCols = [
             "id",
             "first_name",
             "last_name",
             "email",
-            "gender",
+            "mobile",
             "ip_address",
           ];
         }
