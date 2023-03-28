@@ -2,13 +2,21 @@
   import SvelteTable from "../src/SvelteTable.svelte";
   // import SvelteTable from "svelte-table";
   import faker from "faker";
+  import { generateFilter } from "./helper";
 
   let sortBy = "id";
   let sortOrder = 1;
   let iconAsc = "↑";
   let iconDesc = "↓";
 
-  $: selectedCols = ["id", "first_name", "last_name", "email", "mobile"];
+  $: selectedCols = [
+    "id",
+    "first_name",
+    "last_name",
+    "email",
+    "mobile",
+    "ip_address",
+  ];
 
   $: numRows = 50;
   $: seed = 5;
@@ -125,7 +133,7 @@
     },
     mobile: {
       key: "mobile",
-      title: "mobile",
+      title: "MOBILE",
       value: v => v.mobile,
       renderValue: v => {
         const classNames = [`g_${v.mobile.toLowerCase()}`];
@@ -143,16 +151,19 @@
       title: "IP ADDRESS",
       value: v => v.ip_address,
       sortable: true,
+      filterOptions: generateFilter("ip_address"),
     },
   };
 </script>
 
-<div>
-  <h1>SvelteTable example 3</h1>
+<div class="p-4">
+  <h1 class="title is-1 mt-2">SvelteTable example 3</h1>
+
   <p />
-  <div class="row">
+
+  <div class="my-6">
     <button
-      class="waves-effect waves-light btn"
+      class="button is-primary"
       on:click={() => {
         sortBy = "id";
       }}
@@ -162,7 +173,7 @@
     </button>
 
     <button
-      class="waves-effect waves-light btn"
+      class="button is-primary"
       on:click={() => {
         sortBy = "first_name";
       }}
@@ -172,7 +183,7 @@
     </button>
 
     <button
-      class="waves-effect waves-light btn"
+      class="button is-primary"
       on:click={() => {
         sortBy = "last_name";
       }}
@@ -182,9 +193,9 @@
     </button>
 
     <button
-      class="waves-effect waves-light btn"
+      class="button is-primary"
       on:click={() => {
-        if (selectedCols.length > 5) {
+        if (selectedCols.includes("ip_address")) {
           selectedCols = ["id", "first_name", "last_name", "email", "mobile"];
         } else {
           selectedCols = [
@@ -198,11 +209,11 @@
         }
       }}
     >
-      {selectedCols.length == 5 ? "Show" : "Hide"} IP Address
+      {!selectedCols.includes("ip_address") ? "SHOW" : "HIDE"} IP ADDRESS
     </button>
 
     <button
-      class="waves-effect waves-light btn"
+      class="button is-info"
       on:click={() => {
         sortOrder = 1;
       }}
@@ -213,7 +224,7 @@
     </button>
 
     <button
-      class="waves-effect waves-light btn"
+      class="button is-info"
       on:click={() => {
         sortOrder = -1;
       }}
@@ -224,14 +235,18 @@
     </button>
   </div>
 
-  <div class="row">
-    <div class="col s6">
-      <label
-        >numRows: {numRows}<input type="range" bind:value={numRows} /></label
-      >
+  <div class="columns">
+    <div class="column is-half">
+      <label>
+        numRows: {numRows}
+        <input type="range" bind:value={numRows} class="input" />
+      </label>
     </div>
-    <div class="col s6">
-      <label>seed: {seed}<input type="range" bind:value={seed} /></label>
+    <div class="column is-half">
+      <label>
+        seed: {seed}
+        <input type="range" bind:value={seed} class="input" />
+      </label>
     </div>
   </div>
 
@@ -241,10 +256,10 @@
     bind:sortBy
     bind:sortOrder
     sortOrders={[-1, 1, 0]}
-    iconSortable="<span style='color: grey;'>▲▼</span>"
-    classNameTable={["table highlight responsive-table"]}
+    iconSortable="<span class='has-text-grey-lighter'>▲▼</span>"
+    classNameTable={["table mt-6 is-bordered"]}
     classNameThead={["thead"]}
-    classNameSelect={["custom-select"]}
+    classNameSelect={["select"]}
     on:clickCol={e => {
       console.log("clickCol:", e);
     }}

@@ -1,6 +1,8 @@
-## WIP
+## 0.5.7
 
+- [#139] fix bug when a column is removed
 - [#139] fix bug in Example3
+- set expand cursor to the span instead of the cell
 
 ## 0.5.6
 

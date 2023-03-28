@@ -150,7 +150,14 @@
          */
         let resSearch = null;
 
-        if (!columnByKey[f].searchValue) {
+        if (columnByKey[f] === undefined) {
+          /**
+           * return `true` if the column doesn't exist, any value passed to it is ignored
+           * it effectively ignores the column if it's not defined
+           * this can happen if the column are changing at run-time
+           */
+          return true;
+        } else if (!columnByKey[f]?.searchValue) {
           // if no searchValue is defined, set to false for filter (resFilter) to handle it
           resSearch = false;
         } else if (filterSelections[f] === "") {
@@ -389,8 +396,9 @@
             </td>
           {/each}
           {#if showExpandIcon}
-            <td class={asStringArray(["isClickable", classNameCellExpand])}>
+            <td class={asStringArray(classNameCellExpand)}>
               <span
+                class="isClickable"
                 on:click={e => handleClickExpand(e, row)}
                 on:keypress={e =>
                   e.key === "Enter" && handleClickExpand(e, row)}
