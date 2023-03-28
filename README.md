@@ -273,22 +273,22 @@ example: (will preset column with key `first_name` to `a`)
 
 ## Column array object values
 
-| Option                | Type           | Description                                                                                                   |
-| --------------------- | -------------- | ------------------------------------------------------------------------------------------------------------- |
-| `key`                 | String         | Unique key identifying the column                                                                             |
-| `title`               | String         | Title for header                                                                                              |
-| `value`               | Function       | table cell value. The function is passed row data                                                             |
-| `[class]`             | String         | _optional_ table cell class name                                                                              |
-| `[sortable]`          | Boolean        | _optional_ Whether the table can be sorted on column                                                          |
-| `[searchValue]`       | Function       | _optional_ search value function. function is passed row data.                                                |
-| `[filterOptions]`     | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows                       |
-| `[filterValue]`       | String         | _optional_ value to filter on, usually same as value                                                          |
-| `[filterPlaceholder]` | String         | _optional_ placeholder attribute for the filter input                                                         |
-| `[hideFilterHeader]`  | Boolean        | _optional_ will hide search or filter input in header                                                         |
-| `[headerClass]`       | String         | _optional_ class to assign to header element                                                                  |
-| `[headerFilterClass]` | String         | _optional_ class to assign to search/filter header element                                                    |
-| `[renderValue]`       | Function       | _optional_ render function for rendering html content                                                         |
-| `[renderComponent]`   | Component      | _optional_ pass a Svelte component, component will receive `row` and `col` variables (replaces `renderValue`) |
+| Option                | Type           | Description                                                                                            |
+| --------------------- | -------------- | ------------------------------------------------------------------------------------------------------ |
+| `key`                 | String         | Unique key identifying the column                                                                      |
+| `title`               | String         | Title for header                                                                                       |
+| `value`               | Function       | table cell value. The function is passed row data                                                      |
+| `[class]`             | String         | _optional_ table cell class name                                                                       |
+| `[sortable]`          | Boolean        | _optional_ Whether the table can be sorted on column                                                   |
+| `[searchValue]`       | Function       | _optional_ search value function. function is passed row data.                                         |
+| `[filterOptions]`     | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows                |
+| `[filterValue]`       | String         | _optional_ value to filter on, usually same as value                                                   |
+| `[filterPlaceholder]` | String         | _optional_ placeholder attribute for the filter input                                                  |
+| `[hideFilterHeader]`  | Boolean        | _optional_ will hide search or filter input in header                                                  |
+| `[headerClass]`       | String         | _optional_ class to assign to header element                                                           |
+| `[headerFilterClass]` | String         | _optional_ class to assign to search/filter header element                                             |
+| `[renderValue]`       | Function       | _optional_ render function for rendering html content                                                  |
+| `[renderComponent]`   | Component      | _optional_ pass a Svelte component, it will receive `row` and `col` variables (replaces `renderValue`) |
 
 ### `searchValue`
 
