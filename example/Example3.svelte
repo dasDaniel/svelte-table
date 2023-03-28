@@ -209,7 +209,7 @@
         }
       }}
     >
-      {selectedCols.includes("ip_address") ? "SHOW" : "HIDE"} IP ADDRESS
+      {!selectedCols.includes("ip_address") ? "SHOW" : "HIDE"} IP ADDRESS
     </button>
 
     <button
