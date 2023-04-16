@@ -1,3 +1,7 @@
+## 0.5.8
+
+- [#143] improvements to typescript integration
+
 ## 0.5.7
 
 - [#139] fix bug when a column is removed

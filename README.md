@@ -173,10 +173,7 @@ const columns = [
 | `iconFilterable`           | String          | (_html_) override filterable column indication                          |
 | `iconExpand`               | String          | row collapsed indicator/button                                          |
 | `iconExpanded`             | String          | row expanded indicator/button                                           |
-| `clickCol`                 | function        | event listener/callback                                                 |
-| `clickRow`                 | function        | event listener/callback                                                 |
-| `clickCell`                | function        | event listener/callback                                                 |
-| `clickExpand`              | function        | event listener/callback                                                 |
+| `iconSortable`             | String          | indicate column is sortable                                             |
 | `classNameTable`           | String/Array    | _optional_ class name(s) for table element                              |
 | `classNameThead`           | String/Array    | _optional_ class name(s) for thead element                              |
 | `classNameTbody`           | String/Array    | _optional_ class name(s) for tbody element                              |
@@ -189,8 +186,8 @@ const columns = [
 | `classNameCell`            | String/Array    | _optional_ class name(s) for cell elements                              |
 | `classNameCellExpand`      | String/Array    | _optional_ class name(s) for cell with expand icon                      |
 | `expanded`                 | any[]           | ‡ _optional_ array of key values of expanded rows                       |
-| `expandRowKey`             | string          | _optional_ **deprecated** use `rowKey`                                  |
-| `rowKey`                   | string          | _optional_ key for expanded or selected row (use unique values like id) |
+| `expandRowKey`             | String          | _optional_ **deprecated** use `rowKey`                                  |
+| `rowKey`                   | String          | _optional_ key for expanded or selected row (use unique values like id) |
 | `expandSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
 | `selected`                 | any[]           | ‡ _optional_ array of key values of selected rows                       |
 | `selectSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
@@ -204,10 +201,12 @@ _‡_ field allows 2-way binding
 
 Events pass a CustomEvent object with the following params in the `detail` object
 
-- _clickCol_: `event`, `col`, `key`
-- _clickRow_: `event`, `row`
-- _clickCell_: `event`, `row`, `key`
-- _clickExpand_: `event`, `row`
+| event         | detail parameters     | Description     |
+| ------------- | --------------------- | --------------- |
+| `clickCol`    | `event`, `col`, `key` | click on column |
+| `clickRow`    | `event`, `row`        | click on a row  |
+| `clickCell`   | `event`, `row`, `key` | click on a cell |
+| `clickExpand` | `event`, `row`        | click expand    |
 
 ### Expanding Rows
 
