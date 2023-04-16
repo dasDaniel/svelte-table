@@ -7,7 +7,7 @@
   /** @type {any[]} */
   export let rows;
 
-  /** @type { any[] | undefined } */
+  /** @type { any[] | undefined } rows that pass filter (exposed internal) */
   export let c_rows = undefined;
 
   export let sortOrders = [1, -1];
