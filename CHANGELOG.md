@@ -1,3 +1,7 @@
+## 0.5.9
+
+- [#144] `filterPlaceholder` works on select dropdowns too
+
 ## 0.5.8
 
 - [#143] improvements to typescript integration
