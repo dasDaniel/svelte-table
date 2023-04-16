@@ -96,6 +96,7 @@
       },
       sortable: true,
       filterOptions: ["dog", "cat"],
+      filterPlaceholder: "all",
     },
     {
       key: "ip_address",
