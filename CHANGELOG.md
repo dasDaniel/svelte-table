@@ -1,3 +1,7 @@
+## 0.5.10
+
+- [#149] fix `searchValue` type
+
 ## 0.5.9
 
 - [#144] `filterPlaceholder` works on select dropdowns too
