@@ -38,7 +38,7 @@ export default class SvelteTable<Row> extends SvelteComponentTyped<
     rows: Row[];
 
     // c_rows?: any; internal
-    sortBy?: string|number;
+    sortBy?: string | number;
     sortOrder?: 1 | -1 | 0;
     sortOrders?: (1 | -1 | 0)[];
     filterSelections?: Record<string | number, any>;

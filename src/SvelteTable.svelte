@@ -391,7 +391,9 @@
                   {col}
                 />
               {:else}
-                {@html col.renderValue ? col.renderValue(row, n, colIndex) : col.value(row, n, colIndex)}
+                {@html col.renderValue
+                  ? col.renderValue(row, n, colIndex)
+                  : col.value(row, n, colIndex)}
               {/if}
             </td>
           {/each}
