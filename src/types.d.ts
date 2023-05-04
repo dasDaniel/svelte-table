@@ -38,12 +38,12 @@ export default class SvelteTable<Row> extends SvelteComponentTyped<
     rows: Row[];
 
     // c_rows?: any; internal
-    sortBy?: string;
+    sortBy?: string | number;
     sortOrder?: 1 | -1 | 0;
     sortOrders?: (1 | -1 | 0)[];
-    filterSelections?: any[];
-    expanded?: any[];
-    selected?: any[];
+    filterSelections?: Record<string | number, any>;
+    expanded?: (string | number)[];
+    selected?: (string | number)[];
     iconAsc?: string;
     iconDesc?: string;
     iconFilterable?: string;
