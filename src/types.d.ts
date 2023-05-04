@@ -3,7 +3,7 @@ import { SvelteComponentTyped } from "svelte";
 export type TableColumn<T> = {
   key: string | number;
   title: string;
-  value?: (row: T) => string | number;
+  value?: (row: T, rowIndex?: number, colIndex?: number) => string | number;
   class?:
     | string
     | ((row: T, rowIndex?: number, colIndex?: number) => string | null);
@@ -18,7 +18,7 @@ export type TableColumn<T> = {
   filterPlaceholder?: string;
   headerClass?: string;
   headerFilterClass?: string;
-  renderValue?: (row: T) => any;
+  renderValue?: (row: T, rowIndex?: number, colIndex?: number) => any;
   renderComponent?: any; // svelte component
   hideFilterHeader?: boolean;
 };
