@@ -185,11 +185,11 @@ const columns = [
 | `classNameRowSelected`     | String/Array    | _optional_ class name(s) for selected row                               |
 | `classNameCell`            | String/Array    | _optional_ class name(s) for cell elements                              |
 | `classNameCellExpand`      | String/Array    | _optional_ class name(s) for cell with expand icon                      |
-| `expanded`                 | any[]           | ‡ _optional_ array of key values of expanded rows                       |
+| `expanded`                 | String[]        | ‡ _optional_ array of key values of expanded rows                       |
 | `expandRowKey`             | String          | _optional_ **deprecated** use `rowKey`                                  |
 | `rowKey`                   | String          | _optional_ key for expanded or selected row (use unique values like id) |
 | `expandSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
-| `selected`                 | any[]           | ‡ _optional_ array of key values of selected rows                       |
+| `selected`                 | String[]        | ‡ _optional_ array of key values of selected rows                       |
 | `selectSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
 | `selectOnClick`            | Boolean         | _optional_ default: `false` will clicking on row will update selection  |
 | `filterSelections`         | Object[]        | ‡ _optional_ search or filter selection                                 |

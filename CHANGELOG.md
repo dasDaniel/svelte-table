@@ -1,3 +1,8 @@
+## 0.5.11
+
+- [#153] fix types (`sortBy`, `filterSelections`, `expanded`, `selected`)
+- [#154] Add `rowIndex` and `colIndex` to `value` and `renderValue` functions
+
 ## 0.5.10
 
 - [#149] fix `searchValue` type
