@@ -288,6 +288,7 @@ example: (will preset column with key `first_name` to `a`)
 | `[headerFilterClass]` | String         | _optional_ class to assign to search/filter header element                                             |
 | `[renderValue]`       | Function       | _optional_ render function for rendering html content                                                  |
 | `[renderComponent]`   | Component      | _optional_ pass a Svelte component, it will receive `row` and `col` variables (replaces `renderValue`) |
+| `[parseHTML]`         | Boolean        | _optional_ if true, it will render the cell value with `@html`                                         |
 
 ### `searchValue`
 
