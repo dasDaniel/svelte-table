@@ -390,8 +390,12 @@
                   {row}
                   {col}
                 />
-              {:else}
+              {:else if col.parseHTML}
                 {@html col.renderValue
+                  ? col.renderValue(row, n, colIndex)
+                  : col.value(row, n, colIndex)}
+              {:else}
+                {col.renderValue
                   ? col.renderValue(row, n, colIndex)
                   : col.value(row, n, colIndex)}
               {/if}
