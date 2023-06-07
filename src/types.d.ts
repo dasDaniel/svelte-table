@@ -19,7 +19,7 @@ export type TableColumn<T> = {
   headerClass?: string;
   headerFilterClass?: string;
   renderValue?: (row: T, rowIndex?: number, colIndex?: number) => any;
-  parseHTML: boolean;
+  parseHTML?: boolean;
   renderComponent?: any; // svelte component
   hideFilterHeader?: boolean;
 };
