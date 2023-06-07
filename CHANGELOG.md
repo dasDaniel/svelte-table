@@ -1,3 +1,7 @@
+## 0.6.1
+
+- [#160] `parseHTML` type definition is optional
+
 ## 0.6.0
 
 - [#158] braking change: requires `parseHTML` to be set to render the cell value with `@html`
