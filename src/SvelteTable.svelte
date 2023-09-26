@@ -383,22 +383,24 @@
                 classNameCell,
               ])}
             >
-              {#if col.renderComponent}
-                <svelte:component
-                  this={col.renderComponent.component || col.renderComponent}
-                  {...col.renderComponent.props || {}}
-                  {row}
-                  {col}
-                />
-              {:else if col.parseHTML}
-                {@html col.renderValue
-                  ? col.renderValue(row, n, colIndex)
-                  : col.value(row, n, colIndex)}
-              {:else}
-                {col.renderValue
-                  ? col.renderValue(row, n, colIndex)
-                  : col.value(row, n, colIndex)}
-              {/if}
+              {#key c_rows}
+                {#if col.renderComponent}
+                  <svelte:component
+                    this={col.renderComponent.component || col.renderComponent}
+                    {...col.renderComponent.props || {}}
+                    {row}
+                    {col}
+                  />
+                {:else if col.parseHTML}
+                  {@html col.renderValue
+                    ? col.renderValue(row, n, colIndex)
+                    : col.value(row, n, colIndex)}
+                {:else}
+                  {col.renderValue
+                    ? col.renderValue(row, n, colIndex)
+                    : col.value(row, n, colIndex)}
+                {/if}
+              {/key}
             </td>
           {/each}
           {#if showExpandIcon}
