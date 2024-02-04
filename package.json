@@ -6,6 +6,11 @@
   "module": "dist/es/SvelteTable.mjs",
   "main": "dist/umd/SvelteTable.js",
   "svelte": "src/SvelteTable.svelte",
+  "exports": {
+    ".": {
+      "svelte": "./src/SvelteTable.svelte"
+    }
+  },
   "types": "src/types.ts",
   "scripts": {
     "build": "rollup -c",
