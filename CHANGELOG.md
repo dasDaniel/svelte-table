@@ -1,3 +1,7 @@
+## 0.6.3
+
+- [#168] fix for [#166] that's breaking sveltekit types
+
 ## 0.6.2
 
 - [#166] Add export for vite-plugin-svelte@3 ([x64v](https://github.com/conveyinc/svelte-table/commits?author=x64v))
