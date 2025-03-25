@@ -1,5 +1,9 @@
 ## 0.6.3
 
+- [#174], [#38] Allow passing a 2 parameter function to filterValue to allow more advanced filter functionality
+
+## 0.6.3
+
 - [#168] fix for [#166] that's breaking sveltekit types
 
 ## 0.6.2

@@ -56,7 +56,9 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.first_name.charAt(0).toLowerCase(),
+      filterValue: (row, selection) =>
+        row.first_name.charAt(0).toLowerCase() === selection, // Option 1
+      // filterValue: v => v.first_name.charAt(0).toLowerCase(),   // Option 2
     },
     last_name: {
       key: "last_name",
@@ -79,7 +81,9 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.last_name.charAt(0).toLowerCase(),
+      filterValue: v => v.last_name.charAt(0).toLowerCase(), // Option 1
+      filterValue: (row, selection) =>
+        selection === row.last_name.charAt(0).toLowerCase(), // Option 2
     },
     email: {
       key: "email",
