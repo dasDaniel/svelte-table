@@ -49,7 +49,6 @@
       key: "pet",
       title: "Pet",
       value: v => v.pet,
-      filterValue: v => v.pet,
       sortable: true,
       filterOptions: generateFilter("pet"),
     },

@@ -75,7 +75,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(nums);
       },
-      filterValue: v => Math.floor(v.id / 10),
+      filterValue: (r, f) => f === Math.floor(r.id / 10),
       headerClass: "text-left",
     },
     first_name: {
@@ -99,7 +99,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.first_name.charAt(0).toLowerCase(),
+      filterValue: (r, f) => f === r.first_name.charAt(0).toLowerCase(),
     },
     last_name: {
       key: "last_name",
@@ -122,7 +122,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.last_name.charAt(0).toLowerCase(),
+      filterValue: (r, f) => f === r.last_name.charAt(0).toLowerCase(),
     },
     email: {
       key: "email",
@@ -136,12 +136,9 @@
       title: "MOBILE",
       value: v => v.mobile,
       renderValue: v => {
-        const classNames = [`g_${v.mobile.toLowerCase()}`];
         let icon = v.mobile.toLowerCase() === "android" ? "🍅" : "";
         icon = v.mobile.toLowerCase() === "iphone" ? "🍏" : icon;
-        return `<span class="${classNames.join(" ")}">${icon} ${
-          v.mobile
-        }</span>`;
+        return `${icon} ${v.mobile}`;
       },
       sortable: true,
       filterOptions: ["Android", "iPhone"],

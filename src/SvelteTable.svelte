@@ -176,14 +176,24 @@
         }
 
         // check filter (dropdown) matches
-        let resFilter =
-          resSearch ||
-          filterSelections[f] === undefined ||
-          // default to value() if filterValue() not provided in col
-          filterSelections[f] ===
-            (typeof columnByKey[f].filterValue === "function"
-              ? columnByKey[f].filterValue(r)
-              : columnByKey[f].value(r));
+        let resFilter = null;
+        if (resSearch) {
+          // if search was resolved, use search instead of filter
+          resFilter = resSearch;
+        } else if (filterSelections[f] === undefined) {
+          // if there is no filter selection, set to true for all rows
+          resFilter = true;
+        } else if (columnByKey[f].filterValue?.length === 2) {
+          // if a 2 parameter function was passed, use the boolean value that the function returns
+          resFilter = !!columnByKey[f].filterValue(r, filterSelections[f]);
+        } else if (columnByKey[f].filterValue?.length === 1) {
+          // resolve as a match based on function response
+          // similar to searchValue, this SHOULD BE DEPRICATED in the future
+          resFilter = filterSelections[f] === columnByKey[f].filterValue(r);
+        } else {
+          // resolve as a simple string match
+          resFilter = filterSelections[f] === columnByKey[f].value(r);
+        }
 
         return resFilter;
       });
