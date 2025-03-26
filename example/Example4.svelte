@@ -13,7 +13,7 @@
   let data = [];
 
   let generateData = () => {
-    data = Array(numRows)
+    data = Array(parseInt(numRows, 10))
       .fill("")
       .map((n, i) => {
         let d = {
@@ -57,7 +57,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.first_name.charAt(0).toLowerCase(),
+      filterValue: (r, f) => f === r.first_name.charAt(0).toLowerCase(),
     },
     last_name: {
       key: "last_name",
@@ -80,7 +80,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.last_name.charAt(0).toLowerCase(),
+      filterValue: (r, f) => f === r.last_name.charAt(0).toLowerCase(),
     },
     email: {
       key: "email",

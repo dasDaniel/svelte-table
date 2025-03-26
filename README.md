@@ -97,7 +97,7 @@ const columns = [
         .reduce((o, [k, v]) => ((o[k] = v), o), {});
       return Object.values(nums);
     },
-    filterValue: v => Math.floor(v.id / 10),
+    filterValue: (r, f) => f === Math.floor(r.id / 10),
     headerClass: "text-left",
   },
   {
@@ -122,7 +122,7 @@ const columns = [
         .reduce((o, [k, v]) => ((o[k] = v), o), {});
       return Object.values(letrs);
     },
-    filterValue: v => v.first_name.charAt(0).toLowerCase(),
+    filterValue: (r, f) => f === r.first_name.charAt(0).toLowerCase(),
   },
   {
     key: "last_name",
@@ -146,7 +146,7 @@ const columns = [
         .reduce((o, [k, v]) => ((o[k] = v), o), {});
       return Object.values(letrs);
     },
-    filterValue: v => v.last_name.charAt(0).toLowerCase(),
+    filterValue: (r, f) => f === r.last_name.charAt(0).toLowerCase(),
   },
   {
     key: "pet",
@@ -279,9 +279,9 @@ example: (will preset column with key `first_name` to `a`)
 | `value`               | Function       | table cell value. The function is passed row data                                                      |
 | `[class]`             | String         | _optional_ table cell class name                                                                       |
 | `[sortable]`          | Boolean        | _optional_ Whether the table can be sorted on column                                                   |
-| `[searchValue]`       | Function       | _optional_ search value function. function is passed row data.                                         |
-| `[filterOptions]`     | Array/Function | _optional_ array of objects with `name` and `value`. Function is provided array of rows                |
-| `[filterValue]`       | String         | _optional_ value to filter on, usually same as value                                                   |
+| `[searchValue]`       | Function       | _optional_ search value function. function is passed row data and serach term                          |
+| `[filterOptions]`     | Array/Function | _optional_ array of objects with `name` and `value`. Function is passed an array of rows               |
+| `[filterValue]`       | Function       | _optional_ filter value function, 1 or 2 parameter function                                            |
 | `[filterPlaceholder]` | String         | _optional_ placeholder attribute for the filter input or select dropdown                               |
 | `[hideFilterHeader]`  | Boolean        | _optional_ will hide search or filter input in header                                                  |
 | `[headerClass]`       | String         | _optional_ class to assign to header element                                                           |
@@ -310,6 +310,21 @@ If you want to migrate the existing behaviour you can use this example:
 searchValue: (v, s) =>
   v["some_key"].toString().toLowerCase().includes(s.toLowerCase()),
 ```
+
+### `filterValue`
+
+#### Option 1: `(row, filterSelection)=>boolean`
+
+By passing a 2 parameter function, the function can be used to define filter functionality. This allows filtering using things like `includes` on an array.  
+Instead of defining a set of preset filter functionalities, this allows more control
+
+#### Option 2: `(row)=>string`
+
+This feature is set for deprication in favor of Option #1.
+
+By passing a 1 parameter function, the table will filter based on the returned string matching the filter selection.
+
+Also note that the functionality matches the passed `value` function, which it defaults to when not defined. There is an option to define both in case the value and filter value needs to be different.
 
 ### `renderComponent`
 

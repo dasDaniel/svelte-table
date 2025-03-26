@@ -26,7 +26,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(nums);
       },
-      filterValue: v => Math.floor(v.id / 10),
+      filterValue: (r, f) => f === Math.floor(r.id / 10),
       headerClass: "text-left",
     },
     {
@@ -50,7 +50,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.first_name.charAt(0).toLowerCase(),
+      filterValue: (r, f) => f === r.first_name.charAt(0).toLowerCase(),
     },
     {
       key: "last_name",
@@ -73,7 +73,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.last_name.charAt(0).toLowerCase(),
+      filterValue: (r, f) => f === r.last_name.charAt(0).toLowerCase(),
     },
     {
       key: "email",
@@ -89,10 +89,9 @@
       title: "pet",
       value: v => v.pet,
       renderValue: v => {
-        const classNames = [`g_${v.pet.toLowerCase()}`];
         let icon = v.pet.toLowerCase() === "cat" ? "🐱" : "";
         icon = v.pet.toLowerCase() === "dog" ? "🐶" : icon;
-        return `<span class="${classNames.join(" ")}">${icon} ${v.pet}</span>`;
+        return `${icon} ${v.pet}`;
       },
       sortable: true,
       filterOptions: ["dog", "cat"],
@@ -132,12 +131,6 @@
 <SvelteTable columns={colums} rows={data} />
 
 <style>
-  :global(.g_cat) {
-    color: rgb(146, 130, 82);
-  }
-  :global(.g_dog) {
-    color: rgb(176, 111, 206);
-  }
   :global(.text-center) {
     text-align: center;
   }
