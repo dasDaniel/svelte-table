@@ -1,4 +1,4 @@
-## 0.6.3
+## 0.6.4
 
 - [#174], [#38] Allow passing a 2 parameter function to filterValue to allow more advanced filter functionality
 

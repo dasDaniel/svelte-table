@@ -32,7 +32,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(nums);
       },
-      filterValue: v => Math.floor(v.id / 10),
+      filterValue: (row, selection) => selection === Math.floor(row.id / 10),
       headerClass: "text-left",
     },
     first_name: {
@@ -81,7 +81,7 @@
           .reduce((o, [k, v]) => ((o[k] = v), o), {});
         return Object.values(letrs);
       },
-      filterValue: v => v.last_name.charAt(0).toLowerCase(), // Option 1
+      // filterValue: v => v.last_name.charAt(0).toLowerCase(), // Option 1
       filterValue: (row, selection) =>
         selection === row.last_name.charAt(0).toLowerCase(), // Option 2
     },

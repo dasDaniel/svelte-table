@@ -13,8 +13,8 @@ export type TableColumn<T> = {
     | ((row: T) => string | number);
   filterOptions?: ((rows: T[]) => any) | any[];
   filterValue?:
-    | ((row: T, searchTerm?: string) => string)
-    | ((row: T) => boolean);
+    | ((row: T, filterSelection?: any) => boolean)
+    | ((row: T) => string);
   filterPlaceholder?: string;
   headerClass?: string;
   headerFilterClass?: string;

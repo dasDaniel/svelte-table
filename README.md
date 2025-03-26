@@ -281,7 +281,7 @@ example: (will preset column with key `first_name` to `a`)
 | `[sortable]`          | Boolean        | _optional_ Whether the table can be sorted on column                                                   |
 | `[searchValue]`       | Function       | _optional_ search value function. function is passed row data and serach term                          |
 | `[filterOptions]`     | Array/Function | _optional_ array of objects with `name` and `value`. Function is passed an array of rows               |
-| `[filterValue]`       | Function       | _optional_ filter value function, 1 od 2 parameter function                                            |
+| `[filterValue]`       | Function       | _optional_ filter value function, 1 or 2 parameter function                                            |
 | `[filterPlaceholder]` | String         | _optional_ placeholder attribute for the filter input or select dropdown                               |
 | `[hideFilterHeader]`  | Boolean        | _optional_ will hide search or filter input in header                                                  |
 | `[headerClass]`       | String         | _optional_ class to assign to header element                                                           |
