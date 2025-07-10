@@ -7,7 +7,10 @@
   /** @type {any[]} */
   export let rows;
 
-  /** @type { any[] | undefined } rows that pass filter (exposed internal) */
+  /** @type { any[] } rows that pass filter (exposed internal) */
+  export let filteredRows = [];
+
+  /** @type { any[] | undefined } WILL BE DEPRECATED - use filteredRows instead */
   export let c_rows = undefined;
 
   export let sortOrders = [1, -1];
@@ -135,7 +138,10 @@
 
   $: colspan = (showExpandIcon ? 1 : 0) + columns.length;
 
-  $: c_rows = rows
+  // WILL BE DEPRECATED
+  $: c_rows = filteredRows;
+
+  $: filteredRows = rows
     .filter(r => {
       // get search and filter results/matches
       return Object.keys(filterSelections).every(f => {
@@ -367,7 +373,7 @@
   </thead>
 
   <tbody class={asStringArray(classNameTbody)}>
-    {#each c_rows as row, n}
+    {#each filteredRows as row, n}
       <slot name="row" {row} {n}>
         <tr
           on:click={e => handleClickRow(e, row)}

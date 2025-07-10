@@ -38,10 +38,11 @@ export default class SvelteTable<Row> extends SvelteComponentTyped<
     columns: TableColumn<Row>[];
     rows: Row[];
 
-    // c_rows?: any; internal
+    // c_rows?: any; WILL BE DEPRECATED
     sortBy?: string | number;
     sortOrder?: 1 | -1 | 0;
     sortOrders?: (1 | -1 | 0)[];
+    filteredRows?: Row[];
     filterSelections?: Record<string | number, any>;
     expanded?: (string | number)[];
     selected?: (string | number)[];

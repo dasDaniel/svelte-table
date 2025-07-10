@@ -193,6 +193,7 @@ const columns = [
 | `selectSingle`             | Boolean         | _optional_ default: `false` allow only one row to be selected           |
 | `selectOnClick`            | Boolean         | _optional_ default: `false` will clicking on row will update selection  |
 | `filterSelections`         | Object[]        | ‡ _optional_ search or filter selection                                 |
+| `filteredRows`             | Object[]        | ‡ _optional_ returns the filtered rows                                  |
 | `showExpandIcon`           | Boolean         | should a expand column be visible                                       |
 
 _‡_ field allows 2-way binding
