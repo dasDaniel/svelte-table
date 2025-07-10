@@ -1,3 +1,7 @@
+## 0.6.5
+
+- [#111] expose `filteredRows` (`c_rows` will be depricated)
+
 ## 0.6.4
 
 - [#174], [#38] Allow passing a 2 parameter function to filterValue to allow more advanced filter functionality

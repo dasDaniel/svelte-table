@@ -92,6 +92,8 @@
   function clearAll() {
     selection = {};
   }
+
+  let filteredRows = [];
 </script>
 
 <div class="card" style="width: 100%; margin:8px auto;">
@@ -159,7 +161,10 @@
   columns={colums}
   rows={data}
   bind:filterSelections={selection}
+  bind:filteredRows
 />
+
+<h2>Number of filtered rows: {filteredRows.length}</h2>
 
 <style>
   div :global(.text-center) {
